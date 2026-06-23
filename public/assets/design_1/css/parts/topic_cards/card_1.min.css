@@ -1,0 +1,1 @@
+.forum-topic-card__mask{background-color:var(--white);border-radius:24px;bottom:-8px;left:8px;opacity:.5;position:absolute;right:8px;top:8px;z-index:1}.profile-forum-topic .forum-topic-card__mask{border:1px solid var(--gray-200);border-radius:16px}.forum-topic-card__image{height:170px;width:170px}@media (max-width:991px){.forum-topic-card__image{height:140px;width:88px}}

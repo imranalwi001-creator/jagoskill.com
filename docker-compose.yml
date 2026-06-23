@@ -1,0 +1,71 @@
+services:
+  app:
+    image: webdevops/php-apache-dev:8.1
+    container_name: jagoskill_app
+    working_dir: /var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      WEB_DOCUMENT_ROOT: /var/www/html/public
+      PHP_DEBUGGER: none
+      XDEBUG_MODE: off
+      PHP_DATE_TIMEZONE: Asia/Makassar
+      PHP_MEMORY_LIMIT: 512M
+      PHP_UPLOAD_MAX_FILESIZE: 128M
+      PHP_POST_MAX_SIZE: 128M
+      JAGOSKILL_LOCAL_LICENSE_HOST: jagoskill.com
+      JAGOSKILL_LOCAL_PAGE_CACHE: "true"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/zz-jagoskill-local.ini:ro
+      - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini:ro
+      - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/excimer.ini:ro
+      - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/opentelemetry.ini:ro
+      - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/tideways.ini:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - jagoskill
+
+  mysql:
+    image: mysql:8.0
+    container_name: jagoskill_mysql
+    environment:
+      MYSQL_DATABASE: jagoskill_local
+      MYSQL_USER: jagoskill
+      MYSQL_PASSWORD: jagoskill
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - jagoskill_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - jagoskill
+
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    container_name: jagoskill_phpmyadmin
+    ports:
+      - "8088:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      UPLOAD_LIMIT: 128M
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - jagoskill
+
+networks:
+  jagoskill:
+    driver: bridge
+
+volumes:
+  jagoskill_mysql_data:

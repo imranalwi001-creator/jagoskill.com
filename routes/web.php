@@ -31,6 +31,11 @@ Route::get('/mobile-app', 'Web\MobileAppController@index')->middleware(['share',
 Route::get('/maintenance', 'Web\MaintenanceController@index')->middleware(['share', 'impersonate'])->name('maintenanceRoute');
 Route::get('/restriction', 'Web\RestrictionController@index')->middleware(['share', 'impersonate'])->name('restrictionRoute');
 
+Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix()], function () {
+    Route::get('/forum-control', 'ForumControlController@index')->name('admin.forum_control.index');
+    Route::post('/forum-control', 'ForumControlController@update')->name('admin.forum_control.update');
+});
+
 Route::group(['prefix' => 'cookie-security', 'middleware' => ['share', 'impersonate']], function () {
     Route::post('/all', 'Web\CookieSecurityController@setAll');
     Route::get('/customize-modal', 'Web\CookieSecurityController@getCustomizeModal');
@@ -526,4 +531,3 @@ Route::group(['namespace' => 'Web', 'middleware' => ['check_mobile_app', 'impers
 // Purchase Code Routes
 Route::get('/purchase-code', [PurchaseCodeController::class, 'show'])->name('purchase.code.show');
 Route::post('/purchase-code', [PurchaseCodeController::class, 'store'])->name('purchase.code.store');
-

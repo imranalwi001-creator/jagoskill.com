@@ -6,7 +6,7 @@
 @endif
 
 @can('admin_forum')
-                <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/forums*', false)) || request()->is(getAdminPanelUrl('/forum-control', false))) ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/forums*', false))) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         <x-iconsax-bul-device-message class="icons" width="24px" height="24px"/>
                         <span>{{ trans('update.forums') }}</span>
@@ -30,10 +30,6 @@
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/forums/settings">{{ trans('admin/main.settings') }}</a>
                             </li>
                         @endcan()
-
-                        <li class="{{ (request()->is(getAdminPanelUrl('/forum-control', false))) ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ getAdminPanelUrl() }}/forum-control">Forum Control</a>
-                        </li>
                     </ul>
                 </li>
             @endcan()

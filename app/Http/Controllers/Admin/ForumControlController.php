@@ -11,17 +11,7 @@ class ForumControlController extends Controller
 {
     public function index(Request $request)
     {
-        $this->authorizeAdmin();
-
-        $settingValues = $this->getForumGeneralValues($request);
-
-        $data = [
-            'pageTitle' => 'Forum Control',
-            'settingValues' => $settingValues,
-            'forumEnabled' => !empty($settingValues['forums_status']) && $settingValues['forums_status'] == '1',
-        ];
-
-        return view('admin.forum_control.index', $data);
+        return redirect(getAdminPanelUrl('/forums/settings'));
     }
 
     public function update(Request $request)

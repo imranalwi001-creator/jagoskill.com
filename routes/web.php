@@ -34,6 +34,8 @@ Route::get('/restriction', 'Web\RestrictionController@index')->middleware(['shar
 Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix(), 'middleware' => [\App\Http\Middleware\AdminAuthenticate::class]], function () {
     Route::get('/forum-control', 'ForumControlController@index')->name('admin.forum_control.index');
     Route::post('/forum-control', 'ForumControlController@update')->name('admin.forum_control.update');
+    Route::get('/forums/settings/{pageTab?}', 'ForumSettingsController@settings');
+    Route::post('/forums/settings', 'ForumSettingsController@storeSettings');
 });
 
 Route::group(['prefix' => 'cookie-security', 'middleware' => ['share', 'impersonate']], function () {

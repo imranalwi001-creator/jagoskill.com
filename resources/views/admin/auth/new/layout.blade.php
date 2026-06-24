@@ -2,11 +2,10 @@
 <html lang="{{ app()->getLocale() }}">
 
 @php
+    $generalSettings = $generalSettings ?? getGeneralSettings();
     $rtlLanguages = !empty($generalSettings['rtl_languages']) ? $generalSettings['rtl_languages'] : [];
     $isRtl = ((in_array(mb_strtoupper(app()->getLocale()), $rtlLanguages)) or (!empty($generalSettings['rtl_layout']) and $generalSettings['rtl_layout'] == 1));
-    $themeCustomCssAndJs = getThemeCustomCssAndJs();
-    $userThemeColorMode = getUserThemeColorMode();
-    $pageBackgroundImage = getThemePageBackgroundSettings("admin_login");
+    $userThemeColorMode = 'light';
 @endphp
 
 <head>
@@ -25,14 +24,6 @@
     @stack('styles_top')
     @stack('scripts_top')
 
-    <style>
-        {!! !empty($themeCustomCssAndJs['css']) ? $themeCustomCssAndJs['css'] : '' !!}
-
-        {!! getThemeFontsSettings() !!}
-
-        {!! getThemeColorsSettings() !!}
-    </style>
-
 </head>
 
 <body class="bg-gray {{ $isRtl ? 'rtl' : '' }} {{ "{$userThemeColorMode}-mode" }}">
@@ -41,9 +32,6 @@
 
     <div class="admin-auth-pages">
         <div class="admin-auth-pages__bg bg-gray-100">
-            @if(!empty($pageBackgroundImage))
-                <img src="{{ $pageBackgroundImage }}" alt="{{ trans('update.background') }}" class="img-cover">
-            @endif
         </div>
 
         <div class="admin-auth-pages__contents px-16 px-lg-0">
@@ -73,8 +61,7 @@
 
 <!-- Template JS File -->
 <script>
-
-    var themeColorsMode = @json(getThemeColorsMode());
+    var themeColorsMode = {};
 </script>
 
 <script type="text/javascript" src="/assets/design_1/js/app.min.js"></script>

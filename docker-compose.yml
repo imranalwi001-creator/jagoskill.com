@@ -18,7 +18,6 @@ services:
     volumes:
       - ./:/var/www/html
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/zz-jagoskill-local.ini:ro
-      - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini:ro
       - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/excimer.ini:ro
       - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/opentelemetry.ini:ro
       - ./docker/php/empty.ini:/usr/local/etc/php/conf.d/tideways.ini:ro

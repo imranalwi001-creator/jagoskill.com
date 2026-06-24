@@ -38,6 +38,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix(), 'mid
     Route::post('/forums/settings', 'ForumSettingsController@storeSettings');
 });
 
+Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix()], function () {
+    Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'LoginController@login');
+    Route::get('/logout', 'LoginController@logout');
+});
+
 Route::group(['prefix' => 'cookie-security', 'middleware' => ['share', 'impersonate']], function () {
     Route::post('/all', 'Web\CookieSecurityController@setAll');
     Route::get('/customize-modal', 'Web\CookieSecurityController@getCustomizeModal');
@@ -57,6 +63,8 @@ Route::group(['prefix' => 'captcha'], function () {
 
 /* Emergency Database Update */
 Route::get('/emergencyDatabaseUpdate', function () {
+    abort_unless(app()->environment(['local', 'development']), 404);
+
     \Illuminate\Support\Facades\Artisan::call('migrate', [
         '--force' => true
     ]);

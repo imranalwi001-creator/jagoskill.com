@@ -7,30 +7,38 @@ function getActiveTheme()
     global $themeCache;
 
     if (empty($themeCache)) {
-        $withRelations = [
-            'homeLanding' => function ($query) {
-                $query->with([
-                    'components' => function ($query) {
-                        $query->with([
-                            'landingBuilderComponent'
-                        ]);
-                        $query->orderBy('order', 'asc');
-                    }
-                ]);
-            }
-        ];
+        $themeCache = cache()->remember('theme.active.with_relations', now()->addMinutes(10), function () {
+            $withRelations = [
+                'color',
+                'font',
+                'header',
+                'footer',
+                'homeLanding' => function ($query) {
+                    $query->with([
+                        'components' => function ($query) {
+                            $query->with([
+                                'landingBuilderComponent'
+                            ]);
+                            $query->orderBy('order', 'asc');
+                        }
+                    ]);
+                }
+            ];
 
-        $themeCache = \App\Models\Theme::query()
-            ->where('enable', true)
-            ->with($withRelations)
-            ->first();
-
-        if (empty($themeCache)) {
-            $themeCache = \App\Models\Theme::query()
-                ->where('is_default', true)
+            $theme = \App\Models\Theme::query()
+                ->where('enable', true)
                 ->with($withRelations)
                 ->first();
-        }
+
+            if (empty($theme)) {
+                $theme = \App\Models\Theme::query()
+                    ->where('is_default', true)
+                    ->with($withRelations)
+                    ->first();
+            }
+
+            return $theme;
+        });
     }
 
     return $themeCache;

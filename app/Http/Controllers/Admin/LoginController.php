@@ -41,7 +41,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
 
-        $this->redirectTo = getAdminPanelUrl();
+        $this->redirectTo = rtrim(config('app.url'), '/') . getAdminPanelUrl();
     }
 
     public function showLoginForm()
@@ -114,7 +114,7 @@ class LoginController extends Controller
                 $userLoginHistoryMixin->storeUserLoginHistory($user);
             }
 
-            return Redirect::to(getAdminPanelUrl());
+            return Redirect::to(rtrim(config('app.url'), '/') . getAdminPanelUrl());
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
@@ -130,6 +130,6 @@ class LoginController extends Controller
         $userLoginHistoryMixin->storeUserLogoutHistory($user->id);
 
         Auth::logout();
-        return redirect(getAdminPanelUrl() . '/login');
+        return redirect(rtrim(config('app.url'), '/') . getAdminPanelUrl('/login'));
     }
 }

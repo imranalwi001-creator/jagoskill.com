@@ -49,6 +49,25 @@ class Share
         $userDeviceType = ($agent->deviceType() == "phone") ? "mobile" : "desktop";
         $data['userDeviceType'] = $userDeviceType;
 
+        if ($this->isAuthPage($request)) {
+            $generalSettings = getGeneralSettings();
+
+            if (!Session::has('locale')) {
+                Session::put('locale', mb_strtolower(getDefaultLocale()));
+            }
+
+            App::setLocale(session('locale'));
+            config()->set('app.timezone', getTimezone());
+
+            $data['generalSettings'] = $generalSettings;
+            $data['currency'] = currencySign(getDefaultCurrency());
+            $data['userThemeColorMode'] = 'light';
+            $data['themeHeaderData'] = [];
+            $data['themeFooterData'] = [];
+
+            return $data;
+        }
+
         if ($userDeviceType == "desktop") { // Show Notifications Just in Desktop
             $purchaseNotificationsHelper = new PurchaseNotificationsHelper();
             $purchaseNotifications = $purchaseNotificationsHelper->getDisplayableNotifications();
@@ -123,5 +142,23 @@ class Share
         $data['themeFooterData'] = getThemeFooterData();
 
         return $data;
+    }
+
+    private function isAuthPage($request): bool
+    {
+        foreach ([
+            'login',
+            'register',
+            'verification',
+            'forget-password',
+            'reset-password',
+            'reset-password/*',
+        ] as $pattern) {
+            if ($request->is($pattern)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

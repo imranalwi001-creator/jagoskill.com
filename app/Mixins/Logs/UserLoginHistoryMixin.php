@@ -88,8 +88,13 @@ class UserLoginHistoryMixin
 
     private function getUserLocation($ipAddress)
     {
+        if (empty($ipAddress) or
+            !filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+            return null;
+        }
+
         try {
-            $response = Http::get("http://ip-api.com/json/{$ipAddress}");
+            $response = Http::timeout(1)->get("http://ip-api.com/json/{$ipAddress}");
             return $response->json();
         } catch (\Exception $e) {
             return null;

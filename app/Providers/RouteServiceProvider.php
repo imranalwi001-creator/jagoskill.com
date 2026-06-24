@@ -48,7 +48,9 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapAdminRoutes();
+        if ($this->shouldMapAdminRoutes()) {
+            $this->mapAdminRoutes();
+        }
 
         $this->mapPanelRoutes();
 
@@ -103,5 +105,21 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/panel.php'));
+    }
+
+    protected function shouldMapAdminRoutes(): bool
+    {
+        if ($this->app->routesAreCached() or $this->app->runningInConsole()) {
+            return true;
+        }
+
+        $request = $this->app['request'];
+        $adminPrefix = trim(getAdminPanelUrlPrefix(), '/');
+
+        if (empty($adminPrefix) or !$request->is($adminPrefix, "{$adminPrefix}/*")) {
+            return false;
+        }
+
+        return !$request->is("{$adminPrefix}/login", "{$adminPrefix}/logout");
     }
 }

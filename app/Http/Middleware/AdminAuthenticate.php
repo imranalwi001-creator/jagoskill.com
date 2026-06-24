@@ -78,7 +78,7 @@ class AdminAuthenticate
             return $next($request);
         }
 
-        return redirect(getAdminPanelUrl().'/login');
+        return redirect(rtrim(config('app.url'), '/') . getAdminPanelUrl('/login'));
     }
 
     private function getSidebarBeeps(): array

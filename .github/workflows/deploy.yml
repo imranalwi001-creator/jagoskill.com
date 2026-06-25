@@ -35,6 +35,8 @@ jobs:
             -4 \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
+            -o PubkeyAcceptedKeyTypes=+ssh-rsa \
+            -o PubkeyAcceptedAlgorithms=+ssh-rsa \
             -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \
             "${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}" \
             "DEPLOY_PATH='${{ secrets.HOSTING_DEPLOY_PATH }}' bash -s" <<'REMOTE'

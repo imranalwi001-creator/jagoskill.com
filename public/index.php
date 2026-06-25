@@ -7,6 +7,8 @@ define('LARAVEL_START', microtime(true));
 
 $localLicenseHost = getenv('JAGOSKILL_LOCAL_LICENSE_HOST');
 $requestHost = $_SERVER['HTTP_HOST'] ?? '';
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
 
 if ($localLicenseHost && preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/', $requestHost)) {
     $requestPort = parse_url('http://' . $requestHost, PHP_URL_PORT);
@@ -18,8 +20,6 @@ if ($localLicenseHost && preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/', $requ
 
 $localPageCacheEnabled = filter_var(getenv('JAGOSKILL_LOCAL_PAGE_CACHE'), FILTER_VALIDATE_BOOLEAN) || !empty($localLicenseHost);
 $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
-$requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
 $publicCachePaths = [
     '/',
     '/classes',

@@ -78,7 +78,18 @@ class AdminAuthenticate
             return $next($request);
         }
 
-        return redirect(rtrim(config('app.url'), '/') . getAdminPanelUrl('/login'));
+        return redirect($this->localBaseUrl($request) . getAdminPanelUrl('/login'));
+    }
+
+    private function localBaseUrl($request): string
+    {
+        $originalHost = $request->server('HTTP_X_ORIGINAL_HOST');
+
+        if (!empty($originalHost) && preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/', $originalHost)) {
+            return 'http://' . $originalHost;
+        }
+
+        return rtrim(config('app.url'), '/');
     }
 
     private function getSidebarBeeps(): array

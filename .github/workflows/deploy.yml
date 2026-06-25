@@ -33,6 +33,7 @@ jobs:
         shell: bash
         run: |
           ssh -i ~/.ssh/jagoskill_deploy_key \
+            -o StrictHostKeyChecking=no \
             -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \
             "${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}" \
             "DEPLOY_PATH='${{ secrets.HOSTING_DEPLOY_PATH }}' bash -s" <<'REMOTE'

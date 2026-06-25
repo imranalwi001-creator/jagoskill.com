@@ -32,6 +32,7 @@ jobs:
         shell: bash
         run: |
           ssh -i ~/.ssh/jagoskill_deploy_key \
+            -4 \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \

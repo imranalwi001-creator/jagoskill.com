@@ -31,6 +31,10 @@ Route::get('/mobile-app', 'Web\MobileAppController@index')->middleware(['share',
 Route::get('/maintenance', 'Web\MaintenanceController@index')->middleware(['share', 'impersonate'])->name('maintenanceRoute');
 Route::get('/restriction', 'Web\RestrictionController@index')->middleware(['share', 'impersonate'])->name('restrictionRoute');
 
+Route::get('/ping-deploy', function() {
+    return 'Deploy test successful at ' . date('Y-m-d H:i:s');
+});
+
 Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix(), 'middleware' => [\App\Http\Middleware\AdminAuthenticate::class]], function () {
     Route::get('/forum-control', 'ForumControlController@index')->name('admin.forum_control.index');
     Route::post('/forum-control', 'ForumControlController@update')->name('admin.forum_control.update');

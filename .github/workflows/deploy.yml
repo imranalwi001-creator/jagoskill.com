@@ -27,13 +27,13 @@ jobs:
           chmod 700 ~/.ssh
           printf '%s\n' "${{ secrets.HOSTING_SSH_KEY }}" > ~/.ssh/jagoskill_deploy_key
           chmod 600 ~/.ssh/jagoskill_deploy_key
-          ssh-keyscan -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" "${{ secrets.HOSTING_SSH_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Deploy on hosting
         shell: bash
         run: |
           ssh -i ~/.ssh/jagoskill_deploy_key \
             -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
             -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \
             "${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}" \
             "DEPLOY_PATH='${{ secrets.HOSTING_DEPLOY_PATH }}' bash -s" <<'REMOTE'

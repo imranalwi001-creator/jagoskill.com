@@ -1,0 +1,59 @@
+name: Deploy to jagoskill.com
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Pull latest code on hosting
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout deployment metadata
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.HOSTING_SSH_KEY }}" > ~/.ssh/jagoskill_deploy_key
+          chmod 600 ~/.ssh/jagoskill_deploy_key
+          ssh-keyscan -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" "${{ secrets.HOSTING_SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy on hosting
+        shell: bash
+        run: |
+          ssh -i ~/.ssh/jagoskill_deploy_key \
+            -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \
+            "${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}" \
+            "DEPLOY_PATH='${{ secrets.HOSTING_DEPLOY_PATH }}' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          cd "$DEPLOY_PATH"
+
+          php artisan down || true
+          trap 'php artisan up || true' EXIT
+
+          git fetch origin main
+          git checkout main
+          git pull --ff-only origin main
+
+          if command -v composer >/dev/null 2>&1; then
+            composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+          fi
+
+          php artisan optimize:clear
+          php artisan route:cache
+          php artisan config:cache
+
+          php artisan up
+          REMOTE

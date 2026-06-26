@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (env('APP_URL')) {
+            \Illuminate\Support\Facades\URL::forceRootUrl(env('APP_URL'));
+        }
 
         Validator::extend('check_price', function ($attribute, $value, $parameters, $validator) {
             return preg_match('/^\d*\.?\d*$/', $value);

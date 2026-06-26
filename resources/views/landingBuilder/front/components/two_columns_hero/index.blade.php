@@ -77,7 +77,7 @@
                         </h1>
 
                         @if(!empty($contents['main_content']['description']))
-                            <div class="mt-16 font-16 text-gray-500">{!! nl2br($contents['main_content']['description']) !!}</div>
+                            <div class="mt-16 font-16" style="color: #1e293b; line-height: 1.7; font-weight: 500;">{!! nl2br($contents['main_content']['description']) !!}</div>
                         @endif
 
                         @if(!empty($contents['main_content']['primary_button']) or !empty($contents['main_content']['secondary_button']))

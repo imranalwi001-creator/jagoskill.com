@@ -215,6 +215,7 @@ class FormsController extends Controller
         ]);
 
         $this->storeExtraData($form, $data);
+        $this->clearUserTypeFormCache($form->id);
 
         $toastData = [
             'title' => trans('public.request_success'),
@@ -231,6 +232,7 @@ class FormsController extends Controller
 
         $form = Form::query()->findOrFail($id);
         $form->delete();
+        $this->clearUserTypeFormCache($id);
 
         $toastData = [
             'title' => trans('public.request_success'),
@@ -239,6 +241,13 @@ class FormsController extends Controller
         ];
 
         return redirect(getAdminPanelUrl("/forms"))->with(['toast' => $toastData]);
+    }
+
+    private function clearUserTypeFormCache($formId)
+    {
+        foreach (['user', 'teacher', 'organization', 'become_instructor', 'become_organization'] as $type) {
+            cache()->forget("forms.user_type.{$type}.{$formId}");
+        }
     }
 
 }

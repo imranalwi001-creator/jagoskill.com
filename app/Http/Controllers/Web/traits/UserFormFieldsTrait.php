@@ -56,6 +56,8 @@ trait UserFormFieldsTrait
 
     private function getFormFieldsByType($type)
     {
+        $formId = null;
+
         switch ($type) {
             case "user":
                 $formId = getFeaturesSettings("user_register_form");
@@ -79,21 +81,21 @@ trait UserFormFieldsTrait
         }
 
         if (!empty($formId)) {
-            $form = Form::query()->where('id', $formId)
-                ->where('enable', true)
-                ->with([
-                    'fields' => function ($query) {
-                        $query->orderBy('order', 'asc');
-                        $query->with([
-                            'options' => function ($query) {
-                                $query->orderBy('order', 'asc');
-                            }
-                        ]);
-                    }
-                ])
-                ->first();
-
-            return $form;
+            return cache()->remember("forms.user_type.{$type}.{$formId}", now()->addMinutes(10), function () use ($formId) {
+                return Form::query()->where('id', $formId)
+                    ->where('enable', true)
+                    ->with([
+                        'fields' => function ($query) {
+                            $query->orderBy('order', 'asc');
+                            $query->with([
+                                'options' => function ($query) {
+                                    $query->orderBy('order', 'asc');
+                                }
+                            ]);
+                        }
+                    ])
+                    ->first();
+            });
         }
 
         return null;

@@ -1,19 +1,19 @@
 @extends('design_1.web.auth.theme_1.layout')
 
 @section('page_content')
-    <form method="Post" action="/login" class="">
+    <form method="Post" action="/login" class="auth-form">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-        <div class="pl-16 pt-16">
-            <div class="font-16 font-weight-bold">{{ trans('update.welcome_back') }} 👋</div>
-            <h1 class="font-24 mt-4 mb-32">{{ trans('update.login_to_your_account') }}</h1>
+        <div class="pt-8">
+            <div class="font-14 font-weight-bold auth-eyebrow">{{ trans('update.welcome_back') }}</div>
+            <h1 class="font-28 mt-4 mb-28">{{ trans('update.login_to_your_account') }}</h1>
 
             {{-- Source --}}
             @include('design_1.web.auth.theme_1.includes.login_methods')
 
-            <div class="position-relative form-group mt-28 mb-0">
-                <label class="form-group-label" for="password">{{ trans('auth.password') }}:</label>
-                <input type="password" name="password" class="form-control @error('password')  is-invalid @enderror" id="password" aria-describedby="passwordHelp">
+            <div class="modern-input-group form-group mt-28 mb-0">
+                <label class="form-group-label" for="password">{{ trans('auth.password') }}</label>
+                <input type="password" name="password" class="form-control @error('password')  is-invalid @enderror" id="password" aria-describedby="passwordHelp" autocomplete="current-password">
 
                 <div class="password-input-visibility cursor-pointer size-24">
                     <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
@@ -28,21 +28,21 @@
             </div>
 
             @if(!empty(getGeneralSecuritySettings('captcha_for_login')))
-                <div class="mt-28 ">
+                <div class="mt-28 modern-input-group">
                     @include('design_1.web.includes.captcha_input')
                 </div>
             @endif
 
-            <div class="text-right mt-12">
+            <div class="text-right mt-12 mb-4">
                 <a href="/forget-password" target="_blank" class="font-14 text-dark">{{ trans('auth.forget_your_password') }}</a>
             </div>
 
-            <button type="button" class="js-submit-form-btn btn btn-primary btn-lg btn-block mt-12">{{ trans('auth.login') }}</button>
+            <button type="button" class="js-submit-form-btn btn btn-primary btn-block modern-btn mt-12">{{ trans('auth.login') }}</button>
         </div>
     </form>
 
     @if(session()->has('login_failed_active_session'))
-        <div class="pl-16">
+        <div>
             <div class="d-flex align-items-center p-16 rounded-12 border-danger bg-danger-20 mt-16">
                 <x-iconsax-bul-info-circle class="icons text-danger" width="32px" height="32px"/>
                 <div class="ml-8">

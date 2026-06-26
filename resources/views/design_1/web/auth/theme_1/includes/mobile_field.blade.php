@@ -1,4 +1,4 @@
-<div class="form-group js-auth-mobile-container">
+<div class="modern-input-group form-group js-auth-mobile-container">
     <div class="register-mobile-form-group position-relative @error('mobile') is-invalid @enderror">
         <label class="form-group-label">{{ trans('public.phone') }} {{ !empty($optional) ? "(". trans('public.optional') .")" : '' }}</label>
 
@@ -11,7 +11,7 @@
                 </select>
             </div>
             <div class="col-8 h-100 pl-4">
-                <input type="tel" name="mobile" class="register-mobile-form-group__input">
+                <input type="tel" name="mobile" class="register-mobile-form-group__input" autocomplete="tel">
             </div>
         </div>
     </div>

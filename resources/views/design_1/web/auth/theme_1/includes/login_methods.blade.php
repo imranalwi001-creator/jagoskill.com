@@ -4,7 +4,7 @@
 @endphp
 
 @if($showOtherRegisterMethod)
-    <div class="d-flex align-items-center gap-4 p-4 rounded-12 border-gray-300 mb-28">
+    <div class="auth-method-switch d-flex align-items-center gap-4 p-4 rounded-12 mb-28">
         <div class="auth-register-method-item flex-1">
             <input type="radio" name="type" value="email" id="emailType" class="" {{ (($registerMethod == 'email' and empty(old('type'))) or old('type') == "email") ? 'checked' : '' }}>
             <label class="d-flex-center cursor-pointer" for="emailType">{{ trans('public.email') }}</label>
@@ -16,9 +16,9 @@
         </div>
     </div>
 
-    <div class="js-email-fields form-group {{ (($registerMethod == 'email' and empty(old('type'))) or old('type') == "email") ? '' : 'd-none' }}">
-        <label class="form-group-label" for="email">{{ trans('public.email') }}:</label>
-        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" aria-describedby="emailHelp">
+    <div class="js-email-fields modern-input-group form-group {{ (($registerMethod == 'email' and empty(old('type'))) or old('type') == "email") ? '' : 'd-none' }}">
+        <label class="form-group-label" for="email">{{ trans('public.email') }}</label>
+        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" aria-describedby="emailHelp" autocomplete="email">
         @error('email')
         <div class="invalid-feedback">
             {{ $message }}

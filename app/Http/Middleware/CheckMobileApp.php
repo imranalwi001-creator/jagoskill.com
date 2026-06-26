@@ -17,7 +17,9 @@ class CheckMobileApp
     public function handle($request, Closure $next)
     {
         if ($request->getPathInfo() != route('mobileAppRoute') and !request()->is('laravel-filemanager*')) {
-            if (!empty(getFeaturesSettings('mobile_app_status')) and getFeaturesSettings('mobile_app_status')) {
+            $mobileAppStatus = getFeaturesSettings('mobile_app_status');
+
+            if (!empty($mobileAppStatus) and $mobileAppStatus) {
                 return redirect(route('mobileAppRoute'));
             }
         }

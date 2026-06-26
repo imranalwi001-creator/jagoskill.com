@@ -10,8 +10,6 @@
     @include('design_1.web.includes.metas')
     <title>{{ $pageTitle ?? '' }}{{ !empty($generalSettings['site_name']) ? (' | '.$generalSettings['site_name']) : '' }}</title>
 
-    <link rel="stylesheet" href="/assets/default/vendors/simplebar/simplebar.css">
-    <link rel="stylesheet" href="/assets/default/vendors/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/design_1/css/app.min.css">
     <link rel="stylesheet" href="{{ getDesign1StylePath("auth/theme_1") }}">
 
@@ -21,19 +19,241 @@
 
     @stack('styles_top')
     @stack('scripts_top')
+    <style>
+        :root{
+            --auth-ink:#142033;
+            --auth-muted:#67758a;
+            --auth-line:#dfe6ee;
+            --auth-paper:#ffffff;
+            --auth-soft:#f5f8fb;
+            --auth-primary:#0e9f8f;
+            --auth-primary-dark:#0a766c;
+            --auth-accent:#f0ad4e;
+        }
+        body.auth-premium-body{
+            min-height: 100vh;
+            color: var(--auth-ink);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(14,159,143,.14), transparent 28rem),
+                radial-gradient(circle at 90% 22%, rgba(240,173,78,.13), transparent 24rem),
+                linear-gradient(135deg, #f7fafc 0%, #edf3f8 100%);
+        }
+        .auth-shell{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        .auth-shell > .row{
+            width: 100%;
+        }
+        .auth-home-link{
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 14px;
+            border-radius: 999px;
+            color: var(--auth-ink);
+            background: rgba(255,255,255,.86);
+            border: 1px solid rgba(20,32,51,.08);
+            box-shadow: 0 10px 26px rgba(20,32,51,.08);
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform .16s ease, box-shadow .16s ease, color .16s ease;
+        }
+        .auth-home-link:hover{
+            color: var(--auth-primary-dark);
+            text-decoration: none;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(20,32,51,.12);
+        }
+        .auth-home-link__icon{
+            line-height: 1;
+            font-size: 18px;
+        }
+        .auth-premium-card{
+            background: rgba(255,255,255,.96);
+            border-radius: 26px;
+            border: 1px solid rgba(20,32,51,.08);
+            box-shadow: 0 24px 80px rgba(20,32,51,.1);
+            padding: 20px;
+            overflow: hidden;
+        }
+        .auth-page-card{
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .auth-form-pane{
+            padding: 18px 24px;
+        }
+        .auth-eyebrow{
+            color: var(--auth-primary-dark);
+            letter-spacing: 0;
+        }
+        .modern-input-group{
+            position: relative;
+            margin-bottom: 18px;
+        }
+        .modern-input-group .form-group-label,
+        .modern-input-group label{
+            color: var(--auth-muted);
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 8px;
+            background: transparent !important;
+            padding: 0;
+        }
+        .modern-input-group .form-control,
+        .modern-input-group .register-mobile-form-group__input{
+            min-height: 50px;
+            border-radius: 14px !important;
+            padding: 13px 16px !important;
+            border: 1px solid var(--auth-line) !important;
+            background: var(--auth-soft) !important;
+            color: var(--auth-ink) !important;
+            font-size: 15px !important;
+            transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease !important;
+            box-shadow: none !important;
+        }
+        .modern-input-group .form-control:focus,
+        .modern-input-group .register-mobile-form-group__input:focus{
+            background: #fff !important;
+            border-color: var(--auth-primary) !important;
+            box-shadow: 0 0 0 4px rgba(14,159,143,.13) !important;
+        }
+        .modern-input-group .password-input-visibility{
+            top: 42px;
+            right: 16px;
+        }
+        .rtl .modern-input-group .password-input-visibility{
+            right: auto;
+            left: 16px;
+        }
+        .auth-method-switch{
+            background: #eef4f8;
+            border: 1px solid rgba(20,32,51,.08);
+        }
+        .auth-register-method-item input:checked + label{
+            background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
+            color: #fff !important;
+            box-shadow: 0 10px 20px rgba(14,159,143,.18);
+        }
+        .modern-btn{
+            min-height: 52px;
+            border-radius: 14px !important;
+            padding: 14px 16px !important;
+            background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
+            border: 0 !important;
+            font-weight: 800 !important;
+            font-size: 16px !important;
+            letter-spacing: 0 !important;
+            transition: transform .16s ease, box-shadow .16s ease !important;
+        }
+        .modern-btn:hover{
+            transform: translateY(-2px) !important;
+            box-shadow: 0 14px 26px rgba(14,159,143,.22) !important;
+        }
+        .auth-page-form-container{
+            max-height: min(58vh, 620px);
+            overflow: auto;
+            padding-right: 16px;
+            scrollbar-width: thin;
+        }
+        .auth-page-form-container::-webkit-scrollbar{
+            width: 7px;
+        }
+        .auth-page-form-container::-webkit-scrollbar-thumb{
+            background: #cbd7e3;
+            border-radius: 999px;
+        }
+        .auth-static-showcase{
+            min-height: 548px;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: #10273f;
+            background-size: cover;
+            background-position: center;
+        }
+        .auth-static-showcase__overlay{
+            min-height: inherit;
+            padding: 32px;
+            display: flex;
+            align-items: flex-end;
+            background:
+                linear-gradient(180deg, rgba(16,39,63,.18), rgba(16,39,63,.86)),
+                radial-gradient(circle at top right, rgba(14,159,143,.32), transparent 20rem);
+            color: #fff;
+        }
+        .auth-static-showcase__image img{
+            max-height: 250px;
+            object-fit: contain;
+        }
+        .auth-footer{
+            margin-top: 18px;
+            color: var(--auth-muted);
+            font-size: 13px;
+            text-align: center;
+        }
+        .auth-footer a{
+            color: var(--auth-primary-dark);
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .auth-footer a:hover{
+            color: var(--auth-primary);
+            text-decoration: none;
+        }
+        @media (max-width: 991px){
+            .auth-shell{
+                align-items: flex-start;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .auth-home-link{
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 0 auto 16px;
+            }
+            .auth-premium-card{
+                padding: 12px;
+                border-radius: 20px;
+            }
+            .auth-form-pane{
+                padding: 12px 8px;
+            }
+            .auth-page-form-container{
+                max-height: none;
+                overflow: visible;
+                padding-right: 0;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-gray {{ $isRtl ? 'rtl' : '' }} light-mode">
+<body class="auth-premium-body {{ $isRtl ? 'rtl' : '' }} light-mode">
 <div id="app">
-    <section class="container mt-96 mb-104 position-relative">
+    <section class="auth-shell container position-relative">
+        <a href="/" class="auth-home-link">
+            <span class="auth-home-link__icon">&larr;</span>
+            <span>{{ trans('navbar.home') }}</span>
+        </a>
+
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-10">
                 <div class="auth-page-card position-relative">
                     <div class="auth-page-card__mask"></div>
 
-                    <div class="position-relative bg-white rounded-32 p-16 z-index-2">
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
+                    <div class="position-relative auth-premium-card z-index-2">
+                        <div class="row align-items-stretch">
+                            <div class="col-12 col-lg-6 auth-form-pane">
                                 @yield("page_content")
                             </div>
 
@@ -42,6 +262,11 @@
                             </div>
                         </div>
                     </div>
+
+                    <footer class="auth-footer">
+                        <div>{{ $generalSettings['site_name'] ?? config('app.name') }}</div>
+                        <div><a href="/">{{ trans('navbar.home') }}</a> &middot; <a href="/contact">{{ trans('site.contact_us') }}</a></div>
+                    </footer>
                 </div>
             </div>
         </div>
@@ -83,25 +308,22 @@
     var themeColorsMode = {};
 </script>
 
-<script type="text/javascript" src="/assets/design_1/js/app.min.js"></script>
-<script type="text/javascript" src="/assets/default/vendors/simplebar/simplebar.min.js"></script>
-<script src="/assets/default/vendors/swiper/swiper-bundle.min.js"></script>
-<script src="/assets/design_1/js/parts/swiper_slider.min.js"></script>
-<script src="{{ getDesign1ScriptPath("auth_theme_1") }}"></script>
+<script defer type="text/javascript" src="/assets/design_1/js/app.min.js"></script>
+<script defer src="{{ getDesign1ScriptPath("auth_theme_1") }}"></script>
 
 @if(session()->has('toast'))
     <script>
-        (function () {
-            "use strict";
-
-            showToast('{{ session()->get('toast')['status'] }}', '{{ session()->get('toast')['title'] ?? '' }}', '{{ session()->get('toast')['msg'] ?? '' }}')
-        })(jQuery)
+        window.addEventListener('load', function () {
+            if (typeof showToast === 'function') {
+                showToast('{{ session()->get('toast')['status'] }}', '{{ session()->get('toast')['title'] ?? '' }}', '{{ session()->get('toast')['msg'] ?? '' }}');
+            }
+        });
     </script>
 @endif
 
 @stack('styles_bottom')
 @stack('scripts_bottom')
 
-<script src="/assets/design_1/js/parts/general.min.js"></script>
+<script defer src="/assets/design_1/js/parts/general.min.js"></script>
 </body>
 </html>

@@ -47,6 +47,7 @@ class FormFieldsController extends Controller
 
         /* Options */
         $this->handleOptions($request, $field, $data);
+        $this->clearUserTypeFormCache($form->id);
 
         return response()->json([
             'code' => 200,
@@ -113,6 +114,7 @@ class FormFieldsController extends Controller
 
             /* Options */
             $this->handleOptions($request, $field, $data);
+            $this->clearUserTypeFormCache($form->id);
 
             return response()->json([
                 'code' => 200,
@@ -133,6 +135,7 @@ class FormFieldsController extends Controller
 
         if (!empty($field)) {
             $field->delete();
+            $this->clearUserTypeFormCache($form->id);
 
             return response()->json([
                 'code' => 200,
@@ -193,6 +196,7 @@ class FormFieldsController extends Controller
                         ->where('id', $id)
                         ->update(['order' => ($order + 1)]);
                 }
+                $this->clearUserTypeFormCache($form->id);
 
                 return response()->json([
                     'title' => trans('public.request_success'),
@@ -224,6 +228,7 @@ class FormFieldsController extends Controller
                         ->where('id', $id)
                         ->update(['order' => ($order + 1)]);
                 }
+                $this->clearUserTypeFormCache($formId);
 
                 return response()->json([
                     'title' => trans('public.request_success'),
@@ -245,6 +250,7 @@ class FormFieldsController extends Controller
 
         if (!empty($option)) {
             $option->delete();
+            $this->clearUserTypeFormCache($formId);
 
             return response()->json([
                 'code' => 200,
@@ -254,5 +260,12 @@ class FormFieldsController extends Controller
         }
 
         abort(404);
+    }
+
+    private function clearUserTypeFormCache($formId)
+    {
+        foreach (['user', 'teacher', 'organization', 'become_instructor', 'become_organization'] as $type) {
+            cache()->forget("forms.user_type.{$type}.{$formId}");
+        }
     }
 }

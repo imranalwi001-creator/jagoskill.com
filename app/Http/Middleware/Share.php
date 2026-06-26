@@ -153,6 +153,8 @@ class Share
             'forget-password',
             'reset-password',
             'reset-password/*',
+            'admin/login',
+            'admin/login/*',
         ] as $pattern) {
             if ($request->is($pattern)) {
                 return true;

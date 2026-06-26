@@ -1,4 +1,4 @@
-<div class="bg-white p-16 rounded-24">
+<div class="bg-white p-20 p-lg-40 rounded-24 mt-24 shadow-sm border border-gray-200" style="transition: transform 0.3s ease;">
 
     @php
         $reviewOptions = [

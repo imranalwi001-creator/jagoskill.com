@@ -1,5 +1,5 @@
-<div class="bg-white p-16 rounded-24 mt-24">
-    <h3 class="font-16">{{ trans('update.product_specifications') }}</h3>
+<div class="bg-white p-20 p-lg-40 rounded-24 mt-24 shadow-sm border border-gray-200" style="transition: transform 0.3s ease;">
+    <h3 class="font-20 font-weight-bold text-dark">{{ trans('update.product_specifications') }}</h3>
 
     <div class="">
         @if(!empty($selectedSpecifications) and count($selectedSpecifications))

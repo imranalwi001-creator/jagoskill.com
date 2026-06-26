@@ -29,102 +29,98 @@
 
 
         <div class="row">
-            {{-- Images --}}
-            <div class="col-12 col-lg-6">
+            {{-- Left Content Area --}}
+            <div class="col-12 col-lg-8">
+                {{-- Images --}}
                 @include('design_1.web.products.show.includes.images')
-            </div>
 
-            {{-- Main Info --}}
-            <div class="col-12 col-lg-6 mt-32 mt-lg-0">
-                @include('design_1.web.products.show.includes.main_info')
-            </div>
-        </div>
+                {{-- Promotions Banners --}}
+                @include("design_1.web.products.show.includes.promotions")
 
-        {{-- Promotions Banners --}}
-        @include("design_1.web.products.show.includes.promotions")
+                @php
+                    $activePageTab = request()->get("tab", 'description');
+                @endphp
 
-        @php
-            $activePageTab = request()->get("tab", 'description');
-        @endphp
+                {{-- Tabs --}}
+                <div class="custom-tabs mt-24">
+                    <div class="product-show-tabs-card position-relative shadow-sm rounded-12" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5);">
+                        <div class="position-relative product-show-tabs-card__items d-flex align-items-center gap-20 gap-lg-40 px-20 rounded-12 z-index-2 w-100 overflow-auto">
+                            <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "description") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productDescriptionTab" style="transition: transform 0.3s ease;">
+                                <span class="font-weight-bold">{{ trans('public.description') }}</span>
+                            </div>
 
-        {{-- Tabs --}}
-        <div class="custom-tabs mt-16">
-            <div class="product-show-tabs-card position-relative">
-                <div class="product-show-tabs-card__mask"></div>
+                            <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "specifications") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productSpecificationsTab" style="transition: transform 0.3s ease;">
+                                <span class="font-weight-bold">{{ trans('update.specifications') }}</span>
+                            </div>
 
-                <div class="position-relative product-show-tabs-card__items d-flex align-items-center gap-20 gap-lg-40 bg-white px-20 rounded-12 z-index-2 w-100">
-                    <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "description") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productDescriptionTab">
-                        <span class="">{{ trans('public.description') }}</span>
-                    </div>
+                            <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "comments") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productCommentsTab" style="transition: transform 0.3s ease;">
+                                <span class="font-weight-bold">{{ trans('panel.comments') }}</span>
+                            </div>
 
-                    <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "specifications") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productSpecificationsTab">
-                        <span class="">{{ trans('update.specifications') }}</span>
-                    </div>
+                            <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "reviews") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productReviewsTab" style="transition: transform 0.3s ease;">
+                                <span class="font-weight-bold">{{ trans('product.reviews') }}</span>
+                            </div>
 
-                    <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "comments") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productCommentsTab">
-                        <span class="ml-4">{{ trans('panel.comments') }}</span>
-                    </div>
+                            <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "seller") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productSellerTab" style="transition: transform 0.3s ease;">
+                                <span class="font-weight-bold">{{ trans('update.seller') }}</span>
+                            </div>
 
-                    <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "reviews") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productReviewsTab">
-                        <span class="ml-4">{{ trans('product.reviews') }}</span>
-                    </div>
-
-                    <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "seller") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productSellerTab">
-                        <span class="ml-4">{{ trans('update.seller') }}</span>
-                    </div>
-
-                    @if(!empty($product->files) and count($product->files) and $product->checkUserHasBought())
-                        <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "files") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productFilesTab">
-                            <span class="ml-4">{{ trans('public.files') }}</span>
+                            @if(!empty($product->files) and count($product->files) and $product->checkUserHasBought())
+                                <div class="navbar-item d-flex-center cursor-pointer {{ ($activePageTab == "files") ? 'active' : '' }}" data-tab-toggle data-tab-href="#productFilesTab" style="transition: transform 0.3s ease;">
+                                    <span class="font-weight-bold">{{ trans('public.files') }}</span>
+                                </div>
+                            @endif
                         </div>
-                    @endif
+                    </div>
 
+                    <div class="custom-tabs-body mt-24">
+                        <div class="custom-tabs-content {{ ($activePageTab == "description") ? 'active' : '' }}" id="productDescriptionTab">
+                            @include('design_1.web.products.show.tabs.about')
+                        </div>
+
+                        <div class="custom-tabs-content {{ ($activePageTab == "specifications") ? 'active' : '' }}" id="productSpecificationsTab">
+                            @include('design_1.web.products.show.tabs.specifications')
+                        </div>
+
+                        <div class="custom-tabs-content {{ ($activePageTab == "comments") ? 'active' : '' }}" id="productCommentsTab">
+                            @include('design_1.web.products.show.tabs.comments')
+                        </div>
+
+                        <div class="custom-tabs-content {{ ($activePageTab == "reviews") ? 'active' : '' }}" id="productReviewsTab">
+                            @include('design_1.web.products.show.tabs.reviews')
+                        </div>
+
+                        <div class="custom-tabs-content {{ ($activePageTab == "seller") ? 'active' : '' }}" id="productSellerTab">
+                            @include('design_1.web.products.show.tabs.seller')
+                        </div>
+
+                        @if(!empty($product->files) and count($product->files) and $product->checkUserHasBought())
+                            <div class="custom-tabs-content {{ ($activePageTab == "files") ? 'active' : '' }}" id="productFilesTab">
+                                @include('design_1.web.products.show.tabs.files')
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
 
-            <div class="custom-tabs-body mt-16">
-
-                <div class="custom-tabs-content {{ ($activePageTab == "description") ? 'active' : '' }}" id="productDescriptionTab">
-                    @include('design_1.web.products.show.tabs.about')
-                </div>
-
-                <div class="custom-tabs-content {{ ($activePageTab == "specifications") ? 'active' : '' }}" id="productSpecificationsTab">
-                    @include('design_1.web.products.show.tabs.specifications')
-                </div>
-
-                <div class="custom-tabs-content {{ ($activePageTab == "comments") ? 'active' : '' }}" id="productCommentsTab">
-                    @include('design_1.web.products.show.tabs.comments')
-                </div>
-
-                <div class="custom-tabs-content {{ ($activePageTab == "reviews") ? 'active' : '' }}" id="productReviewsTab">
-                    @include('design_1.web.products.show.tabs.reviews')
-                </div>
-
-                <div class="custom-tabs-content {{ ($activePageTab == "seller") ? 'active' : '' }}" id="productSellerTab">
-                    @include('design_1.web.products.show.tabs.seller')
-                </div>
-
-                @if(!empty($product->files) and count($product->files) and $product->checkUserHasBought())
-                    <div class="custom-tabs-content {{ ($activePageTab == "files") ? 'active' : '' }}" id="productFilesTab">
-                        @include('design_1.web.products.show.tabs.files')
+                @if(
+                   !empty(getFeaturesSettings("frontend_coupons_display_type")) and
+                   getFeaturesSettings("frontend_coupons_display_type") == "after_content" and
+                   !empty($instructorDiscounts) and
+                   count($instructorDiscounts)
+                )
+                    <div class="mt-32">
+                        @include('design_1.web.instructor_discounts.cards', ['allDiscounts' => $instructorDiscounts, 'discountCardClassName2' => "mt-16"])
                     </div>
                 @endif
-            </div>
+            </div> {{-- End Left Content Area --}}
 
+            {{-- Right Sidebar Area (Sticky) --}}
+            <div class="col-12 col-lg-4 mt-32 mt-lg-0">
+                <div class="sticky-top" style="top: 120px; z-index: 10;">
+                    @include('design_1.web.products.show.includes.main_info')
+                </div>
+            </div>
         </div>
-
-
-        @if(
-           !empty(getFeaturesSettings("frontend_coupons_display_type")) and
-           getFeaturesSettings("frontend_coupons_display_type") == "after_content" and
-           !empty($instructorDiscounts) and
-           count($instructorDiscounts)
-        )
-            <div class="mt-32">
-                @include('design_1.web.instructor_discounts.cards', ['allDiscounts' => $instructorDiscounts, 'discountCardClassName2' => "mt-16"])
-            </div>
-        @endif
-
 
         {{-- Installments --}}
         @if(!empty($installments) and count($installments) and getInstallmentsSettings('installment_plans_position') == 'bottom_of_page')

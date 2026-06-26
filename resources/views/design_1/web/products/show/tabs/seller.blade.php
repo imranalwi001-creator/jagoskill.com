@@ -1,7 +1,7 @@
-<div class="product-seller-card position-relative mt-100">
+<div class="product-seller-card position-relative mt-100" style="transition: transform 0.3s ease;">
     <div class="product-seller-card__mask"></div>
 
-    <div class="position-relative d-flex flex-column flex-lg-row align-items-start gap-24 bg-white px-16 rounded-24 z-index-3">
+    <div class="position-relative d-flex flex-column flex-lg-row align-items-start gap-24 bg-white p-20 p-lg-40 rounded-24 shadow-sm border border-gray-200 z-index-3">
         <div class="product-seller-card__details flex-1 py-16">
             <div class="d-flex align-items-center">
                 <div class="d-flex-center size-80 rounded-12 bg-gray-200">

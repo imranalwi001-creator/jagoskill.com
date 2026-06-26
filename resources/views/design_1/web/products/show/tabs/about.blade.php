@@ -1,8 +1,8 @@
-<div class="bg-white p-16 rounded-24 mt-24">
-    <h3 class="font-16">{{ trans('update.about_this_product') }}</h3>
+<div class="bg-white p-20 p-lg-40 rounded-24 mt-24 shadow-sm border border-gray-200" style="transition: transform 0.3s ease;">
+    <h3 class="font-20 font-weight-bold text-dark">{{ trans('update.about_this_product') }}</h3>
 
     @if($product->description)
-        <div class="product-show__description mt-12">
+        <div class="product-show__description mt-20 text-gray-600 font-14" style="line-height: 1.8;">
             {!! $product->description !!}
         </div>
     @endif
@@ -16,7 +16,7 @@
             </div>
 
             @foreach($product->faqs as $faq)
-                <div class="accordion p-20 rounded-24 border-gray-200 bg-white {{ $loop->first ? 'mt-16' : 'mt-20' }}">
+                <div class="accordion p-20 rounded-24 border border-gray-200 bg-white {{ $loop->first ? 'mt-24' : 'mt-20' }}" style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px -5px rgba(0, 0, 0, 0.05)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                     <div class="accordion__title d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center cursor-pointer" href="#productFAQ_{{ $faq->id }}" data-parent="#productFAQParent" role="button" data-toggle="collapse">
                             <div class="size-24">

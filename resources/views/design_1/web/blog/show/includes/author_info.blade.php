@@ -68,8 +68,8 @@
             @endif
         </div>
 
-        <div class="post-author-info-card__secondary-img position-relative">
-            <img src="{{ $post->author->getProfileSecondaryImage() }}" alt="{{ $post->author->full_name }}" class="img-cover">
+        <div class="post-author-info-card__secondary-img position-relative d-none d-lg-flex justify-content-end align-items-end" style="max-height: 200px; flex-shrink: 0;">
+            <img src="{{ $post->author->getProfileSecondaryImage() }}" alt="{{ $post->author->full_name }}" class="img-fluid" style="max-height: 200px; width: auto; object-fit: contain;">
         </div>
     </div>
 </div>

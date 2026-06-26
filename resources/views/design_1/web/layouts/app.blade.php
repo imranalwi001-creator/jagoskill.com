@@ -38,10 +38,14 @@
         {!! getThemeColorsSettings(!empty($landingItem) ? $landingItem : null) !!}
 
         /* Global UI/UX Fixes */
-        .text-gray-500, .text-gray {
+        .text-gray-500, .text-gray,
+        .course-show-description,
+        .course-show-description p,
+        .course-show-description span,
+        .course-show-description font {
             color: #1e293b !important; /* Very dark slate gray for maximum contrast */
-            line-height: 1.7;
-            font-weight: 500;
+            line-height: 1.7 !important;
+            font-weight: 500 !important;
         }
     </style>
 

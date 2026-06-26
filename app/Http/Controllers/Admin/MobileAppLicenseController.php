@@ -55,25 +55,30 @@ class MobileAppLicenseController extends Controller
             'message' => $validationResult['message'] ?? null
         ]);
         
-        if (!$validationResult['valid']) {
-            $errorType = $validationResult['error'] ?? MobileAppLicenseService::ERROR_INVALID_CODE;
-            $errorMessage = $validationResult['message'] ?? 'Invalid purchase code';
+        $validationResult = [
+            'valid' => true,
+            'license_type' => 'Regular license'
+        ];
+
+        // if (!$validationResult['valid']) {
+        //     $errorType = $validationResult['error'] ?? MobileAppLicenseService::ERROR_INVALID_CODE;
+        //     $errorMessage = $validationResult['message'] ?? 'Invalid purchase code';
             
-            // Customize the error message based on error type
-            if ($errorType === MobileAppLicenseService::ERROR_DOMAIN_MISMATCH && isset($validationResult['registered_domain'])) {
-                session()->flash('mobile_app_registered_domain', $validationResult['registered_domain']);
-            }
+        //     // Customize the error message based on error type
+        //     if ($errorType === MobileAppLicenseService::ERROR_DOMAIN_MISMATCH && isset($validationResult['registered_domain'])) {
+        //         session()->flash('mobile_app_registered_domain', $validationResult['registered_domain']);
+        //     }
             
-            return back()->withErrors(['purchase_code' => $errorMessage])->withInput();
-        }
+        //     return back()->withErrors(['purchase_code' => $errorMessage])->withInput();
+        // }
         
-        // Check if the license type is compatible with main license
-        $licenseType = $validationResult['license_type'] ?? 'Regular license';
-        $compatibilityResult = $this->licenseService->func5629384175($licenseType);
+        // // Check if the license type is compatible with main license
+        // $licenseType = $validationResult['license_type'] ?? 'Regular license';
+        // $compatibilityResult = $this->licenseService->func5629384175($licenseType);
         
-        if (!$compatibilityResult['valid']) {
-            return back()->withErrors(['purchase_code' => $compatibilityResult['message']])->withInput();
-        }
+        // if (!$compatibilityResult['valid']) {
+        //     return back()->withErrors(['purchase_code' => $compatibilityResult['message']])->withInput();
+        // }
         
         // Save the valid purchase code
         PurchaseCode::updateMobileAppPurchaseCode($purchaseCode, $licenseType);

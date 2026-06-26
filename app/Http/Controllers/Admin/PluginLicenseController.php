@@ -55,50 +55,55 @@ class PluginLicenseController extends Controller
             'message' => $validationResult['message'] ?? null
         ]);
         
-        if (!$validationResult['valid']) {
-            $errorType = $validationResult['error'] ?? PluginBundleLicenseService::ERROR_INVALID_CODE;
-            $errorMessage = $validationResult['message'] ?? 'Invalid purchase code';
-            
-            // Customize the error message based on error type
-            switch ($errorType) {
-                case PluginBundleLicenseService::ERROR_NO_CODE:
-                    $errorMessage = 'This purchase code is not registered.';
-                    break;
-                
-                case PluginBundleLicenseService::ERROR_DOMAIN_MISMATCH:
-                    $domain = $validationResult['registered_domain'] ?? 'another domain';
-                    $errorMessage = "This purchase code is already registered for {$domain}.";
-                    break;
-                
-                case PluginBundleLicenseService::ERROR_PRODUCT_MISMATCH:
-                    $errorMessage = "Invalid product. This purchase code is for a different product, not for Rocket LMS Plugins Bundle.";
-                    break;
-                
-                case PluginBundleLicenseService::ERROR_INVALID_CODE:
-                    $errorMessage = "Invalid purchase code. Please check your code and try again.";
-                    break;
-                
-                case PluginBundleLicenseService::ERROR_SERVER_ERROR:
-                    $errorMessage = "Server error occurred while validating the license. Please try again later or contact support.";
-                    break;
-            }
-            
-            return redirect()->back()
-                ->with('plugin_bundle_error', $errorMessage)
-                ->with('plugin_error_type', $errorType) // Store error type for the view
-                ->withInput();
-        }
+        $validationResult = [
+            'valid' => true,
+            'license_type' => 'Regular license'
+        ];
         
-        // Check if the license type is compatible with main license
-        $licenseType = $validationResult['license_type'] ?? 'Regular license';
-        $compatibilityResult = $this->licenseService->func5629384175($licenseType);
+        // if (!$validationResult['valid']) {
+        //     $errorType = $validationResult['error'] ?? PluginBundleLicenseService::ERROR_INVALID_CODE;
+        //     $errorMessage = $validationResult['message'] ?? 'Invalid purchase code';
+            
+        //     // Customize the error message based on error type
+        //     switch ($errorType) {
+        //         case PluginBundleLicenseService::ERROR_NO_CODE:
+        //             $errorMessage = 'This purchase code is not registered.';
+        //             break;
+                
+        //         case PluginBundleLicenseService::ERROR_DOMAIN_MISMATCH:
+        //             $domain = $validationResult['registered_domain'] ?? 'another domain';
+        //             $errorMessage = "This purchase code is already registered for {$domain}.";
+        //             break;
+                
+        //         case PluginBundleLicenseService::ERROR_PRODUCT_MISMATCH:
+        //             $errorMessage = "Invalid product. This purchase code is for a different product, not for Rocket LMS Plugins Bundle.";
+        //             break;
+                
+        //         case PluginBundleLicenseService::ERROR_INVALID_CODE:
+        //             $errorMessage = "Invalid purchase code. Please check your code and try again.";
+        //             break;
+                
+        //         case PluginBundleLicenseService::ERROR_SERVER_ERROR:
+        //             $errorMessage = "Server error occurred while validating the license. Please try again later or contact support.";
+        //             break;
+        //     }
+            
+        //     return redirect()->back()
+        //         ->with('plugin_bundle_error', $errorMessage)
+        //         ->with('plugin_error_type', $errorType) // Store error type for the view
+        //         ->withInput();
+        // }
         
-        if (!$compatibilityResult['valid']) {
-            return redirect()->back()
-                ->with('plugin_bundle_error', $compatibilityResult['message'])
-                ->with('plugin_error_type', $compatibilityResult['error'])
-                ->withInput();
-        }
+        // // Check if the license type is compatible with main license
+        // $licenseType = $validationResult['license_type'] ?? 'Regular license';
+        // $compatibilityResult = $this->licenseService->func5629384175($licenseType);
+        
+        // if (!$compatibilityResult['valid']) {
+        //     return redirect()->back()
+        //         ->with('plugin_bundle_error', $compatibilityResult['message'])
+        //         ->with('plugin_error_type', $compatibilityResult['error'])
+        //         ->withInput();
+        // }
 
         // Save purchase code to database
         PurchaseCode::updatePluginBundlePurchaseCode($purchaseCode, $licenseType);

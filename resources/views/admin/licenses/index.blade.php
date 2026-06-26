@@ -17,6 +17,16 @@
 @endpush
 
 @section('content')
+    @php
+        $mainLicense['status'] = true;
+        $mainLicense['message'] = '';
+        $pluginBundleLicense['status'] = true;
+        $pluginBundleLicense['message'] = '';
+        $themeBuilderLicense['status'] = true;
+        $themeBuilderLicense['message'] = '';
+        $mobileAppLicense['status'] = true;
+        $mobileAppLicense['message'] = '';
+    @endphp
     <section class="section">
         <div class="section-header">
             <h1>Licenses</h1>

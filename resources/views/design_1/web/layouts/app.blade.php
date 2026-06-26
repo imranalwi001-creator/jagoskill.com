@@ -38,9 +38,10 @@
         {!! getThemeColorsSettings(!empty($landingItem) ? $landingItem : null) !!}
 
         /* Global UI/UX Fixes */
-        .text-gray-500 {
-            color: #475569 !important; /* Darker slate gray for better readability */
+        .text-gray-500, .text-gray {
+            color: #1e293b !important; /* Very dark slate gray for maximum contrast */
             line-height: 1.7;
+            font-weight: 500;
         }
     </style>
 

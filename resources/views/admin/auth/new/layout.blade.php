@@ -89,28 +89,55 @@
             z-index: 2;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            min-height: 40px;
-            padding: 9px 14px;
+            gap: 10px;
+            min-height: 46px;
+            padding: 7px 16px 7px 8px;
             color: var(--admin-auth-text);
-            background: rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.12);
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06)) padding-box,
+                linear-gradient(135deg, rgba(125,228,215,.75), rgba(245,184,95,.52)) border-box;
+            border: 1px solid transparent;
             border-radius: 999px;
-            font-size: 13px;
-            font-weight: 700;
+            box-shadow: 0 16px 42px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18);
+            backdrop-filter: blur(14px);
+            font-size: 14px;
+            font-weight: 800;
             text-decoration: none;
-            transition: background-color .18s ease, transform .18s ease, border-color .18s ease;
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease, color .18s ease;
+        }
+        .admin-auth-home-link:before{
+            content:"";
+            position: absolute;
+            inset: 1px;
+            border-radius: inherit;
+            background: linear-gradient(120deg, rgba(255,255,255,.22), transparent 42%);
+            pointer-events: none;
         }
         .admin-auth-home-link:hover{
             color: var(--admin-auth-text);
-            background: rgba(255,255,255,.13);
-            border-color: rgba(255,255,255,.22);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 48px rgba(0,0,0,.28), 0 0 0 4px rgba(24,182,163,.12);
             text-decoration: none;
         }
         .admin-auth-home-link__icon{
-            font-size: 16px;
+            position: relative;
+            z-index: 1;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #06111f;
+            background: linear-gradient(135deg, #7de4d7, #f5b85f);
+            box-shadow: 0 8px 20px rgba(24,182,163,.2);
+            font-size: 17px;
             line-height: 1;
+        }
+        .admin-auth-home-link__text{
+            position: relative;
+            z-index: 1;
         }
         .admin-auth-container:before{
             content:"";
@@ -290,7 +317,7 @@
     <main class="admin-auth-shell">
         <a href="/" class="admin-auth-home-link">
             <span class="admin-auth-home-link__icon">&larr;</span>
-            <span>{{ trans('navbar.home') }}</span>
+            <span class="admin-auth-home-link__text">{{ trans('navbar.home') }}</span>
         </a>
 
         <div class="w-100 d-flex flex-column align-items-center">

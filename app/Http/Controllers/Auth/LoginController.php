@@ -118,7 +118,7 @@ class LoginController extends Controller
 
         if (!empty($user)) {
             $userLoginHistoryMixin = new UserLoginHistoryMixin();
-            $userLoginHistoryMixin->storeUserLogoutHistory($user->id);
+            $userLoginHistoryMixin->storeUserLogoutHistory($user->id, false);
 
             if ($user->logged_count > 0) {
                 $user->update([
@@ -127,11 +127,11 @@ class LoginController extends Controller
             }
         }
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
         $this->guard()->logout();
+
+        $request->session()->forget('impersonated');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect('/');
     }

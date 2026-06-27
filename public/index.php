@@ -20,6 +20,7 @@ if ($localLicenseHost && preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/', $requ
 
 $localPageCacheEnabled = filter_var(getenv('JAGOSKILL_LOCAL_PAGE_CACHE'), FILTER_VALIDATE_BOOLEAN) || !empty($localLicenseHost);
 $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$requestHasCookies = !empty($_COOKIE);
 $publicCachePaths = [
     '/',
     '/classes',
@@ -32,6 +33,7 @@ $publicCachePaths = [
 ];
 $isLocalPublicCacheRequest = $localPageCacheEnabled
     && $requestMethod === 'GET'
+    && !$requestHasCookies
     && in_array($requestPath, $publicCachePaths, true)
     && empty($_SERVER['HTTP_X_REQUESTED_WITH']);
 $localPageCacheFile = __DIR__ . '/../storage/framework/cache/local-pages/' . sha1($requestUri) . '.html';

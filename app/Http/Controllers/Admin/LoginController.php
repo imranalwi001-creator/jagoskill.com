@@ -126,10 +126,17 @@ class LoginController extends Controller
     {
         $user = auth()->user();
 
-        $userLoginHistoryMixin = new UserLoginHistoryMixin();
-        $userLoginHistoryMixin->storeUserLogoutHistory($user->id);
+        if (!empty($user)) {
+            $userLoginHistoryMixin = new UserLoginHistoryMixin();
+            $userLoginHistoryMixin->storeUserLogoutHistory($user->id, false);
+        }
 
         Auth::logout();
+
+        $request->session()->forget('impersonated');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect($this->adminUrl('/login'));
     }
 

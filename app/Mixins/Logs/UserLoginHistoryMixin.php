@@ -64,7 +64,7 @@ class UserLoginHistoryMixin
 
     }
 
-    public function storeUserLogoutHistory($userId)
+    public function storeUserLogoutHistory($userId, bool $destroySession = true)
     {
         $session = UserLoginHistory::query()
             ->where('user_id', $userId)
@@ -81,8 +81,10 @@ class UserLoginHistoryMixin
                 'end_session_type' => 'default'
             ]);
 
-            $sessionManager = app('session');
-            $sessionManager->getHandler()->destroy($session->session_id);
+            if ($destroySession) {
+                $sessionManager = app('session');
+                $sessionManager->getHandler()->destroy($session->session_id);
+            }
         }
     }
 

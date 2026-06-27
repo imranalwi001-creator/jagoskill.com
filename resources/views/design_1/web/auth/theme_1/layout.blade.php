@@ -32,6 +32,7 @@
         }
         body.auth-premium-body{
             min-height: 100vh;
+            overflow-x: hidden;
             color: var(--auth-ink);
             background:
                 radial-gradient(circle at 12% 8%, rgba(14,159,143,.14), transparent 28rem),
@@ -55,27 +56,54 @@
             z-index: 5;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            min-height: 42px;
-            padding: 0 14px;
+            gap: 10px;
+            min-height: 46px;
+            padding: 7px 16px 7px 8px;
             border-radius: 999px;
             color: var(--auth-ink);
-            background: rgba(255,255,255,.86);
-            border: 1px solid rgba(20,32,51,.08);
-            box-shadow: 0 10px 26px rgba(20,32,51,.08);
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,255,255,.74)) padding-box,
+                linear-gradient(135deg, rgba(14,159,143,.72), rgba(240,173,78,.58)) border-box;
+            border: 1px solid transparent;
+            box-shadow: 0 16px 42px rgba(20,32,51,.12), inset 0 1px 0 rgba(255,255,255,.75);
+            backdrop-filter: blur(14px);
             font-weight: 800;
             text-decoration: none;
+            overflow: hidden;
             transition: transform .16s ease, box-shadow .16s ease, color .16s ease;
+        }
+        .auth-home-link:before{
+            content:"";
+            position: absolute;
+            inset: 1px;
+            border-radius: inherit;
+            background: linear-gradient(120deg, rgba(255,255,255,.7), transparent 44%);
+            pointer-events: none;
         }
         .auth-home-link:hover{
             color: var(--auth-primary-dark);
             text-decoration: none;
-            transform: translateY(-1px);
-            box-shadow: 0 14px 30px rgba(20,32,51,.12);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 48px rgba(20,32,51,.16), 0 0 0 4px rgba(14,159,143,.12);
         }
         .auth-home-link__icon{
+            position: relative;
+            z-index: 1;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #fff;
+            background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark));
+            box-shadow: 0 8px 20px rgba(14,159,143,.22);
             line-height: 1;
-            font-size: 18px;
+            font-size: 17px;
+        }
+        .auth-home-link__text{
+            position: relative;
+            z-index: 1;
         }
         .auth-premium-card{
             background: rgba(255,255,255,.96);
@@ -92,6 +120,7 @@
         }
         .auth-form-pane{
             padding: 18px 24px;
+            min-width: 0;
         }
         .auth-eyebrow{
             color: var(--auth-primary-dark);
@@ -139,6 +168,10 @@
         .auth-method-switch{
             background: #eef4f8;
             border: 1px solid rgba(20,32,51,.08);
+            flex-wrap: wrap;
+        }
+        .auth-method-switch .auth-register-method-item{
+            min-width: 0;
         }
         .auth-register-method-item input:checked + label{
             background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
@@ -161,9 +194,10 @@
             box-shadow: 0 14px 26px rgba(14,159,143,.22) !important;
         }
         .auth-page-form-container{
-            max-height: min(58vh, 620px);
-            overflow: auto;
-            padding-right: 16px;
+            height: auto !important;
+            max-height: none;
+            overflow: visible;
+            padding-right: 0;
             scrollbar-width: thin;
         }
         .auth-page-form-container::-webkit-scrollbar{
@@ -213,26 +247,65 @@
         @media (max-width: 991px){
             .auth-shell{
                 align-items: flex-start;
-                padding-top: 20px;
-                padding-bottom: 20px;
+                flex-direction: column;
+                min-height: auto;
+                padding-top: 16px;
+                padding-bottom: 24px;
             }
             .auth-home-link{
                 position: relative;
                 top: auto;
                 left: auto;
-                margin: 0 auto 16px;
+                margin: 0 auto 14px;
             }
             .auth-premium-card{
                 padding: 12px;
                 border-radius: 20px;
             }
             .auth-form-pane{
-                padding: 12px 8px;
+                padding: 12px 10px 16px;
             }
             .auth-page-form-container{
+                height: auto !important;
                 max-height: none;
                 overflow: visible;
                 padding-right: 0;
+            }
+        }
+        @media (max-width: 575px){
+            .auth-shell.container{
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            .auth-page-card__mask{
+                display: none;
+            }
+            .auth-premium-card{
+                padding: 10px;
+                border-radius: 18px;
+            }
+            .auth-form-pane{
+                padding: 8px 4px 14px;
+            }
+            .auth-method-switch{
+                gap: 6px !important;
+            }
+            .auth-method-switch .auth-register-method-item{
+                flex: 1 1 100%;
+            }
+            .auth-method-switch .auth-register-method-item label{
+                height: 42px;
+            }
+            .modern-input-group{
+                margin-bottom: 16px;
+            }
+            .modern-input-group .form-control,
+            .modern-input-group .register-mobile-form-group__input{
+                min-height: 48px;
+                font-size: 14px !important;
+            }
+            .modern-btn{
+                min-height: 50px;
             }
         }
     </style>
@@ -243,7 +316,7 @@
     <section class="auth-shell container position-relative">
         <a href="/" class="auth-home-link">
             <span class="auth-home-link__icon">&larr;</span>
-            <span>{{ trans('navbar.home') }}</span>
+            <span class="auth-home-link__text">{{ trans('navbar.home') }}</span>
         </a>
 
         <div class="row justify-content-center">

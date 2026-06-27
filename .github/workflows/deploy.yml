@@ -49,6 +49,7 @@ jobs:
 
           git fetch origin main
           git checkout main
+          rm -f "public/store/1/ChatGPT Image May 31, 2026, 01_20_24 PM.png"
           git pull --ff-only origin main
 
           php artisan optimize:clear

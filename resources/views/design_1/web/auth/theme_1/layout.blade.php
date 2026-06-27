@@ -26,18 +26,19 @@
             --auth-line:#dfe6ee;
             --auth-paper:#ffffff;
             --auth-soft:#f5f8fb;
-            --auth-primary:#0e9f8f;
-            --auth-primary-dark:#0a766c;
-            --auth-accent:#f0ad4e;
+            --auth-primary:#10998f;
+            --auth-primary-dark:#087f78;
+            --auth-primary-soft:#e7f7f5;
+            --auth-accent:#f4a64a;
         }
         body.auth-premium-body{
             min-height: 100vh;
             overflow-x: hidden;
             color: var(--auth-ink);
             background:
-                radial-gradient(circle at 12% 8%, rgba(14,159,143,.14), transparent 28rem),
-                radial-gradient(circle at 90% 22%, rgba(240,173,78,.13), transparent 24rem),
-                linear-gradient(135deg, #f7fafc 0%, #edf3f8 100%);
+                radial-gradient(circle at 12% 8%, rgba(16,153,143,.16), transparent 28rem),
+                radial-gradient(circle at 90% 22%, rgba(244,166,74,.12), transparent 24rem),
+                linear-gradient(135deg, #f7fbfb 0%, #edf6f5 100%);
         }
         .auth-shell{
             min-height: 100vh;
@@ -63,7 +64,7 @@
             color: var(--auth-ink);
             background:
                 linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,255,255,.74)) padding-box,
-                linear-gradient(135deg, rgba(14,159,143,.72), rgba(240,173,78,.58)) border-box;
+                linear-gradient(135deg, rgba(16,153,143,.72), rgba(244,166,74,.58)) border-box;
             border: 1px solid transparent;
             box-shadow: 0 16px 42px rgba(20,32,51,.12), inset 0 1px 0 rgba(255,255,255,.75);
             backdrop-filter: blur(14px);
@@ -166,7 +167,7 @@
             left: 16px;
         }
         .auth-method-switch{
-            background: #eef4f8;
+            background: var(--auth-primary-soft);
             border: 1px solid rgba(20,32,51,.08);
             flex-wrap: wrap;
         }
@@ -176,7 +177,7 @@
         .auth-register-method-item input:checked + label{
             background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
             color: #fff !important;
-            box-shadow: 0 10px 20px rgba(14,159,143,.18);
+            box-shadow: 0 10px 20px rgba(16,153,143,.18);
         }
         .modern-btn{
             min-height: 52px;
@@ -222,7 +223,7 @@
             align-items: flex-end;
             background:
                 linear-gradient(180deg, rgba(16,39,63,.18), rgba(16,39,63,.86)),
-                radial-gradient(circle at top right, rgba(14,159,143,.32), transparent 20rem);
+                radial-gradient(circle at top right, rgba(16,153,143,.34), transparent 20rem);
             color: #fff;
         }
         .auth-static-showcase__image img{

@@ -7,15 +7,15 @@ $gray: #F5F8F9;
 $black: #000;
 $white: #ffffff;
 
-$primary: #0170FF;
-$primary-saturated: #67A9FF;
-$secondary: #0E2145;
-$accent: #FF7043;
+$primary: #10998F;
+$primary-saturated: #44C5BA;
+$secondary: #111C3A;
+$accent: #F4A64A;
 $success: #43D477;
-$info: #7EB2FF;
+$info: #6DA7F7;
 $warning: #FFA200;
 $danger: #F63C3C;
-$dark: #121F3E;
+$dark: #111C3A;
 $yellow: #FFDC5D;
 $badge: #E94560;
 $badge_counter: #E94560;
@@ -25,7 +25,7 @@ $twitter: #1DA1F2;
 $telegram: #08C;
 $facebook: #1877F2;
 $linkedin: #1F62C9;
-$section_bg: #EAF0F3;
+$section_bg: #EFF7F6;
 
 $white-gradient: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
 
@@ -65,6 +65,11 @@ $theme-colors: map-merge(
             "badge" : $badge,
             "badge-counter" : $badge_counter,
             "section-bg" : $section_bg,
+            "brand-primary" : $primary,
+            "brand-primary-dark" : #087F78,
+            "brand-primary-soft" : #E7F7F5,
+            "brand-navy" : $secondary,
+            "brand-muted" : #71809A,
         ),
         $theme-colors
 );

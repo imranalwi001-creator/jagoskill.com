@@ -126,6 +126,22 @@ function getThemeColorsSettings($landingItem = null, $isAdminSide = false)
     }
 
     $btnColors = ['primary', 'secondary', 'accent', 'success', 'info', 'warning', 'danger', 'white'];
+    $brandColors = [
+        'primary' => '#10998F',
+        'primary_saturated' => '#44C5BA',
+        'secondary' => '#111C3A',
+        'accent' => '#F4A64A',
+        'info' => '#6DA7F7',
+        'dark' => '#111C3A',
+        'section_bg' => '#EFF7F6',
+        'brand_primary' => '#10998F',
+        'brand_primary_dark' => '#087F78',
+        'brand_primary_soft' => '#E7F7F5',
+        'brand_navy' => '#111C3A',
+        'brand_muted' => '#71809A',
+    ];
+
+    $colors = array_merge($colors, $brandColors);
 
     if (!empty($colors)) {
         $rootResult = ":root{" . PHP_EOL;

@@ -11,7 +11,7 @@
 <div class="auth-static-showcase w-100" @if(!empty($sliderBg)) style="background-image: url('{{ $sliderBg }}')" @endif>
     @if(!empty($sliders))
         <div class="auth-static-showcase__overlay">
-            <div class="w-100">
+            <div class="auth-static-showcase__content w-100">
                 @if(!empty($slider['image']))
                     <div class="auth-static-showcase__image d-flex-center mb-24">
                         <img src="{{ $slider['image'] }}" alt="image" class="img-fluid" loading="lazy" decoding="async">

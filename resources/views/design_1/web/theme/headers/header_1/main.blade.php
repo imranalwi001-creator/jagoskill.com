@@ -30,7 +30,7 @@
                 {{-- Links --}}
                 <div class="col-6 col-lg-5 mt-12 mt-lg-0">
                     @if(!empty($themeSpecificLinks) and count($themeSpecificLinks))
-                        <div class="d-flex align-items-center gap-16 gap-lg-32">
+                        <div class="d-flex align-items-center gap-16 gap-lg-24 gap-xl-32">
                             @foreach($themeSpecificLinks as $themeSpecificLink)
                                 <a href="{{ $themeSpecificLink['url'] }}" class="text-dark">{{ $themeSpecificLink['title'] }}</a>
                             @endforeach

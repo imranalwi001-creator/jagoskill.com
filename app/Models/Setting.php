@@ -549,9 +549,34 @@ class Setting extends Model implements TranslatableContract
         return self::getSetting(self::$attendanceSettings, self::$attendanceSettingsName, $key);
     }
 
+    static function getDefaultEventsSettings(): array
+    {
+        return [
+            'status' => '1',
+            'qr_status' => '1',
+            'ticket_card_style' => 'grid',
+            'event_recent_reviews_status' => '1',
+            'tickets_default_icon' => 'bul-triangle',
+            'ticket_code_format' => 'both',
+            'number_of_characters_ticket_code' => '10',
+        ];
+    }
+
     static function getEventsSettings($key = null)
     {
-        return self::getSetting(self::$eventsSettings, self::$eventsSettingsName, $key);
+        $settings = self::getSetting(self::$eventsSettings, self::$eventsSettingsName);
+
+        if (!is_array($settings)) {
+            $settings = [];
+        }
+
+        $settings = array_merge(self::getDefaultEventsSettings(), $settings);
+
+        if (!empty($key)) {
+            return $settings[$key] ?? null;
+        }
+
+        return $settings;
     }
 
     static function getMeetingPackagesSettings($key = null)

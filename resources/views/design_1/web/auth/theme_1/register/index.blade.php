@@ -69,13 +69,15 @@
 
             <div class="modern-input-group form-group">
                 <label class="form-group-label" for="password">{{ trans('auth.password') }}</label>
-                <input name="password" type="password"
-                       class="form-control @error('password') is-invalid @enderror" id="password"
-                       aria-describedby="passwordHelp" autocomplete="new-password">
+                <div class="password-field-wrapper">
+                    <input name="password" type="password"
+                           class="form-control password-field-input @error('password') is-invalid @enderror" id="password"
+                           aria-describedby="passwordHelp" autocomplete="new-password">
 
-                <div class="password-input-visibility cursor-pointer size-24">
-                    <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
-                    <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    <div class="password-input-visibility cursor-pointer size-24">
+                        <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
+                        <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    </div>
                 </div>
 
                 @error('password')
@@ -87,13 +89,15 @@
 
             <div class="modern-input-group form-group ">
                 <label class="form-group-label" for="confirm_password">{{ trans('auth.retype_password') }}</label>
-                <input name="password_confirmation" type="password"
-                       class="form-control @error('password_confirmation') is-invalid @enderror" id="confirm_password"
-                       aria-describedby="confirmPasswordHelp" autocomplete="new-password">
+                <div class="password-field-wrapper">
+                    <input name="password_confirmation" type="password"
+                           class="form-control password-field-input @error('password_confirmation') is-invalid @enderror" id="confirm_password"
+                           aria-describedby="confirmPasswordHelp" autocomplete="new-password">
 
-                <div class="password-input-visibility cursor-pointer size-24">
-                    <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
-                    <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    <div class="password-input-visibility cursor-pointer size-24">
+                        <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
+                        <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    </div>
                 </div>
 
                 @error('password_confirmation')

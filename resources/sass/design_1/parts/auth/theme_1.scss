@@ -38,14 +38,47 @@
 
     .password-input-visibility {
         position: absolute;
-        top: 50%;
-        right: 12px;
+        top: calc(50% + 14px);
+        right: 14px;
         transform: translateY(-50%);
         z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px !important;
+        height: 30px !important;
+        border: 1px solid rgba(16, 153, 143, .18);
+        border-radius: 50%;
+        color: #087f78 !important;
+        background: rgba(255, 255, 255, .92);
+        box-shadow: 0 8px 20px rgba(20, 32, 51, .08);
+        transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+
+        &:hover {
+            color: var(--white) !important;
+            border-color: #10998f;
+            background: linear-gradient(135deg, #10998f, #087f78);
+            box-shadow: 0 10px 22px rgba(16, 153, 143, .2);
+        }
+
+        svg {
+            width: 17px !important;
+            height: 17px !important;
+            color: currentColor !important;
+            stroke: currentColor !important;
+        }
 
         .rtl & {
             right: auto;
-            left: 12px;
+            left: 14px;
+        }
+    }
+
+    .password-field-wrapper {
+        position: relative;
+
+        .password-input-visibility {
+            top: 50%;
         }
     }
 
@@ -109,6 +142,25 @@
 
 .auth-page-form-container {
     height: auto;
+    max-height: clamp(320px, 44vh, 430px);
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(16, 153, 143, .74) rgba(231, 247, 245, .8);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: linear-gradient(180deg, #10998f, #087f78);
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 999px;
+        background: rgba(231, 247, 245, .8);
+    }
 }

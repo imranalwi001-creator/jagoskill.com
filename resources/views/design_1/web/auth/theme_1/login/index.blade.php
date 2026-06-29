@@ -13,11 +13,13 @@
 
             <div class="modern-input-group form-group mt-28 mb-0">
                 <label class="form-group-label" for="password">{{ trans('auth.password') }}</label>
-                <input type="password" name="password" class="form-control @error('password')  is-invalid @enderror" id="password" aria-describedby="passwordHelp" autocomplete="current-password">
+                <div class="password-field-wrapper">
+                    <input type="password" name="password" class="form-control password-field-input @error('password')  is-invalid @enderror" id="password" aria-describedby="passwordHelp" autocomplete="current-password">
 
-                <div class="password-input-visibility cursor-pointer size-24">
-                    <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
-                    <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    <div class="password-input-visibility cursor-pointer size-24">
+                        <x-iconsax-lin-eye-slash class="icons-eye-slash text-gray-400 d-none" width="24px" height="24px"/>
+                        <x-iconsax-lin-eye class="icons-eye text-gray-400 " width="24px" height="24px"/>
+                    </div>
                 </div>
 
                 @error('password')

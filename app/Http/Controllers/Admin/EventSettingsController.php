@@ -21,9 +21,9 @@ class EventSettingsController extends Controller
             ->where('name', Setting::$eventsSettingsName)
             ->first();
 
-        $values = [];
+        $values = Setting::getDefaultEventsSettings();
         if (!empty($setting)) {
-            $values = json_decode($setting->value, true);
+            $values = array_merge($values, json_decode($setting->value, true) ?? []);
         }
 
         $data = [
@@ -39,11 +39,15 @@ class EventSettingsController extends Controller
         $this->authorize('admin_events_settings');
 
         $data = $request->all();
-        $page = $data['page'];
-        $name = $data['name'];
+        $page = $data['page'] ?? 'general';
+        $name = $data['name'] ?? Setting::$eventsSettingsName;
         $locale = $request->get('locale', Setting::$defaultSettingsLocale);
-        $newValues = $data['value'];
+        $newValues = $data['value'] ?? [];
         $values = [];
+
+        if ($name == Setting::$eventsSettingsName) {
+            $newValues = array_merge(Setting::getDefaultEventsSettings(), $newValues);
+        }
 
         $settings = Setting::where('name', $name)->first();
 

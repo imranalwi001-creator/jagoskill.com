@@ -44,9 +44,17 @@ class EventsController extends Controller
             ])
             ->paginate(10);
 
+        $instructors = null;
+        $instructorIds = $request->get('instructor_ids', []);
+
+        if (!empty($instructorIds) and is_array($instructorIds)) {
+            $instructors = User::query()->whereIn('id', $instructorIds)->get();
+        }
+
         $data = [
             'pageTitle' => trans('update.events'),
             'events' => $events,
+            'instructors' => $instructors,
         ];
         $data = array_merge($data, $topStats);
 
@@ -162,7 +170,8 @@ class EventsController extends Controller
         $this->authorize("admin_events_create");
 
         $data = [
-            'pageTitle' => trans('update.new_event')
+            'pageTitle' => trans('update.new_event'),
+            'locale' => mb_strtolower($request->get('locale', getDefaultLocale())),
         ];
         $data = array_merge($data, $this->getCreatePageData());
 

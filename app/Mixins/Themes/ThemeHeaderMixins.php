@@ -9,19 +9,46 @@ class ThemeHeaderMixins
     public function getHeader1NavbarSpecificLinks($contents)
     {
         $links = [];
+        $eventsLink = [
+            'title' => trans('update.events'),
+            'url' => '/events',
+        ];
+        $hasEventsLink = false;
+        $eventsLinkInserted = false;
 
         if (!empty($contents['specific_links']) and is_array($contents['specific_links'])) {
             foreach ($contents['specific_links'] as $linkData) {
                 if (!empty($linkData['title']) and !empty($linkData['url'])) {
+                    $normalizedUrl = trim($linkData['url']);
+
                     $links[] = [
                         'title' => $linkData['title'],
-                        'url' => $linkData['url'],
+                        'url' => $normalizedUrl,
                     ];
+
+                    if ($normalizedUrl == '/events' or $normalizedUrl == url('/events')) {
+                        $hasEventsLink = true;
+                    }
+
+                    if (!$hasEventsLink and !$eventsLinkInserted and $this->isForumsLink($normalizedUrl)) {
+                        $links[] = $eventsLink;
+                        $eventsLinkInserted = true;
+                        $hasEventsLink = true;
+                    }
                 }
             }
         }
 
+        if (!$hasEventsLink) {
+            $links[] = $eventsLink;
+        }
+
         return $links;
+    }
+
+    private function isForumsLink($url): bool
+    {
+        return in_array(rtrim($url, '/'), ['/forums', url('/forums')]);
     }
 
     public function getHeader1NavbarSpecificButton($contents)

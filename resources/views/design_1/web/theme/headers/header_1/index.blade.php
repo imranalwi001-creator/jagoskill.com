@@ -19,5 +19,9 @@
         .theme-header-1__top-navbar {
             padding-bottom: 42px !important;
         }
+        /* Make the logo look sleeker with more balanced whitespace */
+        .theme-header-1__logo {
+            height: 38px !important;
+        }
     </style>
 @endif

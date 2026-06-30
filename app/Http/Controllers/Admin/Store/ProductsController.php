@@ -315,8 +315,17 @@ class ProductsController extends Controller
     {
         $this->authorize('admin_store_new_product');
 
+        $productCategories = ProductCategory::where('parent_id', null)
+            ->with('subCategories')
+            ->get();
+            
+        $locale = $request->get('locale', app()->getLocale());
+
         $data = [
             'pageTitle' => trans('update.create_new_product'),
+            'productCategories' => $productCategories,
+            'locale' => mb_strtolower($locale),
+            'defaultLocale' => getDefaultLocale(),
         ];
 
         return view('admin.store.products.create', $data);

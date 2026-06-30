@@ -1,7 +1,7 @@
 @if(
-    $authUser->can('admin_imports_from_csv') or
-    $authUser->can('admin_translator') or
-    $authUser->can('admin_settings')
+    auth()->user()->can('admin_imports_from_csv') or
+    auth()->user()->can('admin_translator') or
+    auth()->user()->can('admin_settings')
 )
     <li class="menu-header">{{ trans('admin/main.settings') }}</li>
 @endif
@@ -73,4 +73,4 @@
             <span>{{ trans('admin/main.settings') }}</span>
         </a>
     </li>
-@endcan()
+@endcan

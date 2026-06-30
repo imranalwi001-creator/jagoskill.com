@@ -1,12 +1,12 @@
-@if($authUser->can('admin_users') or
-                $authUser->can('admin_roles') or
-                $authUser->can('admin_users_not_access_content') or
-                $authUser->can('admin_group') or
-                $authUser->can('admin_users_badges') or
-                $authUser->can('admin_become_instructors_list') or
-                $authUser->can('admin_delete_account_requests') or
-                $authUser->can('admin_user_login_history') or
-                $authUser->can('admin_user_ip_restriction')
+@if(auth()->user()->can('admin_users') or
+                auth()->user()->can('admin_roles') or
+                auth()->user()->can('admin_users_not_access_content') or
+                auth()->user()->can('admin_group') or
+                auth()->user()->can('admin_users_badges') or
+                auth()->user()->can('admin_become_instructors_list') or
+                auth()->user()->can('admin_delete_account_requests') or
+                auth()->user()->can('admin_user_login_history') or
+                auth()->user()->can('admin_user_ip_restriction')
             )
     <li class="menu-header">{{ trans('panel.users') }}</li>
 @endif
@@ -24,37 +24,37 @@
                 <li class="{{ (request()->is(getAdminPanelUrl('/users/create', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/users/create">{{ trans('admin/main.new') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_users_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/all-users', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/all-users">{{ trans('admin/main.all_users') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_staffs_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/staffs', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/staffs">{{ trans('admin/main.staff') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_users_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/students', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/students">{{ trans('public.students') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_instructors_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/instructors', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/instructors">{{ trans('home.instructors') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_organizations_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/organizations', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/organizations">{{ trans('admin/main.organizations') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
 
         </ul>
@@ -83,17 +83,17 @@
                 <li class="{{ (request()->is(getAdminPanelUrl('/roles/create', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/roles/create">{{ trans('admin/main.new') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_roles_list')
                 <li class="{{ (request()->is(getAdminPanelUrl('/roles', false))) ? 'active' : '' }}">
                     <a class="nav-link active" href="{{ getAdminPanelUrl() }}/roles">{{ trans('admin/main.list') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
         </ul>
     </li>
-@endcan()
+@endcan
 
 @can('admin_group')
     <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/users/groups*', false))) ? 'active' : '' }}">
@@ -126,7 +126,7 @@
             <span>{{ trans('admin/main.badges') }}</span>
         </a>
     </li>
-@endcan()
+@endcan
 
 
 
@@ -156,7 +156,7 @@
             </li>
         </ul>
     </li>
-@endcan()
+@endcan
 
 @can('admin_delete_account_requests')
     <li class="nav-item {{ (request()->is(getAdminPanelUrl('/users/delete-account-requests*', false))) ? 'active' : '' }}">
@@ -167,7 +167,7 @@
     </li>
 @endcan
 
-@if($authUser->can("admin_user_login_history") or $authUser->can("admin_user_ip_restriction"))
+@if(auth()->user()->can("admin_user_login_history") or auth()->user()->can("admin_user_ip_restriction"))
     <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/users/login-history*', false)) or request()->is(getAdminPanelUrl('/users/ip-restriction*', false))) ? 'active' : '' }}">
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
             <x-iconsax-bul-shield-search class="icons" width="24px" height="24px"/>

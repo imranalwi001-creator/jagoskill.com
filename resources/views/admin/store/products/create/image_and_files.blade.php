@@ -42,7 +42,7 @@
                     </button>
                 </div>
 
-                @if(!empty($product->images) and count($product->images))
+                @if(!empty($product) and !empty($product->images) and count($product->images))
                     @foreach($product->images as $productImage)
                         <div class="input-group product-images-input-group mt-8">
                             <div class="input-group-prepend">
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        @if($product->isVirtual())
+        @if(!empty($product) and $product->isVirtual())
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="section-title after-line">{{ trans('public.files') }}</h2>
@@ -101,7 +101,7 @@
 
 
                 <div class="mt-2">
-                    @if(!empty($product->files) and count($product->files))
+                    @if(!empty($product) and !empty($product->files) and count($product->files))
                         <div class="table-responsive">
                             <table class="table custom-table text-center font-14">
 

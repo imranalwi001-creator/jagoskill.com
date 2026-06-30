@@ -14,7 +14,7 @@
             @enderror
         </div>
 
-        @if($product->isPhysical())
+        @if(empty($product) or (!empty($product) and $product->isPhysical()))
             <div class="form-group">
                 <label class="input-label">{{ trans('update.delivery_fee') }}</label>
                 <input type="number" name="delivery_fee" value="{{ !empty($product) ? $product->delivery_fee : old('delivery_fee') }}" class="form-control @error('delivery_fee')  is-invalid @enderror" placeholder="{{ trans('update.0_for_free_delivery') }}"/>

@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../vendor/autoload.php'; \ = require_once __DIR__.'/../bootstrap/app.php'; \->make('Illuminate\Contracts\Console\Kernel')->bootstrap(); \ = app('blade.compiler'); echo \->compileString(file_get_contents('/var/www/html/resources/views/admin/certificates/lists.blade.php'));

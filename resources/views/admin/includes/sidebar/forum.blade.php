@@ -1,6 +1,6 @@
 @if(
-                $authUser->can('admin_forum') or
-                $authUser->can('admin_featured_topics')
+                auth()->user()->can('admin_forum') or
+                auth()->user()->can('admin_featured_topics')
                 )
     <li class="menu-header">{{ trans('update.forum') }}</li>
 @endif
@@ -17,22 +17,22 @@
                             <li class="{{ (request()->is(getAdminPanelUrl('/forums/create', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/forums/create">{{ trans('admin/main.new') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
 
                         @can('admin_forum_list')
                             <li class="{{ (request()->is(getAdminPanelUrl('/forums', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/forums">{{ trans('admin/main.list') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
 
                         @can('admin_forum_settings')
                             <li class="{{ (request()->is(getAdminPanelUrl('/forums/settings', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/forums/settings">{{ trans('admin/main.settings') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
                     </ul>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_featured_topics')
                 <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/featured-topics*', false))) ? 'active' : '' }}">
@@ -46,17 +46,17 @@
                             <li class="{{ (request()->is(getAdminPanelUrl('/featured-topics/create', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/featured-topics/create">{{ trans('admin/main.new') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
 
                         @can('admin_featured_topics_list')
                             <li class="{{ (request()->is(getAdminPanelUrl('/featured-topics', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/featured-topics">{{ trans('admin/main.list') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
                        
                     </ul>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_recommended_topics')
                 <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/recommended-topics*', false))) ? 'active' : '' }}">
@@ -70,14 +70,14 @@
                             <li class="{{ (request()->is(getAdminPanelUrl('/recommended-topics/create', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/recommended-topics/create">{{ trans('admin/main.new') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
 
                         @can('admin_recommended_topics_list')
                             <li class="{{ (request()->is(getAdminPanelUrl('/recommended-topics', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/recommended-topics">{{ trans('admin/main.list') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
                        
                     </ul>
                 </li>
-            @endcan()
+            @endcan

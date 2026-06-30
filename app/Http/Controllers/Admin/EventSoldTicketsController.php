@@ -35,7 +35,13 @@ class EventSoldTicketsController extends Controller
         $purchasedTickets = $this->handleFilters($request, $query)
             ->with([
                 'sale',
-                'eventTicket',
+                'eventTicket' => function ($query) {
+                    $query->with([
+                        'event' => function ($query) {
+                            $query->with('category');
+                        }
+                    ]);
+                },
                 'user' => function ($query) {
                     $query->select('id', 'full_name', 'role_name', 'role_id', 'username', 'avatar', 'avatar_settings', 'mobile', 'email');
                 }

@@ -1,17 +1,17 @@
-@if($authUser->can('admin_discount_codes') or
-                $authUser->can('admin_cart_discount') or
-                $authUser->can('admin_abandoned_cart') or
-                $authUser->can('admin_product_discount') or
-                $authUser->can('admin_feature_webinars') or
-                $authUser->can('admin_gift') or
-                $authUser->can('admin_promotion') or
-                $authUser->can('admin_advertising') or
-                $authUser->can('admin_newsletters') or
-                $authUser->can('admin_advertising_modal') or
-                $authUser->can('admin_registration_bonus') or
-                $authUser->can('admin_floating_bar_create') or
-                $authUser->can('admin_purchase_notifications') or
-                $authUser->can('admin_product_badges')
+@if(auth()->user()->can('admin_discount_codes') or
+                auth()->user()->can('admin_cart_discount') or
+                auth()->user()->can('admin_abandoned_cart') or
+                auth()->user()->can('admin_product_discount') or
+                auth()->user()->can('admin_feature_webinars') or
+                auth()->user()->can('admin_gift') or
+                auth()->user()->can('admin_promotion') or
+                auth()->user()->can('admin_advertising') or
+                auth()->user()->can('admin_newsletters') or
+                auth()->user()->can('admin_advertising_modal') or
+                auth()->user()->can('admin_registration_bonus') or
+                auth()->user()->can('admin_floating_bar_create') or
+                auth()->user()->can('admin_purchase_notifications') or
+                auth()->user()->can('admin_product_badges')
             )
     <li class="menu-header">{{ trans('admin/main.marketing') }}</li>
 @endif
@@ -126,7 +126,7 @@
                             <li class="{{ (request()->is(getAdminPanelUrl('/webinars/features', false))) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ getAdminPanelUrl() }}/webinars/features">{{ trans('admin/main.list') }}</a>
                             </li>
-                        @endcan()
+                        @endcan
                        
                     </ul>
                 </li>

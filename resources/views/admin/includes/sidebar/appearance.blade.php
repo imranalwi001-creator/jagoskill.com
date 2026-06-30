@@ -1,6 +1,6 @@
 @if(
-        $authUser->can('admin_themes') or
-        $authUser->can('admin_landing_builder')
+        auth()->user()->can('admin_themes') or
+        auth()->user()->can('admin_landing_builder')
     )
     <li class="menu-header">{{ trans('update.appearance') }}</li>
 @endif

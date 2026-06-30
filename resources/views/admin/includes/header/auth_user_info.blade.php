@@ -1,3 +1,9 @@
+@php
+    $authUser = $authUser ?? auth()->user();
+    $authUserRoleCaption = (!empty($authUser) and !empty($authUser->role)) ? $authUser->role->caption : '';
+@endphp
+
+@if(!empty($authUser))
 <div class="navbar-auth-user">
     <div class="d-flex align-items-center cursor-pointer">
         <div class="navbar-auth-user__avatar is-panel-nav mr-4">
@@ -6,7 +12,7 @@
 
         <div class="d-none d-lg-block ml-8">
             <div class="navbar-auth-user__info font-14 text-white">{{ $authUser->full_name }}</div>
-            <span class="mt-4 text-white font-12" style="opacity: 0.7;">{{ $authUser->role->caption }}</span>
+            <span class="mt-4 text-white font-12" style="opacity: 0.7;">{{ $authUserRoleCaption }}</span>
         </div>
 
         <x-iconsax-lin-arrow-down class="icons text-dark ml-8" width="14px" height="14px"/>
@@ -20,7 +26,7 @@
 
             <div class="ml-8">
                 <div class="font-14 font-weight-bold text-dark">{{ $authUser->full_name }}</div>
-                <span class="mt-4 text-gray-500 font-12">{{ $authUser->role->caption }}</span>
+                <span class="mt-4 text-gray-500 font-12">{{ $authUserRoleCaption }}</span>
             </div>
         </div>
 
@@ -108,3 +114,4 @@
 
     </div>
 </div>
+@endif

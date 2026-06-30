@@ -13,8 +13,9 @@
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label class="input-label">{{trans('admin/main.instructor')}}</label>
+                        <label class="input-label">{{ trans('update.ticket_types') }}</label>
                         <select name="ticket_id" class="form-control select2" data-placeholder="{{ trans('update.ticket_types') }}">
+                            <option value="">{{ trans('public.all') }}</option>
 
                             @if(!empty($allTickets) and $allTickets->count() > 0)
                                 @foreach($allTickets as $allTicket)

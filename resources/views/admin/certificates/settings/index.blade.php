@@ -5,47 +5,41 @@
         <div class="section-header">
             <h1>{{ $pageTitle }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
-                </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{ trans('admin/main.dashboard') }}</a></div>
+                <div class="breadcrumb-item">{{ $pageTitle }}</div>
             </div>
         </div>
 
         <div class="section-body">
+            <div class="card">
+                <div class="card-header"><h5 class="font-14 mb-0">{{ trans('admin/main.certificates') }}</h5></div>
+                <div class="card-body">
+                    <form action="{{ getAdminPanelUrl('/certificates/settings/store') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="name" value="{{ \App\Models\Setting::$certificateSettingsName }}">
+                        <input type="hidden" name="locale" value="{{ $selectedLocale }}">
 
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-
-
-
-                            <div class="empty-state mx-auto d-block"  data-width="900" >
-                                <img class="img-fluid col-md-6" src="/assets/default/img/plugin.svg" alt="image">
-                                <h3 class="mt-3">This is a paid plugin!</h3>
-                                <h5 class="lead">
-                                    You can purchase it by <strong><a href="https://codecanyon.net/item/universal-plugins-bundle-for-rocket-lms/33297004">this link</a></strong> on Codecanyon.
-                                </h5>             
-                              </div>
-
-
-                            
+                        <div class="form-group custom-switches-stacked">
+                            <label class="custom-switch pl-0">
+                                <input type="hidden" name="status" value="0">
+                                <input type="checkbox" name="status" value="1" class="custom-switch-input" {{ !empty($values['status']) ? 'checked' : '' }}>
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description mb-0 cursor-pointer">{{ trans('admin/main.active') }}</span>
+                            </label>
                         </div>
 
-                      
+                        <div class="form-group">
+                            <label class="input-label">{{ trans('update.default_certificate_template') }}</label>
+                            <input type="text" name="default_template_id" class="form-control" value="{{ $values['default_template_id'] ?? '' }}" placeholder="{{ trans('update.template_id') }}">
+                            <p class="font-12 text-gray-500 mt-2">{{ trans('update.keep_empty_to_use_system_default_template') }}</p>
+                        </div>
 
-                    </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">{{ trans('admin/main.save_change') }}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
-
 @endsection
-
-@push('scripts_bottom')
-
-@endpush

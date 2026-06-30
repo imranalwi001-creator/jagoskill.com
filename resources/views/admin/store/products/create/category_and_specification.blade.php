@@ -42,8 +42,10 @@
                                     <div class="py-2"></div>
 
                                     @php
-                                        $productFilterOptions = $product->selectedFilterOptions->pluck('filter_option_id')->toArray();
-
+                                        $productFilterOptions = [];
+                                        if(!empty($product)) {
+                                            $productFilterOptions = $product->selectedFilterOptions->pluck('filter_option_id')->toArray();
+                                        }
                                         if (!empty(old('filters'))) {
                                             $productFilterOptions = array_merge($productFilterOptions, old('filters'));
                                         }
@@ -70,18 +72,18 @@
         {{-- Related Products --}}
         <div class="col-12 mt-20">
             @include('admin.store.products.create.relatedProducts.add_related_product', [
-                    'relatedProductItemId' => $product->id,
+                    'relatedProductItemId' => !empty($product) ? $product->id : '',
                      'relatedProductItemType' => 'product',
-                     'relatedProducts' => $product->relatedProducts
+                     'relatedProducts' => !empty($product) ? $product->relatedProducts : []
                 ])
         </div>
 
         {{-- Related Course --}}
         <div class="col-12 mt-20">
             @include('admin.webinars.relatedCourse.add_related_course', [
-                    'relatedCourseItemId' => $product->id,
+                    'relatedCourseItemId' => !empty($product) ? $product->id : '',
                      'relatedCourseItemType' => 'product',
-                     'relatedCourses' => $product->relatedCourses
+                     'relatedCourses' => !empty($product) ? $product->relatedCourses : []
                 ])
         </div>
 
@@ -96,7 +98,7 @@
             </div>
 
             <div class="accordion-content-wrapper mt-15" id="specificationsAccordion" role="tablist" aria-multiselectable="true">
-                @if(!empty($product->selectedSpecifications) and count($product->selectedSpecifications))
+                @if(!empty($product) and !empty($product->selectedSpecifications) and count($product->selectedSpecifications))
                     <div>
                         @foreach($product->selectedSpecifications as $selectedSpecificationRow)
                             @include('admin.store.products.create.accordions.specification',['selectedSpecification' => $selectedSpecificationRow])
@@ -128,7 +130,7 @@
             </div>
 
             <div class="accordion-content-wrapper mt-15" id="faqsAccordion" role="tablist" aria-multiselectable="true">
-                @if(!empty($product->faqs) and count($product->faqs))
+                @if(!empty($product) and !empty($product->faqs) and count($product->faqs))
                     <div>
                         @foreach($product->faqs as $faqRow)
                             @include('admin.store.products.create.accordions.faq',['faq' => $faqRow])

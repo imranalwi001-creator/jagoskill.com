@@ -1,7 +1,7 @@
 @if(
-    $authUser->can('admin_consultants_lists') or
-    $authUser->can('admin_appointments_lists') or
-    $authUser->can('admin_meeting_packages')
+    auth()->user()->can('admin_consultants_lists') or
+    auth()->user()->can('admin_appointments_lists') or
+    auth()->user()->can('admin_meeting_packages')
 )
     <li class="menu-header">{{ trans('site.appointments') }}</li>
 @endif
@@ -37,25 +37,25 @@
                 <li class="{{ (request()->is(getAdminPanelUrl('/meeting-packages/create', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl('/meeting-packages/create') }}">{{ trans('public.create') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_meeting_packages_lists')
                 <li class="{{ (request()->is(getAdminPanelUrl('/meeting-packages', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl('/meeting-packages') }}">{{ trans('admin/main.lists') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_meeting_packages_sold')
                 <li class="{{ (request()->is(getAdminPanelUrl('/meeting-packages/sold', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl('/meeting-packages/sold') }}">{{ trans('update.sold_packages') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_meeting_packages_settings')
                 <li class="{{ (request()->is(getAdminPanelUrl('/meeting-packages/settings*', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl("/meeting-packages/settings") }}">{{ trans('admin/main.settings') }}</a>
                 </li>
-            @endcan()
+            @endcan
         </ul>
     </li>
-@endcan()
+@endcan

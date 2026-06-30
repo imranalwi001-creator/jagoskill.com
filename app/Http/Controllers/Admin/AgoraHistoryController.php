@@ -10,12 +10,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AgoraHistoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('admin_agora_history_list');
 
-        $agoraHistories = AgoraHistory::whereNotNull('end_at')
-            ->orderBy('start_at')
+        $query = AgoraHistory::whereNotNull('end_at');
+
+        $agoraHistories = $this->handleFilters($request, $query)
             ->with([
                 'session' => function ($query) {
                     $query->with('webinar');
@@ -31,10 +32,44 @@ class AgoraHistoryController extends Controller
         return view('admin.agora_history.index', $data);
     }
 
-    public function exportExcel()
+    private function handleFilters(Request $request, $query)
     {
-        $agoraHistories = AgoraHistory::whereNotNull('end_at')
-            ->orderBy('start_at')
+        $search = $request->get('search');
+        $from = $request->get('from');
+        $to = $request->get('to');
+        $sort = $request->get('sort');
+
+        $query = fromAndToDateFilter($from, $to, $query, 'start_at');
+
+        if (!empty($search)) {
+            $query->whereHas('session', function ($query) use ($search) {
+                $query->whereTranslationLike('title', "%{$search}%")
+                    ->orWhereHas('webinar', function ($query) use ($search) {
+                        $query->whereTranslationLike('title', "%{$search}%");
+                    });
+            });
+        }
+
+        switch ($sort) {
+            case 'session_start_date_asc':
+                $query->orderBy('start_at', 'asc');
+                break;
+            case 'session_start_date_desc':
+            default:
+                $query->orderBy('start_at', 'desc');
+                break;
+        }
+
+        return $query;
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $this->authorize('admin_agora_history_list');
+
+        $query = AgoraHistory::whereNotNull('end_at');
+
+        $agoraHistories = $this->handleFilters($request, $query)
             ->with([
                 'session' => function ($query) {
                     $query->with('webinar');

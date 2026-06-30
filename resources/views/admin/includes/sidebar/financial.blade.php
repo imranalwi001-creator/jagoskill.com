@@ -1,10 +1,10 @@
-@if($authUser->can('admin_documents') or
-                $authUser->can('admin_sales_list') or
-                $authUser->can('admin_payouts') or
-                $authUser->can('admin_offline_payments_list') or
-                $authUser->can('admin_subscribe') or
-                $authUser->can('admin_registration_packages') or
-                $authUser->can('admin_installments')
+@if(auth()->user()->can('admin_documents') or
+                auth()->user()->can('admin_sales_list') or
+                auth()->user()->can('admin_payouts') or
+                auth()->user()->can('admin_offline_payments_list') or
+                auth()->user()->can('admin_subscribe') or
+                auth()->user()->can('admin_registration_packages') or
+                auth()->user()->can('admin_installments')
             )
     <li class="menu-header">{{ trans('admin/main.financial') }}</li>
 @endif

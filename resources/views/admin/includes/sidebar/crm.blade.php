@@ -1,9 +1,9 @@
-@if($authUser->can('admin_supports') or
-                $authUser->can('admin_comments') or
-                $authUser->can('admin_reports') or
-                $authUser->can('admin_contacts') or
-                $authUser->can('admin_noticeboards') or
-                $authUser->can('admin_notifications')
+@if(auth()->user()->can('admin_supports') or
+                auth()->user()->can('admin_comments') or
+                auth()->user()->can('admin_reports') or
+                auth()->user()->can('admin_contacts') or
+                auth()->user()->can('admin_noticeboards') or
+                auth()->user()->can('admin_notifications')
             )
     <li class="menu-header">{{ trans('admin/main.crm') }}</li>
 @endif
@@ -115,13 +115,13 @@
                 <li class="{{ (request()->is(getAdminPanelUrl('/reports/reasons', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/reports/reasons">{{ trans('admin/main.report_reasons') }}</a>
                 </li>
-            @endcan()
+            @endcan
 
             @can('admin_forum_topic_post_reports')
                 <li class="{{ (request()->is(getAdminPanelUrl('/reports/forum-topics', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/reports/forum-topics">{{ trans('update.forum_topics') }}</a>
                 </li>
-            @endcan()
+            @endcan
         </ul>
     </li>
 @endcan

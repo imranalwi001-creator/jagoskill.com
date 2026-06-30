@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="/assets/design_1/css/app.min.css">
     <link rel="stylesheet" href="/assets/admin/css/extra.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     @if($isRtl)
         <link rel="stylesheet" href="/assets/design_1/css/rtl-app.min.css">
@@ -23,317 +24,413 @@
     @stack('scripts_top')
 
     <style>
-        :root{
-            --admin-auth-bg:#071526;
-            --admin-auth-panel:#0e2238;
-            --admin-auth-line:rgba(255,255,255,.12);
-            --admin-auth-text:#f7fbff;
-            --admin-auth-muted:#9fb2c8;
-            --admin-auth-primary:#18b6a3;
-            --admin-auth-primary-dark:#0f8378;
-            --admin-auth-accent:#f5b85f;
+        :root {
+            --admin-auth-bg: #090e17;
+            --admin-auth-panel: rgba(15, 23, 42, 0.45);
+            --admin-auth-line: rgba(255, 255, 255, 0.08);
+            --admin-auth-text: #f8fafc;
+            --admin-auth-muted: #94a3b8;
+            --admin-auth-primary: #18b6a3;
+            --admin-auth-primary-dark: #0f8378;
+            --admin-auth-accent: #f5b85f;
+            --font-family: 'Outfit', sans-serif;
         }
-        body.admin-auth-body{
-            background:
-                radial-gradient(circle at 14% 18%, rgba(24,182,163,.28), transparent 28rem),
-                radial-gradient(circle at 86% 82%, rgba(245,184,95,.2), transparent 24rem),
-                linear-gradient(135deg, #06111f 0%, var(--admin-auth-bg) 58%, #10263d 100%);
+
+        body.admin-auth-body {
+            background-color: var(--admin-auth-bg);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin: 0;
             overflow-x: hidden;
             color: var(--admin-auth-text);
-            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            font-family: var(--font-family);
+            display: flex;
+            align-items: stretch;
+            justify-content: stretch;
         }
-        .admin-auth-shell{
-            position: relative;
+
+        .split-wrapper {
+            display: flex;
             width: 100%;
             min-height: 100vh;
+        }
+
+        /* Left Side: Brand Panel */
+        .brand-side {
+            flex: 1.2;
+            background: linear-gradient(135deg, #090e17 0%, #0c1829 50%, #050b14 100%);
+            position: relative;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 28px 16px;
-        }
-        .admin-auth-shell:before{
-            content:"";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: .15;
-            background-image:
-                linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-            background-size: 44px 44px;
-            mask-image: linear-gradient(to bottom, #000, transparent 78%);
-        }
-        .admin-auth-container{
-            position: relative;
-            z-index: 1;
-            width: min(100%, 448px);
-            padding: 32px;
-            background: linear-gradient(180deg, rgba(14,34,56,.96), rgba(8,22,38,.98));
-            border: 1px solid var(--admin-auth-line);
-            border-radius: 22px;
-            box-shadow: 0 22px 70px rgba(0,0,0,.34);
-            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
-        }
-        .admin-auth-container *{
-            font-family: inherit !important;
-        }
-        .admin-auth-home-link{
-            position: absolute;
-            top: 24px;
-            left: 24px;
-            z-index: 2;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            min-height: 46px;
-            padding: 7px 16px 7px 8px;
-            color: var(--admin-auth-text);
-            background:
-                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06)) padding-box,
-                linear-gradient(135deg, rgba(125,228,215,.75), rgba(245,184,95,.52)) border-box;
-            border: 1px solid transparent;
-            border-radius: 999px;
-            box-shadow: 0 16px 42px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18);
-            backdrop-filter: blur(14px);
-            font-size: 14px;
-            font-weight: 800;
-            text-decoration: none;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
             overflow: hidden;
-            transition: transform .18s ease, box-shadow .18s ease, color .18s ease;
         }
-        .admin-auth-home-link:before{
-            content:"";
+
+        @media (max-width: 991px) {
+            .brand-side {
+                display: none;
+            }
+        }
+
+        /* Abstract glowing blobs for futuristic effect */
+        .glowing-blob-1 {
             position: absolute;
-            inset: 1px;
-            border-radius: inherit;
-            background: linear-gradient(120deg, rgba(255,255,255,.22), transparent 42%);
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(24, 182, 163, 0.15) 0%, transparent 70%);
+            filter: blur(50px);
+            pointer-events: none;
+            animation: float-slow 12s infinite alternate;
+        }
+
+        .glowing-blob-2 {
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(245, 184, 95, 0.08) 0%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            animation: float-slow 18s infinite alternate-reverse;
+        }
+
+        @keyframes float-slow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 30px) scale(1.1); }
+        }
+
+        /* Cybernetic grid overlay */
+        .brand-side::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
             pointer-events: none;
         }
-        .admin-auth-home-link:hover{
-            color: var(--admin-auth-text);
-            transform: translateY(-2px);
-            box-shadow: 0 20px 48px rgba(0,0,0,.28), 0 0 0 4px rgba(24,182,163,.12);
-            text-decoration: none;
+
+        .brand-logo-container img {
+            max-height: 48px;
+            filter: drop-shadow(0 0 12px rgba(24, 182, 163, 0.3));
         }
-        .admin-auth-home-link__icon{
+
+        .brand-content {
             position: relative;
-            z-index: 1;
-            width: 30px;
-            height: 30px;
+            z-index: 2;
+            max-width: 600px;
+            margin-top: auto;
+            margin-bottom: auto;
+            text-align: left;
+        }
+
+        .brand-badge {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            color: #06111f;
-            background: linear-gradient(135deg, #7de4d7, #f5b85f);
-            box-shadow: 0 8px 20px rgba(24,182,163,.2);
-            font-size: 17px;
-            line-height: 1;
+            padding: 6px 14px;
+            border-radius: 99px;
+            background: rgba(24, 182, 163, 0.1);
+            border: 1px solid rgba(24, 182, 163, 0.2);
+            color: var(--admin-auth-primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
         }
-        .admin-auth-home-link__text{
+
+        .brand-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .brand-title span {
+            background: linear-gradient(120deg, var(--admin-auth-primary), var(--admin-auth-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-description {
+            font-size: 16px;
+            color: var(--admin-auth-muted);
+            line-height: 1.6;
+        }
+
+        .brand-footer {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            gap: 20px;
         }
-        .admin-auth-container:before{
-            content:"";
+
+        /* Right Side: Form Panel */
+        .form-side {
+            flex: 0.9;
+            background: #05080e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            border-left: 1px solid var(--admin-auth-line);
+        }
+
+        @media (max-width: 991px) {
+            .form-side {
+                flex: 1;
+                border-left: none;
+            }
+        }
+
+        .admin-auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--admin-auth-panel);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--admin-auth-line);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .admin-auth-container::before {
+            content: "";
             position: absolute;
             top: 0;
-            left: 24px;
-            right: 24px;
-            height: 3px;
-            border-radius: 0 0 999px 999px;
-            background: linear-gradient(90deg, var(--admin-auth-primary), var(--admin-auth-accent));
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--admin-auth-primary), var(--admin-auth-accent), transparent);
         }
-        .admin-auth-container h1,
-        .admin-auth-container h2,
-        .admin-auth-container h3,
-        .admin-auth-container h4,
-        .admin-auth-container h5{
-            font-family: inherit !important;
-            letter-spacing: 0;
+
+        /* Isolated Form Styling to avoid system conflicts */
+        .auth-input-group {
+            margin-bottom: 22px !important;
+            position: relative;
+            text-align: left;
         }
-        .admin-auth-container h1{
-            font-weight: 800;
-            line-height: 1.22;
-        }
-        .admin-auth-container label{
-            position: static !important;
-            display: inline-flex;
-            width: auto !important;
-            height: auto !important;
-            transform: none !important;
-            color: var(--admin-auth-muted);
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-            background-color: transparent !important;
-            padding: 0;
-            line-height: 1.35;
-        }
-        .admin-auth-container .form-group{
-            margin-bottom: 18px !important;
-        }
-        .admin-auth-container .form-group > .d-flex{
-            min-height: 20px;
+
+        .auth-label {
+            display: block !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: #e2e8f0 !important;
             margin-bottom: 8px !important;
+            background: transparent !important;
+            padding: 0 !important;
+            position: static !important;
+            transform: none !important;
+            height: auto !important;
+            width: auto !important;
         }
-        .admin-auth-container .form-control{
-            height: 50px;
-            color: var(--admin-auth-text) !important;
-            background: rgba(255,255,255,.07) !important;
-            border: 1px solid rgba(255,255,255,.14) !important;
-            border-radius: 14px;
-            padding: 13px 16px;
-            transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+
+        .auth-input {
+            width: 100% !important;
+            height: 48px !important;
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            padding: 10px 16px !important;
+            font-size: 15px !important;
+            outline: none !important;
+            box-sizing: border-box !important;
+            transition: all 0.25s ease !important;
         }
-        .admin-auth-container input.form-control{
-            line-height: 1.35;
-        }
-        .admin-auth-container .form-control:focus{
-            background: rgba(255,255,255,.1) !important;
+
+        .auth-input:focus {
             border-color: var(--admin-auth-primary) !important;
-            box-shadow: 0 0 0 4px rgba(24,182,163,.16) !important;
+            box-shadow: 0 0 0 3px rgba(24, 182, 163, 0.25) !important;
+            background: rgba(15, 23, 42, 0.8) !important;
         }
-        .admin-auth-container .btn-primary{
-            min-height: 52px;
-            background: linear-gradient(135deg, var(--admin-auth-primary), var(--admin-auth-primary-dark)) !important;
-            border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            letter-spacing: 0;
-            transition: transform .18s ease, box-shadow .18s ease;
+
+        /* Override Browser Auto-fill color changes */
+        .auth-input:-webkit-autofill,
+        .auth-input:-webkit-autofill:hover,
+        .auth-input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #ffffff !important;
+            -webkit-box-shadow: 0 0 0px 1000px #0b1324 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
         }
-        .admin-auth-container .btn-primary:hover{
-            transform: translateY(-2px);
-            box-shadow: 0 14px 26px rgba(24,182,163,.24);
-        }
-        .admin-auth-container a{
-            color: #7de4d7;
-            text-decoration: none;
-        }
-        .admin-auth-container a:hover{
-            color: var(--admin-auth-text);
-        }
-        .admin-auth-logo{
-            max-width: 150px;
-            max-height: 58px;
-            object-fit: contain;
-            filter: brightness(0) invert(1);
-        }
-        .admin-auth-muted{
-            color: var(--admin-auth-muted);
-        }
-        .admin-auth-container .password-input-visibility{
+
+        /* Password Visibility icon placement fix */
+        .admin-auth-container .password-input-visibility {
             position: absolute !important;
-            top: 42px !important;
-            right: 15px !important;
+            top: 12px !important;
+            right: 16px !important;
+            z-index: 10 !important;
             left: auto !important;
             bottom: auto !important;
             transform: none !important;
-            z-index: 3;
+            background: transparent !important;
         }
-        .rtl .admin-auth-container .password-input-visibility{
-            right: auto !important;
-            left: 15px !important;
+
+        .admin-auth-forgot {
+            font-size: 13px;
+            color: var(--admin-auth-primary) !important;
+            font-weight: 600;
+            background: transparent !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease;
         }
-        .admin-auth-forgot{
-            position: static !important;
-            right: auto !important;
-            top: auto !important;
-            display: inline-flex !important;
-            width: auto !important;
-            margin-left: auto;
-            font-size: 12px;
-            line-height: 1.4;
-            white-space: nowrap;
+
+        .admin-auth-forgot:hover {
+            color: var(--admin-auth-accent) !important;
         }
-        .admin-auth-container .custom-control{
-            min-height: 24px;
-            padding-left: 0 !important;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        /* Custom Checkbox Group styling */
+        .auth-checkbox-group {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            margin-top: 15px !important;
+            text-align: left;
         }
-        .admin-auth-container .custom-control-input{
-            position: static !important;
-            width: 20px !important;
-            height: 20px !important;
+
+        .auth-checkbox-input {
+            width: 18px !important;
+            height: 18px !important;
+            cursor: pointer !important;
+            accent-color: var(--admin-auth-primary) !important;
             margin: 0 !important;
+            position: static !important;
             opacity: 1 !important;
         }
-        .admin-auth-container .custom-control__label,
-        .admin-auth-container .custom-control-label{
+
+        .auth-checkbox-label {
+            color: var(--admin-auth-muted) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
             margin: 0 !important;
-            color: var(--admin-auth-muted);
+            background: transparent !important;
+            padding: 0 !important;
+            position: static !important;
+            transform: none !important;
+        }
+
+        /* Premium Buttons */
+        .admin-auth-container .btn-primary {
+            height: 50px;
+            background: linear-gradient(135deg, var(--admin-auth-primary) 0%, var(--admin-auth-primary-dark) 100%) !important;
+            border: none;
+            border-radius: 12px;
             font-weight: 700;
+            font-size: 16px;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(24, 182, 163, 0.2);
+            transition: all 0.25s ease;
         }
-        .admin-auth-container .custom-control__label:before,
-        .admin-auth-container .custom-control__label:after,
-        .admin-auth-container .custom-control-label:before,
-        .admin-auth-container .custom-control-label:after{
-            display: none !important;
+
+        .admin-auth-container .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(24, 182, 163, 0.4);
         }
-        .admin-auth-footer{
-            position: relative;
-            z-index: 1;
-            width: min(100%, 448px);
-            margin-top: 18px;
-            color: rgba(247,251,255,.68);
-            text-align: center;
-            font-size: 12px;
-            line-height: 1.6;
+
+        /* Top Home Button */
+        .admin-auth-home-link {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
+            color: var(--admin-auth-text);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
-        .admin-auth-footer a{
-            color: #7de4d7;
-            font-weight: 700;
+
+        .admin-auth-home-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--admin-auth-primary);
+            color: #ffffff;
             text-decoration: none;
         }
-        .admin-auth-footer a:hover{
-            color: var(--admin-auth-text);
+
+        .admin-auth-footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--admin-auth-muted);
+            text-align: center;
         }
-        @media (max-width: 575px){
-            .admin-auth-home-link{
-                position: relative;
-                top: auto;
-                left: auto;
-                margin-bottom: 18px;
-            }
-            .admin-auth-container{
-                padding: 24px 18px;
-                border-radius: 18px;
-            }
+
+        .admin-auth-footer a {
+            color: var(--admin-auth-primary);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .admin-auth-footer a:hover {
+            color: var(--admin-auth-accent);
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body class="admin-auth-body {{ $isRtl ? 'rtl' : '' }}">
 
-<div id="app">
-    <main class="admin-auth-shell">
-        <a href="/" class="admin-auth-home-link">
-            <span class="admin-auth-home-link__icon">&larr;</span>
-            <span class="admin-auth-home-link__text">{{ trans('navbar.home') }}</span>
-        </a>
+<div id="app" class="w-100">
+    <div class="split-wrapper">
+        <!-- Left Brand Side -->
+        <div class="brand-side">
+            <div class="glowing-blob-1"></div>
+            <div class="glowing-blob-2"></div>
 
-        <div class="w-100 d-flex flex-column align-items-center">
+            <div class="brand-logo-container">
+                <img src="{{ $generalSettings['logo'] ?? '' }}" alt="logo" loading="eager">
+            </div>
+
+            <div class="brand-content">
+                <div class="brand-badge">JAGOSKILL MANAGEMENT</div>
+                <h1 class="brand-title">Elevate Your Platform, <span>Control the Future</span></h1>
+                <p class="brand-description">Welcome to the JagoSkill administration command center. Manage webinars, courses, bundles, user restrictions, and configure system operations smoothly in a fast, robust workspace.</p>
+            </div>
+
+            <div class="brand-footer">
+                <span>&copy; {{ date('Y') }} JagoSkill</span>
+                <span>Version 1.4.0</span>
+            </div>
+        </div>
+
+        <!-- Right Form Side -->
+        <div class="form-side">
+            <a href="/" class="admin-auth-home-link">
+                <span>&larr;</span>
+                <span>{{ trans('navbar.home') }}</span>
+            </a>
+
             <div class="admin-auth-container">
                 @yield('content')
             </div>
 
             <footer class="admin-auth-footer">
-                <div>{{ $generalSettings['site_name'] ?? config('app.name') }} admin area</div>
-                <div><a href="/">{{ trans('navbar.home') }}</a> &middot; <a href="/contact">{{ trans('site.contact_us') }}</a></div>
+                <div>{{ $generalSettings['site_name'] ?? config('app.name') }} Admin Command Panel</div>
+                <div class="mt-2">
+                    <a href="/">{{ trans('navbar.home') }}</a> &middot; 
+                    <a href="/contact">{{ trans('site.contact_us') }}</a>
+                </div>
             </footer>
         </div>
-    </main>
+    </div>
 </div>
 
-<!-- Template JS File -->
 <script>
     var themeColorsMode = {};
 </script>

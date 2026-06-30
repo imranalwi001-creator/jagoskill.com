@@ -144,7 +144,7 @@
     var generatedContentLang = '{{ trans('update.generated_content') }}';
     var copyLang = '{{ trans('public.copy') }}';
     var doneLang = '{{ trans('public.done') }}';
-    var jsCurrentCurrency = '{{ $currency }}';
+    var jsCurrentCurrency = '{{ $currency ?? currency() }}';
     var defaultLocale = '{{ getUserLocale() }}';
     var appLocale = '{{ app()->getLocale() }}';
     var dangerCloseIcon = `<x-iconsax-lin-add class="icons text-danger" width="24" height="24"/>`;

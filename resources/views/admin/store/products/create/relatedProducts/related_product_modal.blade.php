@@ -2,8 +2,8 @@
     <h3 class="section-title after-line font-20 text-dark-blue mb-25">{{ trans('update.add_new_related_products') }}</h3>
 
     <div class="js-related-course-form" data-action="{{ getAdminPanelUrl("/relatedProducts/").(!empty($relatedProduct) ? $relatedProduct->id.'/update' : 'store') }}" >
-        <input type="hidden" name="item_id" value="{{ $itemId }}">
-        <input type="hidden" name="item_type" value="{{ $itemType }}">
+        <input type="hidden" name="item_id" value="{{ $itemId ?? ($product->id ?? '') }}">
+        <input type="hidden" name="item_type" value="{{ $itemType ?? 'product' }}">
 
         <div class="form-group mt-15">
             <label class="input-label d-block">{{ trans('update.select_related_product') }}</label>

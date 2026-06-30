@@ -477,7 +477,7 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->authorize('admin_store_delete_product');
+        $this->authorize('admin_store_edit_product');
 
         $product = Product::findOrFail($id);
 

@@ -170,35 +170,24 @@
                                                 <p class="font-11 text-warning mt-4 mb-0">Mohon transfer nominal di atas hingga 3 digit terakhir (kode unik) agar transaksi Anda terverifikasi secara otomatis.</p>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-12 col-sm-6 mb-16">
-                                                    <div class="form-group">
-                                                        <label class="form-group-label">{{ trans('financial.account') }}</label>
-                                                        <select name="account" class="form-control">
-                                                            @foreach($offlineBanks as $offlineBank)
-                                                                <option value="{{ $offlineBank->id }}" {{ str_contains(strtolower($offlineBank->title), 'qris') ? 'selected' : '' }}>
-                                                                    {{ $offlineBank->title }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                            <input type="hidden" name="account" value="{{ $offlineBanks->first()->id ?? '' }}">
 
-                                                <div class="col-12 col-sm-6 mb-16">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-4 mb-16">
                                                     <div class="form-group">
                                                         <label class="form-group-label">Kode Unik Transaksi</label>
                                                         <input type="text" name="referral_code" value="{{ $uniqueCode }}" class="form-control text-center font-weight-bold" style="background-color: var(--gray-100);" readonly/>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 col-sm-6 mb-16">
+                                                <div class="col-12 col-sm-4 mb-16">
                                                     <div class="form-group">
                                                         <label class="form-group-label">{{ trans('public.date_time') }}</label>
                                                         <input type="text" name="date" value="{{ date('Y/m/d H:i') }}" class="form-control datetimepicker js-default-init-date-picker" data-format="YYYY/MM/DD HH:mm"/>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 col-sm-6 mb-16">
+                                                <div class="col-12 col-sm-4 mb-16">
                                                     <div class="form-group">
                                                         <label class="form-group-label">{{ trans('update.attach_the_payment_photo') }}</label>
                                                         <div class="custom-file bg-white">

@@ -561,7 +561,7 @@ class ProductsController extends Controller
             'tax' => $data['tax'] ?? null,
             'commission_type' => $data['commission_type'] ?? 'percent',
             'commission' => $commission,
-            'status' => $data['status'],
+            'status' => $data['status'] ?? $product->status,
             'updated_at' => time(),
         ]);
 

@@ -29,6 +29,18 @@
         {!! getThemeFontsSettings() !!}
 
         {!! getThemeColorsSettings() !!}
+
+        /* Adjust user dashboard panel logo for professional spacing and aspect ratio */
+        .panel-header__logo {
+            height: 34px !important;
+            width: auto !important;
+            min-width: auto !important;
+            max-width: 150px !important;
+        }
+        .panel-header__logo img {
+            height: 100% !important;
+            width: auto !important;
+        }
     </style>
 
 </head>

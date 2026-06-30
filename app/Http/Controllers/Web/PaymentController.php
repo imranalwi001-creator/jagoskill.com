@@ -101,9 +101,12 @@ class PaymentController extends Controller
 
             $date = convertTimeToUTCzone($request->input('date'), getTimezone());
 
+            $uniqueCode = (int) session()->get('offline_unique_code_' . $order->id, $request->input('referral_code', 0));
+            $finalAmount = $order->total_amount + $uniqueCode;
+
             \App\Models\OfflinePayment::create([
                 'user_id' => $user->id,
-                'amount' => $order->total_amount,
+                'amount' => $finalAmount,
                 'offline_bank_id' => $request->input('account'),
                 'reference_number' => $request->input('referral_code'),
                 'status' => \App\Models\OfflinePayment::$waiting,
@@ -123,7 +126,7 @@ class PaymentController extends Controller
             \App\Models\Cart::emptyCart($user->id);
 
             $notifyOptions = [
-                '[amount]' => handlePrice($order->total_amount),
+                '[amount]' => handlePrice($finalAmount),
                 '[u.name]' => $user->full_name
             ];
             sendNotification('offline_payment_request', $notifyOptions, $user->id);

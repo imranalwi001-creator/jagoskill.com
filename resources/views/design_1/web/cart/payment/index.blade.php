@@ -129,42 +129,85 @@
 
                         @if(!empty(getOfflineBankSettings('offline_banks_status')))
                             <div class="js-offline-payment-input d-none mt-36 px-16">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-group-label">{{ trans('financial.account') }}</label>
-                                            <select name="account" class="form-control">
-                                                <option selected disabled>{{ trans('financial.select_the_account') }}</option>
-                                                @foreach($paymentChannels as $paymentChannel)
-                                                @endforeach
-                                                @foreach($offlineBanks as $offlineBank)
-                                                    <option value="{{ $offlineBank->id }}">{{ $offlineBank->title }}</option>
-                                                @endforeach
-                                            </select>
+                                @php
+                                    $sessionKey = 'offline_unique_code_' . $order->id;
+                                    $uniqueCode = session()->get($sessionKey);
+                                    if (empty($uniqueCode)) {
+                                        $uniqueCode = rand(100, 999);
+                                        session()->put($sessionKey, $uniqueCode);
+                                    }
+                                    $uniqueAmount = $order->total_amount + $uniqueCode;
+                                    $qrisPayload = generate_qris_dynamic($uniqueAmount);
+                                    $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=' . urlencode($qrisPayload);
+                                @endphp
+
+                                <div class="row align-items-stretch">
+                                    {{-- QRIS Scanner Section --}}
+                                    <div class="col-12 col-md-5 mb-24 mb-md-0">
+                                        <div class="p-20 rounded-16 border border-gray-200 bg-light text-center d-flex flex-column align-items-center justify-content-center h-100">
+                                            <h6 class="font-16 font-weight-bold text-dark mb-8">Scan QRIS Anugerah Store</h6>
+                                            <p class="font-12 text-gray-500 mb-16">Dapat di-scan dengan e-wallet (GoPay, OVO, Dana) & M-Banking</p>
+                                            
+                                            <div class="p-12 bg-white rounded-16 shadow-sm mb-16 animate-pulse" style="border: 1px solid var(--gray-200);">
+                                                <img src="{{ $qrImageUrl }}" alt="QRIS" class="img-fluid" style="max-height: 220px; width: 220px; object-fit: contain;">
+                                            </div>
+
+                                            <a href="{{ $qrImageUrl }}" download="jagoskill-qris-{{ $order->id }}.png" target="_blank" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-4 px-16 py-8 rounded-8 font-12">
+                                                <x-iconsax-lin-import class="icons text-primary" width="16px" height="16px"/>
+                                                Download QR Image
+                                            </a>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-group-label">{{ trans('admin/main.referral_code') }}</label>
-                                            <input type="text" name="referral_code" class="form-control"/>
-                                        </div>
-                                    </div>
+                                    {{-- Payment Info & Form --}}
+                                    <div class="col-12 col-md-7">
+                                        <div class="p-20 rounded-16 border border-gray-200 h-100 bg-white d-flex flex-column justify-content-between">
+                                            <div class="mb-20 p-16 rounded-12 text-center" style="background-color: #fff9e6; border: 1px solid #ffe8ad;">
+                                                <span class="font-12 text-warning font-weight-500 uppercase tracking-wider">TOTAL TRANSFER (WAJIB PERSIS)</span>
+                                                <h3 class="font-28 font-weight-bold mt-4" style="color: #d97706;">
+                                                    Rp {{ number_format($uniqueAmount, 0, ',', '.') }}
+                                                </h3>
+                                                <p class="font-11 text-warning mt-4 mb-0">Mohon transfer nominal di atas hingga 3 digit terakhir (kode unik) agar transaksi Anda terverifikasi secara otomatis.</p>
+                                            </div>
 
-                                    <div class="col-12 col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-group-label">{{ trans('public.date_time') }}</label>
-                                            <input type="text" name="date" class="form-control datetimepicker js-default-init-date-picker" data-format="YYYY/MM/DD HH:mm"/>
-                                        </div>
-                                    </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 mb-16">
+                                                    <div class="form-group">
+                                                        <label class="form-group-label">{{ trans('financial.account') }}</label>
+                                                        <select name="account" class="form-control">
+                                                            @foreach($offlineBanks as $offlineBank)
+                                                                <option value="{{ $offlineBank->id }}" {{ str_contains(strtolower($offlineBank->title), 'qris') ? 'selected' : '' }}>
+                                                                    {{ $offlineBank->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-                                    <div class="col-12 col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-group-label">{{ trans('update.attach_the_payment_photo') }}</label>
-                                            <div class="custom-file bg-white">
-                                                <input type="file" name="attachment" class="custom-file-input" id="attachmentInputCheckout" accept="image/*">
-                                                <span class="custom-file-text"></span>
-                                                <label class="custom-file-label" for="attachmentInputCheckout">{{ trans('update.browse') }}</label>
+                                                <div class="col-12 col-sm-6 mb-16">
+                                                    <div class="form-group">
+                                                        <label class="form-group-label">Kode Unik Transaksi</label>
+                                                        <input type="text" name="referral_code" value="{{ $uniqueCode }}" class="form-control text-center font-weight-bold" style="background-color: var(--gray-100);" readonly/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6 mb-16">
+                                                    <div class="form-group">
+                                                        <label class="form-group-label">{{ trans('public.date_time') }}</label>
+                                                        <input type="text" name="date" value="{{ date('Y/m/d H:i') }}" class="form-control datetimepicker js-default-init-date-picker" data-format="YYYY/MM/DD HH:mm"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6 mb-16">
+                                                    <div class="form-group">
+                                                        <label class="form-group-label">{{ trans('update.attach_the_payment_photo') }}</label>
+                                                        <div class="custom-file bg-white">
+                                                            <input type="file" name="attachment" class="custom-file-input" id="attachmentInputCheckout" accept="image/*">
+                                                            <span class="custom-file-text"></span>
+                                                            <label class="custom-file-label" for="attachmentInputCheckout">{{ trans('update.browse') }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

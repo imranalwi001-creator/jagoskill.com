@@ -12,8 +12,21 @@ if (!function_exists('crc16_qris')) {
     }
 }
 
+if (!function_exists('convert_to_idr')) {
+    function convert_to_idr($amount) {
+        // JagoSkill currency is USD, QRIS requires IDR
+        $rate = 16000; 
+        return $amount * $rate;
+    }
+}
+
 if (!function_exists('generate_qris_dynamic')) {
     function generate_qris_dynamic($amount) {
+        // If amount looks like a USD amount (e.g. less than 10000), convert it to IDR
+        if ($amount < 10000) {
+            $amount = convert_to_idr($amount);
+        }
+
         // Static JagoSkill QRIS payload decoded from the image
         $staticQris = '00020101021126570011ID.DANA.WWW011893600915382314742002098231474200303UMI51440014ID.CO.QRIS.WWW0215ID10253714711820303UMI5204549953033605802ID5915Anugerah Store 6012Kab. Pangkep6105906536304486A';
 

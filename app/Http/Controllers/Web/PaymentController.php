@@ -102,11 +102,11 @@ class PaymentController extends Controller
             $date = convertTimeToUTCzone($request->input('date'), getTimezone());
 
             $uniqueCode = (int) session()->get('offline_unique_code_' . $order->id, $request->input('referral_code', 0));
-            $finalAmount = $order->total_amount + $uniqueCode;
+            $finalAmountInIdr = convert_to_idr($order->total_amount) + $uniqueCode;
 
             \App\Models\OfflinePayment::create([
                 'user_id' => $user->id,
-                'amount' => $finalAmount,
+                'amount' => $order->total_amount, // Keep default USD for ledger
                 'offline_bank_id' => $request->input('account'),
                 'reference_number' => $request->input('referral_code'),
                 'status' => \App\Models\OfflinePayment::$waiting,
@@ -126,7 +126,7 @@ class PaymentController extends Controller
             \App\Models\Cart::emptyCart($user->id);
 
             $notifyOptions = [
-                '[amount]' => handlePrice($finalAmount),
+                '[amount]' => 'Rp ' . number_format($finalAmountInIdr, 0, ',', '.'),
                 '[u.name]' => $user->full_name
             ];
             sendNotification('offline_payment_request', $notifyOptions, $user->id);

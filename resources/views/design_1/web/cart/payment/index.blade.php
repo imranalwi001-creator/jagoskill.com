@@ -136,7 +136,7 @@
                                         $uniqueCode = rand(100, 999);
                                         session()->put($sessionKey, $uniqueCode);
                                     }
-                                    $uniqueAmount = $order->total_amount + $uniqueCode;
+                                    $uniqueAmount = convert_to_idr($order->total_amount) + $uniqueCode;
                                     $qrisPayload = generate_qris_dynamic($uniqueAmount);
                                     $qrImageUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=' . urlencode($qrisPayload);
                                 @endphp

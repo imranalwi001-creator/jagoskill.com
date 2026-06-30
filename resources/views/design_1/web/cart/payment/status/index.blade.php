@@ -35,7 +35,7 @@
                                  @php
                                      $offlinePayment = \App\Models\OfflinePayment::where('order_id', $order->id)->first();
                                      $uniqueCode = $offlinePayment ? $offlinePayment->reference_number : session()->get('offline_unique_code_' . $order->id);
-                                     $uniqueAmount = $offlinePayment ? $offlinePayment->amount : ($order->total_amount + $uniqueCode);
+                                     $uniqueAmount = $offlinePayment ? (convert_to_idr($offlinePayment->amount) + $uniqueCode) : (convert_to_idr($order->total_amount) + $uniqueCode);
                                      $waPhone = '6281355904897';
                                      $waMessage = "Halo Admin JagoSkill, saya telah mengunggah bukti pembayaran QRIS Offline. Mohon bantuannya untuk memverifikasi transaksi berikut:\n\n"
                                                 . "• No. Order: #" . $order->id . "\n"

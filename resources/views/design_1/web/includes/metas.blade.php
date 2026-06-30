@@ -13,7 +13,7 @@
     <meta name='twitter:description' content='{{ (!empty($ogDescription)) ? $ogDescription : $pageDescription }}'>
 @endif
 
-<link rel='shortcut icon' type='image/x-icon' href="{{ url(!empty($generalSettings['fav_icon']) ? $generalSettings['fav_icon'] : '') }}">
+<link rel='shortcut icon' type='image/x-icon' href="{{ url(!empty(getGeneralSettings('fav_icon')) ? getGeneralSettings('fav_icon') : '') }}">
 <link rel="manifest" href="/mix-manifest.json?v=4">
 <meta name="theme-color" content="#FFF">
 <!-- Windows Phone -->
@@ -21,13 +21,13 @@
 <meta name="msapplication-TileColor" content="#FFF">
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <!-- iOS Safari -->
-<meta name="apple-mobile-web-app-title" content="{{ !empty($generalSettings['site_name']) ? $generalSettings['site_name'] : '' }}">
-<link rel="apple-touch-icon" href="{{ url(!empty($generalSettings['fav_icon']) ? $generalSettings['fav_icon'] : '') }}">
+<meta name="apple-mobile-web-app-title" content="{{ !empty(getGeneralSettings('site_name')) ? getGeneralSettings('site_name') : '' }}">
+<link rel="apple-touch-icon" href="{{ url(!empty(getGeneralSettings('fav_icon')) ? getGeneralSettings('fav_icon') : '') }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <!-- Android -->
-<link rel='icon' href='{{ url(!empty($generalSettings['fav_icon']) ? $generalSettings['fav_icon'] : '') }}'>
-<meta name="application-name" content="{{ !empty($generalSettings['site_name']) ? $generalSettings['site_name'] : '' }}">
+<link rel='icon' href='{{ url(!empty(getGeneralSettings('fav_icon')) ? getGeneralSettings('fav_icon') : '') }}'>
+<meta name="application-name" content="{{ !empty(getGeneralSettings('site_name')) ? getGeneralSettings('site_name') : '' }}">
 <meta name="mobile-web-app-capable" content="yes">
 <!-- Other -->
 <meta name="layoutmode" content="fitscreen/standard">
@@ -40,7 +40,7 @@
 
 @php
     if (empty($pageMetaImage)) {
-        $pageMetaImage = !empty($generalSettings['fav_icon']) ? $generalSettings['fav_icon'] : '/';
+        $pageMetaImage = !empty(getGeneralSettings('fav_icon')) ? getGeneralSettings('fav_icon') : '/';
     }
 @endphp
 

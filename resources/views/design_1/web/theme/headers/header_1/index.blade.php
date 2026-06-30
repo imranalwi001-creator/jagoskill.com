@@ -9,4 +9,15 @@
         {{-- Main --}}
         @include('design_1.web.theme.headers.header_1.main')
     </div>
+
+    <style>
+        /* Fix top navbar overlap where search bar and cart get cut off by the white navbar card */
+        .theme-header-1__main {
+            top: -26px !important;
+            margin-bottom: -26px !important;
+        }
+        .theme-header-1__top-navbar {
+            padding-bottom: 42px !important;
+        }
+    </style>
 @endif

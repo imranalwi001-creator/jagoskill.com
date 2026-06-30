@@ -5,6 +5,16 @@
     <link rel="stylesheet" href="/assets/default/vendors/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ getDesign1StylePath("swiperjs") }}">
     <link rel="stylesheet" href="{{ getDesign1StylePath("products_lists") }}">
+    <style>
+        .products-lists-hero {
+            height: 480px !important;
+        }
+        @media (max-width: 991px) {
+            .products-lists-hero {
+                height: 380px !important;
+            }
+        }
+    </style>
 @endpush
 
 @php

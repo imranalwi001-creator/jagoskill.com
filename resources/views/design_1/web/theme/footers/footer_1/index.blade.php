@@ -148,7 +148,7 @@
 
                 <div class="container d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between py-24 px-16 gap-16">
                     @if(!empty($themeFooterContent['copyright_text']))
-                        <div class="font-14 text-white opacity-70">{{ $themeFooterContent['copyright_text'] }}</div>
+                        <div class="font-14 text-white opacity-70">© {{ date('Y') }} JagoSkill. All Rights Reserved. Empowering Learning Worldwide.</div>
                     @endif
 
                     <div class="d-flex align-items-center justify-content-center gap-16 gap-lg-24">

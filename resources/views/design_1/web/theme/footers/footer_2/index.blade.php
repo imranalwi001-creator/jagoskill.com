@@ -72,7 +72,7 @@
             {{-- Copy --}}
             <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between w-100 mt-28 rounded-16 p-16 p-lg-24 border-gray-500">
                 @if(!empty($themeFooterContent['copyright_text']))
-                    <div class="font-14 text-white opacity-70">{{ $themeFooterContent['copyright_text'] }}</div>
+                    <div class="font-14 text-white opacity-70">© {{ date('Y') }} JagoSkill. All Rights Reserved. Empowering Learning Worldwide.</div>
                 @endif
 
                 {{-- Social --}}

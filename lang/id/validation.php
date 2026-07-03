@@ -1,0 +1,126 @@
+<?php return array (
+  'accepted' => ':Atribut harus diterima.',
+  'active_url' => ':Attribute harus berupa URL yang valid.',
+  'after' => ':Atribut harus berupa tanggal setelah :date.',
+  'after_or_equal' => ':Atribut harus berupa tanggal setelah atau sama dengan :tanggal.',
+  'alpha' => ':Atribut hanya boleh berisi huruf.',
+  'alpha_dash' => ':Atribut hanya boleh berisi huruf, angka, tanda hubung, dan garis bawah.',
+  'alpha_num' => ':Atribut hanya boleh berisi huruf dan angka.',
+  'array' => ':Attribute harus berupa array.',
+  'before' => ':Atribut harus berupa tanggal sebelum :date.',
+  'before_or_equal' => ':Atribut harus berupa tanggal sebelum atau sama dengan :tanggal.',
+  'between' => 
+  array (
+    'numeric' => ':Atribut harus berada di antara :min dan :max.',
+    'file' => ':Atribut harus antara :min dan :max kilobyte.',
+    'string' => ':Atribut harus berada di antara karakter :min dan :max.',
+    'array' => ':Atribut harus berada di antara item :min dan :max.',
+  ),
+  'boolean' => 'Bidang :attribute harus benar atau salah.',
+  'confirmed' => 'Konfirmasi :attribute tidak cocok.',
+  'date' => ':Atribut harus berupa tanggal yang valid.',
+  'date_equals' => ':Atribut harus berupa tanggal yang sama dengan :tanggal.',
+  'date_format' => ':Atribut harus sesuai dengan format :format.',
+  'different' => ':Attribute dan :other harus berbeda.',
+  'digits' => ':Atribut harus berupa :digits digit.',
+  'digits_between' => ':Atribut harus berada di antara angka :min dan :max.',
+  'dimensions' => 'Atribut :atribut memiliki dimensi gambar yang tidak valid.',
+  'distinct' => 'Bidang :attribute berisi nilai duplikat.',
+  'email' => ':Atribut harus berupa alamat email yang valid.',
+  'ends_with' => ':Atribut harus diakhiri dengan salah satu dari yang berikut: :nilai.',
+  'exists' => ':Atribut yang dipilih tidak valid.',
+  'file' => ':Atribut harus berupa file.',
+  'filled' => 'Bidang :attribute wajib diisi.',
+  'gt' => 
+  array (
+    'numeric' => ':Atribut harus lebih besar dari :nilai.',
+    'file' => ':Attribute harus lebih besar dari :value kilobyte.',
+    'string' => ':Attribute harus lebih besar dari :value karakter.',
+    'array' => ':Attribute harus berisi lebih dari :value item.',
+  ),
+  'gte' => 
+  array (
+    'numeric' => ':Atribut harus lebih besar atau sama dengan :nilai.',
+    'file' => ':Atribut harus lebih besar atau sama dengan :value kilobyte.',
+    'string' => ':Atribut harus lebih besar atau sama dengan karakter :value.',
+    'array' => ':Attribute harus berisi item :value atau lebih.',
+  ),
+  'image' => ':Atribut harus berupa gambar.',
+  'in' => ':Atribut yang dipilih tidak valid.',
+  'in_array' => 'Bidang :attribute tidak ada di :other.',
+  'integer' => ':Atribut harus berupa bilangan bulat.',
+  'ip' => ':Atribut harus berupa alamat IP yang valid.',
+  'ipv4' => ':Atribut harus berupa alamat IPv4 yang valid.',
+  'ipv6' => 'Atribut :atribut harus berupa alamat IPv6 yang valid.',
+  'json' => ':Attribute harus berupa string JSON yang valid.',
+  'lt' => 
+  array (
+    'numeric' => ':Atribut harus lebih kecil dari :nilai.',
+    'file' => ':Attribute harus kurang dari :value kilobyte.',
+    'string' => ':Attribute harus kurang dari :value karakter.',
+    'array' => ':Attribute harus berisi kurang dari :value item.',
+  ),
+  'lte' => 
+  array (
+    'numeric' => ':Atribut harus lebih kecil atau sama dengan :nilai.',
+    'file' => ':Atribut harus kurang dari atau sama dengan :value kilobyte.',
+    'string' => ':Atribut harus kurang dari atau sama dengan karakter :value.',
+    'array' => ':Atribut tidak boleh berisi lebih dari :value item.',
+  ),
+  'max' => 
+  array (
+    'numeric' => ':Atribut tidak boleh lebih besar dari :max.',
+    'file' => ':Atribut tidak boleh lebih besar dari :max kilobyte.',
+    'string' => ':Atribut tidak boleh melebihi :max karakter.',
+    'array' => ':Atribut tidak boleh berisi lebih dari :max item.',
+  ),
+  'mimes' => ':Atribut harus berupa file dengan tipe: :values.',
+  'mimetypes' => ':Atribut harus berupa file dengan tipe: :values.',
+  'min' => 
+  array (
+    'numeric' => 'Atribut :minimal harus :min.',
+    'file' => ':Atribut minimal harus :min kilobyte.',
+    'string' => ':Atribut setidaknya harus terdiri dari :min karakter.',
+    'array' => ':Atribut harus berisi setidaknya :min item.',
+  ),
+  'not_in' => ':Atribut yang dipilih tidak valid.',
+  'not_regex' => 'Format :attribute tidak valid.',
+  'numeric' => ':Atribut harus berupa angka.',
+  'password' => 'Kata sandinya salah.',
+  'password_or_username' => 'Kata sandi atau nama pengguna salah.',
+  'present' => 'Bidang :attribute harus ada.',
+  'regex' => 'Format :attribute tidak valid.',
+  'required' => 'Bidang :attribute wajib diisi.',
+  'required_if' => 'Bidang :attribute diperlukan bila :other adalah :value.',
+  'required_unless' => 'Bidang :attribute wajib diisi kecuali :other ada dalam :values.',
+  'required_with' => 'Bidang :attribute diperlukan bila :values ​​ada.',
+  'required_with_all' => 'Bidang :attribute diperlukan bila semua :values ​​ada.',
+  'required_without' => 'Bidang :attribute diperlukan bila :values ​​tidak ada.',
+  'required_without_all' => 'Bidang :attribute diperlukan bila tidak ada :values ​​yang ada.',
+  'same' => ':atribut dan :lainnya harus cocok.',
+  'size' => 
+  array (
+    'numeric' => ':Atribut harus :ukuran.',
+    'file' => ':Atribut harus :ukuran kilobyte.',
+    'string' => ':Attribute harus berupa karakter :size.',
+    'array' => ':Attribute harus berisi :size item.',
+  ),
+  'starts_with' => ':Atribut harus dimulai dengan salah satu dari berikut ini: :values.',
+  'string' => ':Atribut harus berupa string.',
+  'timezone' => 'Atribut :atribut harus berupa zona waktu yang valid.',
+  'unique' => 'Atribut : sudah diambil.',
+  'uploaded' => ':Atribut tidak dapat diunggah.',
+  'url' => 'Format :attribute tidak valid.',
+  'uuid' => ':Atribut harus berupa UUID yang valid.',
+  'custom' => 
+  array (
+    'attribute-name' => 
+    array (
+      'rule-name' => 'pesan khusus',
+    ),
+  ),
+  'captcha' => 'Captcha salah...',
+  'attributes' => 
+  array (
+  ),
+);

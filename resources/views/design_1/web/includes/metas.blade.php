@@ -62,4 +62,32 @@
   "logo": "{{ url(!empty($generalSettings['logo']) ? $generalSettings['logo'] : '') }}"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "JagoSkill Platform",
+  "url": "{{ url('') }}",
+  "keywords": "jagoskill, course, e-learning, produk digital, live course, zoom meeting, kelas online"
+}
+</script>
+@if(!empty($pageTitle))
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "BreadcrumbList", 
+  "itemListElement": [{
+    "@type": "ListItem", 
+    "position": 1, 
+    "name": "Home",
+    "item": "{{ url('') }}"  
+  },{
+    "@type": "ListItem", 
+    "position": 2, 
+    "name": "{{ $pageTitle }}",
+    "item": "{{ url()->current() }}"  
+  }]
+}
+</script>
+@endif
 @stack('schema_tags')

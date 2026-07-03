@@ -76,6 +76,12 @@
         </div>
     @endif
 
+    <div class="seo-boilerplate" style="background: #0f172a; color: #94a3b8; padding: 25px 15px; font-size: 13px; text-align: center; border-top: 1px solid #1e293b;">
+        <div class="container">
+            <p style="margin: 0; line-height: 1.8;"><strong>JagoSkill Platform</strong> adalah pusat Edukasi & Pembelajaran Online terdepan. Kami menyediakan ekosistem terlengkap mulai dari <a href="/classes" style="color:#cbd5e1; text-decoration:none;">Online Course</a>, e-learning bersertifikat, kelas interaktif via live course dan zoom meeting, artikel wawasan, hingga penyediaan produk digital dan produk fisik penunjang karir Anda. Raih potensi maksimal Anda bersama kami.</p>
+        </div>
+    </div>
+
     @include('design_1.web.includes.advertise_modal.index')
 
     @if(!empty($floatingBar) and $floatingBar->position == 'bottom')
@@ -173,5 +179,18 @@
 </script>
 
 <script src="/assets/design_1/js/parts/general.min.js"></script>
+
+<!-- SEO Auto-Alt Text Injection -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const defaultAlt = "{{ $pageTitle ?? 'Edukasi Online' }} - JagoSkill eLearning & Course";
+        const images = document.querySelectorAll("img");
+        images.forEach(img => {
+            if (!img.getAttribute("alt") || img.getAttribute("alt").trim() === "") {
+                img.setAttribute("alt", defaultAlt);
+            }
+        });
+    });
+</script>
 </body>
 </html>

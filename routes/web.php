@@ -572,3 +572,5 @@ Route::get('/sitemap.xml', function () {
 
  return response($content, 200)->header('Content-Type', 'text/xml');
 });
+
+

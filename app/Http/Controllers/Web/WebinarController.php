@@ -172,6 +172,10 @@ class WebinarController extends Controller
             }
         }
 
+        if (!$justReturnData) {
+            $course->increment('visit_count');
+        }
+
         $hasBought = $course->checkUserHasBought($user, true, true);
         $isPrivate = $course->private;
 

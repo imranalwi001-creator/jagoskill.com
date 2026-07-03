@@ -382,6 +382,8 @@ class ProductController extends Controller
             abort(404);
         }
 
+        $product->increment('visit_count');
+
 
         $selectableSpecifications = $product->selectedSpecifications->where('allow_selection', true)
             ->where('type', 'multi_value');

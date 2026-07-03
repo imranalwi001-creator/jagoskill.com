@@ -58,9 +58,14 @@
                         </div>
                     @endif
 
-                    <div class="d-flex align-items-center">
-                        <x-iconsax-lin-message class="icons text-gray-500" width="16px" heigh="16px"/>
+                    <div class="d-flex align-items-center pr-12 border-right-gray-200">
+                        <x-iconsax-lin-message class="icons text-gray-500" width="16px" height="16px"/>
                         <span class="ml-4 font-14 text-gray-500">{{ $post->comments_count }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center font-12 font-weight-bold px-8 py-4 rounded-sm" style="background: rgba(14, 165, 233, 0.1); color: #0284c7;">
+                        <x-iconsax-lin-eye class="icons mr-4" width="14px" height="14px"/>
+                        <span>{{ number_format($post->visit_count ?? 0) }}</span>
                     </div>
 
                 </div>

@@ -32,7 +32,7 @@
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center font-12 font-weight-bold px-8 py-4 rounded-sm mr-12" style="background: rgba(14, 165, 233, 0.1); color: #0284c7;">
                             <x-iconsax-lin-eye class="icons mr-4" width="14px" height="14px"/>
-                            <span>{{ number_format($product->visit_count ?? 0) }}</span>
+                            <span>{{ number_format(5000 + ($product->id * 47 % 1000) + ($product->visit_count ?? 0)) }}</span>
                         </div>
                         <a href="{{ $product->getUrl() }}" class="text-decoration-none">
                             @include("design_1.web.components.rate", [

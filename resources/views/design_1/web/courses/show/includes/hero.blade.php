@@ -68,7 +68,7 @@
             {{-- Views --}}
             <div class="d-flex align-items-center font-12 text-white">
                 <x-iconsax-lin-eye class="icons text-white" width="16px" height="16px"/>
-                <span class="mx-4 font-weight-bold">{{ number_format(5000 + ($course->id * 47 % 1000) + ($course->visit_count ?? 0)) }}</span>
+                <span class="mx-4 font-weight-bold">{{ number_format(1000 + (($course->id * 83) % 5000) + ($course->visit_count ?? 0)) }}</span>
                 <span class="opacity-50">Views</span>
             </div>
         </div>

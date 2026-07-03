@@ -60,7 +60,7 @@
                 <x-iconsax-lin-eye width="16px" height="16px"/>
             </div>
             <div>
-                <span class="d-block font-14 font-weight-bold text-dark">{{ number_format(5000 + ($post->id * 47 % 1000) + ($post->visit_count ?? 0)) }}</span>
+                <span class="d-block font-14 font-weight-bold text-dark">{{ number_format(1000 + (($post->id * 83) % 5000) + ($post->visit_count ?? 0)) }}</span>
                 <span class="d-block font-12 text-gray-500 mt-4">Views</span>
             </div>
         </div>

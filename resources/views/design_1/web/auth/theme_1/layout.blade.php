@@ -325,6 +325,8 @@
                 top: auto;
                 left: auto;
                 margin: 0 auto 14px;
+                display: flex;
+                max-width: max-content;
             }
             .auth-premium-card{
                 padding: 12px;

@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="/assets/design_1/css/app.min.css">
     <link rel="stylesheet" href="{{ getDesign1StylePath("auth/theme_1") }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     @if($isRtl)
         <link rel="stylesheet" href="/assets/design_1/css/rtl-app.min.css">
@@ -31,13 +32,16 @@
             --auth-primary-soft:#e7f7f5;
             --auth-accent:#f4a64a;
         }
+        body.auth-premium-body, body.auth-premium-body * {
+            font-family: 'Inter', sans-serif !important;
+        }
         body.auth-premium-body{
             min-height: 100vh;
             overflow-x: hidden;
             color: var(--auth-ink);
             background:
-                radial-gradient(circle at 12% 8%, rgba(16,153,143,.16), transparent 28rem),
-                radial-gradient(circle at 90% 22%, rgba(244,166,74,.12), transparent 24rem),
+                radial-gradient(circle at 12% 8%, rgba(16,153,143,.12), transparent 28rem),
+                radial-gradient(circle at 90% 22%, rgba(244,166,74,.08), transparent 24rem),
                 linear-gradient(135deg, #f7fbfb 0%, #edf6f5 100%);
         }
         .auth-shell{
@@ -57,35 +61,25 @@
             z-index: 5;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            min-height: 46px;
-            padding: 7px 16px 7px 8px;
+            gap: 8px;
+            min-height: 40px;
+            padding: 6px 16px 6px 6px;
             border-radius: 999px;
             color: var(--auth-ink);
-            background:
-                linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,255,255,.74)) padding-box,
-                linear-gradient(135deg, rgba(16,153,143,.72), rgba(244,166,74,.58)) border-box;
-            border: 1px solid transparent;
-            box-shadow: 0 16px 42px rgba(20,32,51,.12), inset 0 1px 0 rgba(255,255,255,.75);
-            backdrop-filter: blur(14px);
-            font-weight: 800;
+            background: rgba(255,255,255,.9);
+            border: 1px solid rgba(20,32,51,.08);
+            box-shadow: 0 8px 24px rgba(20,32,51,.06);
+            backdrop-filter: blur(12px);
+            font-weight: 600;
+            font-size: 14px;
             text-decoration: none;
-            overflow: hidden;
-            transition: transform .16s ease, box-shadow .16s ease, color .16s ease;
-        }
-        .auth-home-link:before{
-            content:"";
-            position: absolute;
-            inset: 1px;
-            border-radius: inherit;
-            background: linear-gradient(120deg, rgba(255,255,255,.7), transparent 44%);
-            pointer-events: none;
+            transition: all .2s ease;
         }
         .auth-home-link:hover{
             color: var(--auth-primary-dark);
             text-decoration: none;
             transform: translateY(-2px);
-            box-shadow: 0 20px 48px rgba(20,32,51,.16), 0 0 0 4px rgba(14,159,143,.12);
+            box-shadow: 0 12px 32px rgba(20,32,51,.12);
         }
         .auth-home-link__icon{
             position: relative;
@@ -107,11 +101,11 @@
             z-index: 1;
         }
         .auth-premium-card{
-            background: rgba(255,255,255,.96);
-            border-radius: 26px;
-            border: 1px solid rgba(20,32,51,.08);
-            box-shadow: 0 24px 80px rgba(20,32,51,.1);
-            padding: 20px;
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid rgba(20,32,51,.05);
+            box-shadow: 0 24px 64px rgba(20,32,51,.08);
+            padding: 24px;
             overflow: hidden;
         }
         .auth-page-card{
@@ -142,15 +136,16 @@
         }
         .modern-input-group .form-control,
         .modern-input-group .register-mobile-form-group__input{
-            min-height: 50px;
-            border-radius: 14px !important;
-            padding: 13px 16px !important;
-            border: 1px solid var(--auth-line) !important;
-            background: var(--auth-soft) !important;
+            min-height: 48px;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+            border: 1px solid rgba(20,32,51,.12) !important;
+            background: #ffffff !important;
             color: var(--auth-ink) !important;
-            font-size: 15px !important;
-            transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease !important;
-            box-shadow: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            transition: all .2s ease !important;
+            box-shadow: 0 2px 6px rgba(20,32,51,.03) !important;
         }
         .modern-input-group .password-field-input{
             padding-right: 50px !important;
@@ -203,32 +198,51 @@
             padding-left: 50px !important;
         }
         .auth-method-switch{
-            background: var(--auth-primary-soft);
-            border: 1px solid rgba(20,32,51,.08);
-            flex-wrap: wrap;
+            background: rgba(20,32,51,.04);
+            border: 1px solid rgba(20,32,51,.05);
+            border-radius: 12px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
         }
         .auth-method-switch .auth-register-method-item{
+            flex: 1;
             min-width: 0;
+            margin: 0;
+        }
+        .auth-method-switch .auth-register-method-item label{
+            margin: 0;
+            padding: 10px 4px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--auth-muted);
+            border-radius: 8px;
+            transition: all .2s ease;
+            cursor: pointer;
+            width: 100%;
+            display: block;
         }
         .auth-register-method-item input:checked + label{
-            background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
-            color: #fff !important;
-            box-shadow: 0 10px 20px rgba(16,153,143,.18);
+            background: #ffffff !important;
+            color: var(--auth-primary-dark) !important;
+            box-shadow: 0 4px 12px rgba(20,32,51,.08) !important;
         }
         .modern-btn{
-            min-height: 52px;
-            border-radius: 14px !important;
-            padding: 14px 16px !important;
+            min-height: 48px;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
             background: linear-gradient(135deg, var(--auth-primary), var(--auth-primary-dark)) !important;
             border: 0 !important;
-            font-weight: 800 !important;
-            font-size: 16px !important;
-            letter-spacing: 0 !important;
-            transition: transform .16s ease, box-shadow .16s ease !important;
+            font-weight: 700 !important;
+            font-size: 15px !important;
+            letter-spacing: 0.3px !important;
+            transition: transform .2s ease, box-shadow .2s ease !important;
+            box-shadow: 0 8px 24px rgba(16,153,143,.24) !important;
         }
         .modern-btn:hover{
             transform: translateY(-2px) !important;
-            box-shadow: 0 14px 26px rgba(14,159,143,.22) !important;
+            box-shadow: 0 12px 32px rgba(16,153,143,.32) !important;
         }
         .auth-page-form-container{
             height: auto !important;
@@ -337,10 +351,9 @@
             }
             .auth-page-form-container{
                 height: auto !important;
-                max-height: min(520px, 56vh);
-                overflow-y: auto;
-                overflow-x: hidden;
-                padding-right: 8px;
+                max-height: none !important;
+                overflow-y: visible !important;
+                padding-right: 0;
             }
             .auth-static-showcase{
                 height: auto;
@@ -366,20 +379,26 @@
                 padding: 8px 4px 14px;
             }
             .auth-method-switch{
-                gap: 6px !important;
+                gap: 4px !important;
             }
             .auth-method-switch .auth-register-method-item{
-                flex: 1 1 100%;
+                flex: 1 1 0%;
             }
             .auth-method-switch .auth-register-method-item label{
-                height: 42px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px;
+                font-size: 12px;
             }
             .modern-input-group{
                 margin-bottom: 16px;
             }
             .auth-page-form-container{
-                max-height: min(480px, 54vh);
-                padding-right: 6px;
+                max-height: none !important;
+                overflow-y: visible !important;
+                padding-right: 0;
             }
             .modern-input-group .form-control,
             .modern-input-group .register-mobile-form-group__input{

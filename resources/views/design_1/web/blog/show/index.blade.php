@@ -7,7 +7,7 @@
     <style>
         /* Editorial Layout Custom CSS */
         .blog-editorial-container {
-            margin-top: 40px;
+            margin-top: 120px;
         }
         .blog-hero-image-wrapper {
             margin: 32px 0;

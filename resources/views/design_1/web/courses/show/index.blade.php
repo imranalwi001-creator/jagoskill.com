@@ -12,7 +12,7 @@
 
 
 @section("content")
-    <div class="container position-relative mt-80 pb-120 ">
+    <div class="container position-relative mt-120 pb-120 ">
 
         {{-- Special Offer --}}
         @if(!empty($activeSpecialOffer))

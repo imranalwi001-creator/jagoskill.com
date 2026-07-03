@@ -14,7 +14,9 @@
 
     <link rel="stylesheet" href="/assets/design_1/css/app.min.css">
     <link rel="stylesheet" href="/assets/admin/css/extra.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     @if($isRtl)
         <link rel="stylesheet" href="/assets/design_1/css/rtl-app.min.css">
@@ -25,15 +27,16 @@
 
     <style>
         :root {
-            --admin-auth-bg: #090e17;
-            --admin-auth-panel: rgba(15, 23, 42, 0.45);
+            --admin-auth-bg: #09090b;
+            --admin-auth-panel: rgba(24, 24, 27, 0.65);
             --admin-auth-line: rgba(255, 255, 255, 0.08);
-            --admin-auth-text: #f8fafc;
-            --admin-auth-muted: #94a3b8;
-            --admin-auth-primary: #18b6a3;
-            --admin-auth-primary-dark: #0f8378;
-            --admin-auth-accent: #f5b85f;
-            --font-family: 'Outfit', sans-serif;
+            --admin-auth-text: #fafafa;
+            --admin-auth-muted: #a1a1aa;
+            --admin-auth-primary: #14b8a6;
+            --admin-auth-primary-dark: #0f766e;
+            --admin-auth-accent: #3b82f6;
+            --font-ui: 'Inter', sans-serif;
+            --font-display: 'Plus Jakarta Sans', sans-serif;
         }
 
         body.admin-auth-body {
@@ -42,7 +45,7 @@
             margin: 0;
             overflow-x: hidden;
             color: var(--admin-auth-text);
-            font-family: var(--font-family);
+            font-family: var(--font-ui);
             display: flex;
             align-items: stretch;
             justify-content: stretch;
@@ -57,12 +60,12 @@
         /* Left Side: Brand Panel */
         .brand-side {
             flex: 1.2;
-            background: linear-gradient(135deg, #090e17 0%, #0c1829 50%, #050b14 100%);
+            background: linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%);
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px;
+            padding: 60px 80px;
             overflow: hidden;
         }
 
@@ -77,29 +80,29 @@
             position: absolute;
             top: -10%;
             left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(24, 182, 163, 0.15) 0%, transparent 70%);
-            filter: blur(50px);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 60%);
+            filter: blur(60px);
             pointer-events: none;
-            animation: float-slow 12s infinite alternate;
+            animation: float-slow 15s infinite alternate;
         }
 
         .glowing-blob-2 {
             position: absolute;
             bottom: -10%;
             right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(245, 184, 95, 0.08) 0%, transparent 70%);
-            filter: blur(60px);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+            filter: blur(80px);
             pointer-events: none;
-            animation: float-slow 18s infinite alternate-reverse;
+            animation: float-slow 20s infinite alternate-reverse;
         }
 
         @keyframes float-slow {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 30px) scale(1.1); }
+            100% { transform: translate(50px, 40px) scale(1.05); }
         }
 
         /* Cybernetic grid overlay */
@@ -107,23 +110,36 @@
             content: "";
             position: absolute;
             inset: 0;
-            opacity: 0.04;
+            opacity: 0.03;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
         }
 
-        .brand-logo-container img {
-            max-height: 48px;
-            filter: drop-shadow(0 0 12px rgba(24, 182, 163, 0.3));
+        .brand-logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .brand-logo-wrapper img {
+            max-height: 40px;
+            width: auto;
+            display: block;
         }
 
         .brand-content {
             position: relative;
             z-index: 2;
-            max-width: 600px;
+            max-width: 650px;
             margin-top: auto;
             margin-bottom: auto;
             text-align: left;
@@ -132,44 +148,50 @@
         .brand-badge {
             display: inline-flex;
             align-items: center;
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 99px;
-            background: rgba(24, 182, 163, 0.1);
-            border: 1px solid rgba(24, 182, 163, 0.2);
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.2);
             color: var(--admin-auth-primary);
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 24px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--font-ui);
         }
 
         .brand-title {
-            font-size: 42px;
+            font-family: var(--font-display);
+            font-size: 52px;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.15;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
 
         .brand-title span {
-            background: linear-gradient(120deg, var(--admin-auth-primary), var(--admin-auth-accent));
+            background: linear-gradient(135deg, var(--admin-auth-primary), #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .brand-description {
-            font-size: 16px;
+            font-size: 17px;
             color: var(--admin-auth-muted);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 400;
         }
 
         .brand-footer {
             position: relative;
             z-index: 2;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
             display: flex;
             gap: 20px;
+            font-weight: 500;
         }
 
         /* Right Side: Form Panel */
@@ -393,13 +415,15 @@
             <div class="glowing-blob-1"></div>
             <div class="glowing-blob-2"></div>
 
-            <div class="brand-logo-container">
-                <img src="{{ $generalSettings['logo'] ?? '' }}" alt="logo" loading="eager">
+            <div>
+                <div class="brand-logo-wrapper">
+                    <img src="{{ $generalSettings['logo'] ?? '' }}" alt="logo" loading="eager">
+                </div>
             </div>
 
             <div class="brand-content">
                 <div class="brand-badge">JAGOSKILL MANAGEMENT</div>
-                <h1 class="brand-title">Elevate Your Platform, <span>Control the Future</span></h1>
+                <h1 class="brand-title">Elevate Your Platform, <br><span>Control the Future</span></h1>
                 <p class="brand-description">Welcome to the JagoSkill administration command center. Manage webinars, courses, bundles, user restrictions, and configure system operations smoothly in a fast, robust workspace.</p>
             </div>
 

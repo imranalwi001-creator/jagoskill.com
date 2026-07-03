@@ -6,11 +6,11 @@
 
 @section('content')
     <div class="text-left mb-4">
-        <h1 class="font-28 font-weight-bold mb-2 text-white" style="font-family: 'Outfit', sans-serif;">{{ trans('admin/main.login') }}</h1>
-        <p class="font-14 text-muted mb-0" style="font-family: 'Outfit', sans-serif;">{{ trans('update.login_to_your_account_and_manage_everything') }}</p>
+        <h1 class="font-28 font-weight-bold mb-2 text-white" style="font-family: var(--font-display);">{{ trans('admin/main.login') }}</h1>
+        <p class="font-15 text-muted mb-0" style="font-family: var(--font-ui);">{{ trans('update.login_to_your_account_and_manage_everything') }}</p>
     </div>
 
-    <form method="POST" action="{{ getAdminPanelUrl("/login") }}" class="mt-4" novalidate>
+    <form method="POST" action="{{ getAdminPanelUrl('/login') }}" class="mt-4" novalidate>
         {{ csrf_field() }}
 
         <!-- Email Field -->

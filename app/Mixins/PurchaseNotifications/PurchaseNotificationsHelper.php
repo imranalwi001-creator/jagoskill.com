@@ -28,6 +28,34 @@ class PurchaseNotificationsHelper
             }
         }
 
+        // --- INJECT AUTO RANDOM FOMO NOTIFICATIONS ---
+        // Generate 3 random notifications so they appear sequentially on every page load
+        $fakeNames = ['Budi S.', 'Andi M.', 'Siti A.', 'Ayu N.', 'Rizky P.', 'Fajar R.', 'Dian K.', 'Putri W.', 'Agus T.', 'Reza F.', 'Dimas A.', 'Nisa Y.', 'Tari B.', 'Hendra K.', 'Maya S.'];
+        $fakeTimes = ['Baru saja', '2 menit yang lalu', '5 menit yang lalu', '12 menit yang lalu', '24 menit yang lalu', '1 jam yang lalu'];
+        
+        $randomWebinars = \App\Models\Webinar::where('status', 'active')->inRandomOrder()->limit(3)->get();
+        
+        $delay = 3; // Start first popup after 3 seconds
+        foreach($randomWebinars as $index => $course) {
+            $fakeNotification = new \stdClass();
+            $fakeNotification->id = 90000 + $index;
+            $fakeNotification->popup_duration = 6; // visible for 6 seconds
+            $fakeNotification->popup_delay = $delay;
+            
+            $delay += 12; // next popup appears 12 seconds after this one starts (6s visible + 6s pause)
+            
+            $fakeNotification->content = $course;
+            $fakeNotification->time = $fakeTimes[array_rand($fakeTimes)];
+            
+            $buyerName = $fakeNames[array_rand($fakeNames)];
+            
+            $fakeNotification->notif_title = $buyerName . " baru saja bergabung!";
+            $fakeNotification->notif_subtitle = "Telah mendaftar: " . $course->title;
+            
+            $result->add($fakeNotification);
+        }
+        // ---------------------------------------------
+
         return $result;
     }
 

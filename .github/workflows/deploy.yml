@@ -37,7 +37,7 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -o PubkeyAcceptedKeyTypes=+ssh-rsa \
             -o PubkeyAcceptedAlgorithms=+ssh-rsa \
-            -p "${{ secrets.HOSTING_SSH_PORT || '22' }}" \
+            -p "65002" \
             "${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}" \
             "DEPLOY_PATH='${{ secrets.HOSTING_DEPLOY_PATH }}' bash -s" <<'REMOTE'
           set -euo pipefail
@@ -49,7 +49,7 @@ jobs:
 
           git fetch origin main
           git checkout main
-          git pull --ff-only origin main
+          git reset --hard origin/main
           git checkout -- "public/store/1/ChatGPT Image May 31, 2026, 01_20_24 PM.png"
 
           php artisan migrate --force

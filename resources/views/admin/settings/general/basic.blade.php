@@ -77,7 +77,7 @@
                     <label class="input-label d-block">{{ trans('admin/main.guest_default_language') }}</label>
                     <select name="value[visitors_default_language]" class="form-control">
                         <option value="default" @if(empty($itemValue) or empty($itemValue['visitors_default_language']) or $itemValue['visitors_default_language'] == 'default') selected @endif>{{ trans('admin/main.use_default_language') }}</option>
-                        <option>{{ trans('admin/main.use_ip_language') }} (Paid Plugin)</option>
+                        <option value="detect_ip" @if(!empty($itemValue) and !empty($itemValue['visitors_default_language']) and $itemValue['visitors_default_language'] == 'detect_ip') selected @endif>{{ trans('admin/main.use_ip_language') }} (Unlocked)</option>
                     </select>
                     <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.guest_default_language_hint') }}</div>
                 </div>

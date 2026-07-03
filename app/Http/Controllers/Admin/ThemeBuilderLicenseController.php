@@ -76,7 +76,7 @@ class ThemeBuilderLicenseController extends Controller
         //             break;
                 
         //         case ThemeBuilderLicenseService::ERROR_PRODUCT_MISMATCH:
-        //             $errorMessage = "Invalid product. This purchase code is for a different product, not for Rocket LMS Theme Builder.";
+        //             $errorMessage = "Invalid product. This purchase code is for a different product, not for JagoSkill Platform Theme Builder.";
         //             break;
                 
         //         case ThemeBuilderLicenseService::ERROR_INVALID_CODE:

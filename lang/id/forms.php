@@ -1,0 +1,15 @@
+<?php return array (
+  'maximum_64_characters' => 'Maksimum 64 karakter',
+  'maximum_255_characters' => 'Maksimum 255 karakter',
+  'maximum_128_characters' => 'Maksimal 128 karakter',
+  '50_160_characters_preferred' => 'Panjang pilihan: 155 - 160 karakter',
+  'maximum_50_characters' => 'Maksimal 50 karakter',
+  'course_thumbnail_size' => 'Ukuran pilihan: 360x250 piksel',
+  'course_cover_size' => 'Ukuran pilihan: 1920x530px',
+  'max' => 'Maks',
+  'capacity_placeholder' => 'Berapa banyak siswa yang Anda rencanakan untuk ditampung?',
+  'subscribe_hint' => 'Siswa dapat berlangganan konten Anda selain pembelian langsung.',
+  'webinar_description_placeholder' => 'Diperlukan minimal 300 kata. HTML dan gambar didukung.',
+  'empty_means_unlimited' => 'Biarkan kosong hingga tidak terbatas.',
+  'webinar_summary_placeholder' => 'Ringkasan singkat isi kursus, idealnya antara 50 dan 160 karakter.',
+);

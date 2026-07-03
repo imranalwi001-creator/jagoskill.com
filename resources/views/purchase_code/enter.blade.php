@@ -471,17 +471,17 @@
             <div class="card rounded-24">
                 <div class="card-body">
                         <div class="mb-4">
-                            <img src="{{ asset('assets/design_1/img/logo.svg') }}" alt="Rocket LMS" class="img-fluid">
+                            <img src="{{ asset('assets/design_1/img/logo.svg') }}" alt="JagoSkill Platform" class="img-fluid">
                         </div>
                     
                     <h1 class="card-title">@yield('heading', 'License Verification')</h1>
-                    <p class="card-subtitle">Enter your Rocket LMS purchase code to verify your license</p>
+                    <p class="card-subtitle">Enter your JagoSkill Platform purchase code to verify your license</p>
                     
                     @if(session($errorTypeSessionKey) == 'domain_mismatch' || (session($errorSessionKey) && str_contains(session($errorSessionKey), 'registered for')))
                         <div class="notice-box domain-notice">
                             <h5><i class="fas fa-exclamation-circle me-2"></i> Domain Registration Issue</h5>
                             <p>Your purchase code appears to be registered for another domain. Please update your license domain address.</p>
-                            <p class="mb-0">Visit our <a href="https://crm.rocket-soft.org/index.php/licenses" target="_blank">CRM Portal</a> to update domain for your license.</p>
+                            <p class="mb-0">Visit our <a href="https://crm.jagoskill.com/index.php/licenses" target="_blank">CRM Portal</a> to update domain for your license.</p>
                         </div>
                     @endif
                     
@@ -489,7 +489,7 @@
                         <div class="notice-box domain-notice">
                             <h5><i class="fas fa-exclamation-circle me-2"></i> Product Mismatch Issue</h5>
                             <p>Your purchase code appears to be for a different product. Please make sure you are using the correct purchase code.</p>
-                            <p class="mb-0">If you believe this is an error, visit our <a href="https://crm.rocket-soft.org/index.php/tickets" target="_blank">CRM Portal</a> to submit a support request.</p>
+                            <p class="mb-0">If you believe this is an error, visit our <a href="https://crm.jagoskill.com/index.php/tickets" target="_blank">CRM Portal</a> to submit a support request.</p>
                         </div>
                     @endif
                     
@@ -497,7 +497,7 @@
                         <div class="notice-box crm-notice">
                             <h5><i class="fas fa-info-circle me-2"></i> CRM Registration Required</h5>
                             <p>To register your purchase code, please submit your license in our CRM.</p>
-                            <p class="mb-0">Visit our <a href="https://crm.rocket-soft.org/index.php/licenses" target="_blank">CRM Portal</a> to submit your license.</p>
+                            <p class="mb-0">Visit our <a href="https://crm.jagoskill.com/index.php/licenses" target="_blank">CRM Portal</a> to submit your license.</p>
                         </div>
                     @endif
                     
@@ -534,7 +534,7 @@
                         </div>
                     </form>
                     
-                    <a href="https://crm.rocket-soft.org/index.php/tickets" target="_blank" class="login-link">Need help?</a>
+                    <a href="https://crm.jagoskill.com/index.php/tickets" target="_blank" class="login-link">Need help?</a>
                 </div>
             </div>
         </div>
@@ -547,14 +547,14 @@
             </div>
             <div class="help-text">
                 <p>Have a question?</p>
-                <p>Contact our team in <a href="https://crm.rocket-soft.org/index.php/tickets" target="_blank">CRM</a> to get resolved</p>
+                <p>Contact our team in <a href="https://crm.jagoskill.com/index.php/tickets" target="_blank">CRM</a> to get resolved</p>
             </div>
         </div>
         
         <div class="footer-right">
-            <a href="https://codecanyon.net/item/rocket-lms-learning-management-academy-script/33120735" target="_blank" class="footer-link">Product Page</a>
-            <a href="https://codecanyon.net/user/rocketsoft" target="_blank" class="footer-link">About</a>
-            <a href="https://crm.rocket-soft.org/index.php/tickets" target="_blank" class="footer-link">Contact us</a>
+            <a href="https://codecanyon.net/item/jagoskill-learning-management-academy-script/33120735" target="_blank" class="footer-link">Product Page</a>
+            <a href="https://codecanyon.net/user/jagoskill" target="_blank" class="footer-link">About</a>
+            <a href="https://crm.jagoskill.com/index.php/tickets" target="_blank" class="footer-link">Contact us</a>
         </div>
     </div>
     

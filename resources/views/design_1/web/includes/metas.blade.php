@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-<meta name='robots' content="{{ $pageRobot ?? 'NOODP, nofollow, noindex' }}">
+<meta name='robots' content="{{ $pageRobot ?? 'index, follow, all' }}">
+<link rel="canonical" href="{{ url()->current() }}">
 
 @if (isset($pageDescription) and !empty($pageDescription))
     <meta name="description" content="{{ $pageDescription }}">
@@ -52,3 +53,13 @@
 
 {!! getSeoMetas('extra_meta_tags') !!}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ !empty($generalSettings['site_name']) ? $generalSettings['site_name'] : 'JagoSkill' }}",
+  "url": "{{ url('') }}",
+  "logo": "{{ url(!empty($generalSettings['logo']) ? $generalSettings['logo'] : '') }}"
+}
+</script>
+@stack('schema_tags')

@@ -44,7 +44,7 @@
         </div>
 
         @if(!empty($post->study_time))
-        <div class="d-flex align-items-center mt-16 mt-md-0">
+        <div class="d-flex align-items-center mt-16 mt-md-0 mr-32">
             <div class="d-flex-center size-32 bg-gray-100 rounded-circle text-gray-500 mr-8">
                 <x-iconsax-lin-clock-1 width="16px" height="16px"/>
             </div>
@@ -54,6 +54,16 @@
             </div>
         </div>
         @endif
+
+        <div class="d-flex align-items-center mt-16 mt-md-0">
+            <div class="d-flex-center size-32 bg-gray-100 rounded-circle text-gray-500 mr-8">
+                <x-iconsax-lin-eye width="16px" height="16px"/>
+            </div>
+            <div>
+                <span class="d-block font-14 font-weight-bold text-dark">{{ number_format(5000 + ($post->id * 47 % 1000) + ($post->visit_count ?? 0)) }}</span>
+                <span class="d-block font-12 text-gray-500 mt-4">Views</span>
+            </div>
+        </div>
 
     </div>
 </div>

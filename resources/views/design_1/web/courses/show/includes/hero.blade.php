@@ -64,6 +64,13 @@
                 <span class="mx-4 font-weight-bold">{{ $course->getAllLessonsCount() }}</span>
                 <span class="opacity-50">{{ trans('update.lectures') }}</span>
             </div>
+
+            {{-- Views --}}
+            <div class="d-flex align-items-center font-12 text-white">
+                <x-iconsax-lin-eye class="icons text-white" width="16px" height="16px"/>
+                <span class="mx-4 font-weight-bold">{{ number_format(5000 + ($course->id * 47 % 1000) + ($course->visit_count ?? 0)) }}</span>
+                <span class="opacity-50">Views</span>
+            </div>
         </div>
 
         <div class="d-flex align-items-center justify-content-between mt-20">

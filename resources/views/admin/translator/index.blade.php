@@ -37,20 +37,24 @@
 
                                         <div class="form-group d-none" id="specificFilesInput">
                                             <label>Select Specific File</label>
+                                            @php
+                                                function flattenLangFiles($array, $prefix = '') {
+                                                    $result = [];
+                                                    foreach ($array as $key => $value) {
+                                                        if (is_array($value)) {
+                                                            $result = array_merge($result, flattenLangFiles($value, $prefix . $key . '/'));
+                                                        } else {
+                                                            $result[] = $prefix . $value;
+                                                        }
+                                                    }
+                                                    return $result;
+                                                }
+                                                $flatFiles = flattenLangFiles($langFiles ?? []);
+                                            @endphp
                                             <select name="lang_files[]" class="form-control select2" multiple>
-                                                @if(!empty($langFiles))
-                                                    @foreach($langFiles as $key => $file)
-                                                        @if(is_array($file))
-                                                            <optgroup label="{{ $key }}">
-                                                                @foreach($file as $subFile)
-                                                                    <option value="{{ $subFile }}">{{ $subFile }}</option>
-                                                                @endforeach
-                                                            </optgroup>
-                                                        @else
-                                                            <option value="{{ $file }}">{{ $file }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
+                                                @foreach($flatFiles as $file)
+                                                    <option value="{{ $file }}">{{ $file }}</option>
+                                                @endforeach
                                             </select>
                                             <input type="hidden" name="specific_file" value="1" disabled id="specificFileHidden">
                                         </div>

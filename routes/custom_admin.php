@@ -113,3 +113,6 @@ Route::post('/featured-topics/{id}/delete', 'Admin\FeaturedTopicsController@dest
  * 
  * Route::get('/custom-page', '\App\Http\Controllers\YourNamespace\YourController@method');
  */
+
+Route::get('/translator', 'Admin\TranslatorController@index');
+Route::post('/translator/translate', 'Admin\TranslatorController@translate');

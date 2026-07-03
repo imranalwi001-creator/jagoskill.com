@@ -89,13 +89,13 @@
 
         {{-- Third Section --}}
         <div id="themeHeaderSticky" class="theme-header-mobile__sticky d-flex align-items-center justify-content-between bg-white p-8 w-100 border-bottom-gray-200">
-            <a href="/" class="theme-header-mobile__logo" style="max-width: 180px; max-height: 45px; display: flex; align-items: center;">
+            <a href="/" class="theme-header-mobile__logo" style="max-width: 140px; max-height: 32px; display: flex; align-items: center;">
                 @if(!empty($generalSettings['logo']))
-                    <img src="{{ $generalSettings['logo'] }}" class="img-fluid light-only" style="max-height: 45px; width: auto; object-fit: contain;" alt="{{ $generalSettings['site_name'] ?? 'site' }}">
+                    <img src="{{ $generalSettings['logo'] }}" class="img-fluid light-only" style="max-height: 32px; width: auto; object-fit: contain;" alt="{{ $generalSettings['site_name'] ?? 'site' }}">
                 @endif
 
                 @if(!empty($generalSettings['dark_mode_logo']))
-                    <img src="{{ $generalSettings['dark_mode_logo'] }}" class="img-fluid dark-only" style="max-height: 45px; width: auto; object-fit: contain;" alt="{{ $generalSettings['site_name'] ?? 'site' }}">
+                    <img src="{{ $generalSettings['dark_mode_logo'] }}" class="img-fluid dark-only" style="max-height: 32px; width: auto; object-fit: contain;" alt="{{ $generalSettings['site_name'] ?? 'site' }}">
                 @endif
             </a>
 

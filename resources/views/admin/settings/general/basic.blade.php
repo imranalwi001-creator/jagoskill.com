@@ -163,10 +163,11 @@
                 <div class="form-group custom-switches-stacked">
                     <label class="custom-switch pl-0">
                         <input type="hidden" name="value[content_translate]" value="0">
+                        <input type="checkbox" name="value[content_translate]" id="contentTranslate" value="1" {{ (!empty($itemValue) and !empty($itemValue['content_translate']) and $itemValue['content_translate']) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
                         <span class="custom-switch-indicator"></span>
                         <label class="custom-switch-description mb-0 cursor-pointer" for="contentTranslate">{{ trans('update.multi_language_content') }}</label>
                     </label>
-                    <div class="text-muted text-small mt-1">Paid Plugin</div>
+                    <div class="text-success text-small mt-1 font-weight-bold">✓ Unlocked</div>
                 </div>
                 
                 <div class="form-group custom-switches-stacked">

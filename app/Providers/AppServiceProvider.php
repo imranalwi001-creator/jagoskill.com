@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
             return preg_match('/^\d*\.?\d*$/', $value);
         });
 
+        \Illuminate\Support\Facades\View::composer(['admin.*', 'web.*'], function ($view) {
+            if (!$view->offsetExists('userLanguages')) {
+                $view->with('userLanguages', getUserLanguagesLists());
+            }
+        });
 
         Paginator::defaultView('pagination::default');
     }

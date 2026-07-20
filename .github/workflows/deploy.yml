@@ -48,6 +48,8 @@ jobs:
           trap 'php artisan up || true' EXIT
 
           git fetch origin main
+          php -r 'exec("chmod -R 777 public || true");' || true
+          chmod -R u+w public || true
           chmod -R u+w .git || true
           rm -f .git/index.lock || true
           git clean -fd || true

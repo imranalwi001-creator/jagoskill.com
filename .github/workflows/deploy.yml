@@ -48,10 +48,10 @@ jobs:
           trap 'php artisan up || true' EXIT
 
           git fetch origin main
+          chmod -R u+w .git || true
+          rm -f .git/index.lock || true
+          git clean -fd || true
           git checkout main || true
-          rm -f .git/index
-          rm -f .git/index.lock
-          git reset
           git reset --hard origin/main
           git checkout -- "public/store/1/ChatGPT Image May 31, 2026, 01_20_24 PM.png"
 

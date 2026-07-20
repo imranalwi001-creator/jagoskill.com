@@ -18,7 +18,13 @@
                     <div class="form-group">
                         <label class="input-label">{{ trans('update.sms_sending_channel') }}</label>
                         <select name="value[sms_sending_channel]" class="form-control">
-                        <option>Paid Plugin</option>
+                            <option value="">{{ trans('admin/main.select') }}</option>
+                            <option value="twilio" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == 'twilio') ? 'selected="selected"' : '' }}>Twilio</option>
+                            <option value="kavenegar" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == 'kavenegar') ? 'selected="selected"' : '' }}>Kavenegar</option>
+                            <option value="msegat" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == 'msegat') ? 'selected="selected"' : '' }}>Msegat</option>
+                            <option value="vonage" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == 'vonage') ? 'selected="selected"' : '' }}>Vonage</option>
+                            <option value="msg91" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == 'msg91') ? 'selected="selected"' : '' }}>Msg91</option>
+                            <option value="2factor" {{ (!empty($itemValue) and !empty($itemValue['sms_sending_channel']) and $itemValue['sms_sending_channel'] == '2factor') ? 'selected="selected"' : '' }}>2Factor</option>
                         </select>
                     </div>
                 </div>

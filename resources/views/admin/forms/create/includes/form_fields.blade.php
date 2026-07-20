@@ -5,11 +5,11 @@
 
         <ul id="formFieldsCard" class="draggable-content-lists draggable-form-field-lists"
             data-drag-class="draggable-form-field-lists"
-            data-path="{{ getAdminPanelUrl("/forms/{$form->id}/fields/orders") }}"
+            data-path="{{ !empty($form) ? getAdminPanelUrl("/forms/{$form->id}/fields/orders") : '' }}"
             data-move-class="move-icon"
         >
 
-            @if(!empty($form->fields))
+            @if(!empty($form) and !empty($form->fields))
                 @foreach($form->fields as $field)
                     @include('admin.forms.create.includes.field_accordion',['formField' => $field])
                 @endforeach

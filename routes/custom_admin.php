@@ -56,6 +56,7 @@ Route::get('/assignments/{id}/students', 'Admin\AssignmentController@students');
 
 Route::get('/enrollments/history', 'Admin\EnrollmentController@history');
 Route::get('/enrollments/add-student-to-class', 'Admin\EnrollmentController@addStudentToClass');
+Route::post('/enrollments/store', 'Admin\EnrollmentController@store');
 
 Route::get('/waitlists', 'Admin\WaitlistController@index');
 Route::get('/waitlists/export', 'Admin\WaitlistController@exportExcel');

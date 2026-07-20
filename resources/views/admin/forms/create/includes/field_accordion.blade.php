@@ -15,7 +15,7 @@
             @if(!empty($formField))
                 <i data-feather="move" class="move-icon mr-10 cursor-pointer" height="20"></i>
 
-                <a href="{{ getAdminPanelUrl() }}/forms/{{ $form->id }}/fields/{{ $formField->id }}/delete" class="delete-action btn btn-sm btn-transparent text-gray" data-confirm="{{ trans('update.delete_form_field_confirm_btn_text') }}" data-title="{{ trans('update.delete_form_field_hint') }}">
+                <a href="{{ getAdminPanelUrl() }}/forms/{{ !empty($form) ? $form->id : '' }}/fields/{{ $formField->id }}/delete" class="delete-action btn btn-sm btn-transparent text-gray" data-confirm="{{ trans('update.delete_form_field_confirm_btn_text') }}" data-title="{{ trans('update.delete_form_field_hint') }}">
                     <i data-feather="trash-2" class="mr-10 cursor-pointer" height="20"></i>
                 </a>
             @endif
@@ -28,7 +28,7 @@
 
     <div id="collapseForm{{ !empty($formField) ? $formField->id :'record' }}" aria-labelledby="form_{{ !empty($formField) ? $formField->id :'record' }}" class=" collapse @if(empty($formField)) show @endif" role="tabpanel">
         <div class="panel-collapse text-gray">
-            <div class="js-field-form" data-action="{{ getAdminPanelUrl() }}/forms/{{ $form->id }}/fields/{{ !empty($formField) ? $formField->id . '/update' : 'store' }}">
+            <div class="js-field-form" data-action="{{ getAdminPanelUrl() }}/forms/{{ !empty($form) ? $form->id : '' }}/fields/{{ !empty($formField) ? $formField->id . '/update' : 'store' }}">
 
                 <div class="row">
                     <div class="col-12 col-lg-6">
@@ -38,7 +38,7 @@
                                 <label class="input-label">{{ trans('auth.language') }}</label>
                                 <select name="ajax[{{ !empty($formField) ? $formField->id : 'new' }}][locale]"
                                         class="form-control {{ !empty($formField) ? 'js-form-field-locale' : '' }}"
-                                        data-path="{{ !empty($formField) ? getAdminPanelUrl("/forms/{$form->id}/fields/{$formField->id}/edit") : '' }}"
+                                        data-path="{{ (!empty($form) && !empty($formField)) ? getAdminPanelUrl("/forms/{$form->id}/fields/{$formField->id}/edit") : '' }}"
                                 >
                                     @foreach($userLanguages as $lang => $language)
                                         <option value="{{ $lang }}" {{ (!empty($formField) and !empty($formField->locale)) ? (mb_strtolower($formField->locale) == mb_strtolower($lang) ? 'selected' : '') : (app()->getLocale() == $lang ? 'selected' : '') }}>{{ $language }}</option>
@@ -75,7 +75,7 @@
 
                             <ul class="js-field-options-lists draggable-content-lists draggable-form-field-options-lists-{{ !empty($formField) ? $formField->id : '' }}"
                                 data-drag-class="draggable-form-field-options-lists-{{ !empty($formField) ? $formField->id : '' }}"
-                                data-path="{{ !empty($formField) ? getAdminPanelUrl("/forms/{$form->id}/fields/{$formField->id}/options/orders") : '' }}"
+                                data-path="{{ (!empty($form) && !empty($formField)) ? getAdminPanelUrl("/forms/{$form->id}/fields/{$formField->id}/options/orders") : '' }}"
                                 data-move-class="move-icon2"
                             >
                                 @if(!empty($formField) and !empty($formField->options))

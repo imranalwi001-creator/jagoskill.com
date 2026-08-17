@@ -28,6 +28,19 @@ jobs:
           printf '%s\n' "${{ secrets.HOSTING_SSH_KEY }}" > ~/.ssh/jagoskill_deploy_key
           chmod 600 ~/.ssh/jagoskill_deploy_key
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install Dependencies
+        run: composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+      - name: Sync Vendor to Server
+        shell: bash
+        run: |
+          rsync -avz -e "ssh -i ~/.ssh/jagoskill_deploy_key -4 -p 65002 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAcceptedKeyTypes=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -m hmac-sha2-256-etm@openssh.com" vendor/ ${{ secrets.HOSTING_SSH_USER }}@${{ secrets.HOSTING_SSH_HOST }}:${{ secrets.HOSTING_DEPLOY_PATH }}/vendor/
+
       - name: Deploy on hosting
         shell: bash
         run: |

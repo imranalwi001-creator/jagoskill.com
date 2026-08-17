@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\LearningPageAssignmentTrait;
+use App\Http\Controllers\Web\Traits\LearningPageAssignmentTrait;
 use App\Models\Reward;
 use App\Models\RewardAccounting;
 use App\Models\WebinarAssignment;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\InstallmentsTrait;
+use App\Http\Controllers\Web\Traits\InstallmentsTrait;
 use App\Mixins\Installment\InstallmentPlans;
 use App\Mixins\RegistrationPackage\UserPackage;
 use App\Models\Accounting;

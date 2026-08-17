@@ -8,7 +8,7 @@ use App\Exports\OrganizationsExport;
 use App\Exports\StudentsExport;
 use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Mixins\Geo\Geo;
 use App\Models\Badge;
 use App\Models\BecomeInstructor;

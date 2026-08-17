@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\Auth\VerificationController;
 use App\Http\Controllers\Api\Controller;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Mixins\RegistrationBonus\RegistrationBonusAccounting;
 use App\Models\Affiliate;
 use App\Models\Reward;

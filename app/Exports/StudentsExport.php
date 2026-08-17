@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Models\FormFieldOption;
 use App\Models\UserFormField;
 use Illuminate\Support\Collection;

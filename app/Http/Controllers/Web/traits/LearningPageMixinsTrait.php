@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\traits;
+namespace App\Http\Controllers\Web\Traits;
 
 use App\Models\TimeSpentOnCourse;
 use App\Models\Webinar;

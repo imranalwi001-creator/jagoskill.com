@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\RegionsDataByUser;
+use App\Http\Controllers\Web\Traits\RegionsDataByUser;
 use App\Models\Bundle;
 use App\Models\Cart;
 use App\Models\Installment;

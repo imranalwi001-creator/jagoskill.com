@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Bitwise\UserLevelOfTraining;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Mixins\Geo\Geo;
 use App\Mixins\RegistrationPackage\UserPackage;
 use App\Models\Category;

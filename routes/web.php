@@ -35,6 +35,11 @@ Route::get('/ping-deploy', function() {
     return 'Deploy test successful at ' . date('Y-m-d H:i:s');
 });
 
+Route::get('/run-migrations-temp', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    return '<pre>' . \Illuminate\Support\Facades\Artisan::output() . '</pre>';
+});
+
 Route::group(['namespace' => 'Admin', 'prefix' => getAdminPanelUrlPrefix(), 'middleware' => [\App\Http\Middleware\AdminAuthenticate::class]], function () {
     Route::get('/forum-control', 'ForumControlController@index')->name('admin.forum_control.index');
     Route::post('/forum-control', 'ForumControlController@update')->name('admin.forum_control.update');

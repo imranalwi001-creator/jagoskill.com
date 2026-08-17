@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Enums\MorphTypesEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\CheckContentLimitationTrait;
+use App\Http\Controllers\Web\Traits\CheckContentLimitationTrait;
 use App\Mixins\Logs\VisitLogMixin;
 use App\Models\AdvertisingBanner;
 use App\Models\Category;

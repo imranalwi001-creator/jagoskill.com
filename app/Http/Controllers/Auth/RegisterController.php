@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Mixins\RegistrationBonus\RegistrationBonusAccounting;
 use App\Models\Affiliate;
 use App\Models\Reward;

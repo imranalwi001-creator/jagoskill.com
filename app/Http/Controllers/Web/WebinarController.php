@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Enums\MorphTypesEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\CheckContentLimitationTrait;
-use App\Http\Controllers\Web\traits\CourseShowTrait;
-use App\Http\Controllers\Web\traits\InstallmentsTrait;
+use App\Http\Controllers\Web\Traits\CheckContentLimitationTrait;
+use App\Http\Controllers\Web\Traits\CourseShowTrait;
+use App\Http\Controllers\Web\Traits\InstallmentsTrait;
 use App\Mixins\Cashback\CashbackRules;
 use App\Mixins\Installment\InstallmentPlans;
 use App\Mixins\Logs\VisitLogMixin;

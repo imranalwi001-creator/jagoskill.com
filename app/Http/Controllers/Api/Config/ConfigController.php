@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Config;
 
 use App\Api\Request;
 use App\Http\Controllers\Api\Controller;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Models\PaymentChannel;
 use Illuminate\Http\Request as HttpRequest;
 

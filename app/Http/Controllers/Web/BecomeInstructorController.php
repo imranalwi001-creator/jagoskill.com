@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\InstallmentsTrait;
-use App\Http\Controllers\Web\traits\UserFormFieldsTrait;
+use App\Http\Controllers\Web\Traits\InstallmentsTrait;
+use App\Http\Controllers\Web\Traits\UserFormFieldsTrait;
 use App\Mixins\Installment\InstallmentPlans;
 use App\Mixins\RegistrationPackage\UserPackage;
 use App\Models\BecomeInstructor;

@@ -70,7 +70,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>{{ trans('update.terms_and_conditions') }}</label>
-                                            <textarea name="value[{{ \App\Models\Setting::$installmentsTermsSettingsName }}][terms]" class="summernote form-control" rows="10">{{ !empty($installmentsTermsSettingsValues) ? $installmentsTermsSettingsValues['terms'] : '' }}</textarea>
+                                            <textarea name="value[{{ \App\Models\Setting::$installmentsTermsSettingsName }}][terms]" class="summernote form-control" rows="10">{{ (!empty($installmentsTermsSettingsValues) && isset($installmentsTermsSettingsValues['terms'])) ? $installmentsTermsSettingsValues['terms'] : '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>

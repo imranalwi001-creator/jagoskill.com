@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\PaymentsTrait;
+use App\Http\Controllers\Web\Traits\PaymentsTrait;
 use App\Mixins\Cashback\CashbackAccounting;
 use App\Mixins\Events\EventTicketSoldMixins;
 use App\Mixins\MeetingPackages\MeetingPackageSoldMixins;

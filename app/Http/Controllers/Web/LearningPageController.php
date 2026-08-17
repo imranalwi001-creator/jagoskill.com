@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\traits\LearningPageAssignmentTrait;
-use App\Http\Controllers\Web\traits\LearningPageForumTrait;
-use App\Http\Controllers\Web\traits\LearningPageItemInfoTrait;
-use App\Http\Controllers\Web\traits\LearningPageMixinsTrait;
-use App\Http\Controllers\Web\traits\LearningPageNoticeboardsTrait;
-use App\Http\Controllers\Web\traits\LearningPagePersonalNoteTrait;
+use App\Http\Controllers\Web\Traits\LearningPageAssignmentTrait;
+use App\Http\Controllers\Web\Traits\LearningPageForumTrait;
+use App\Http\Controllers\Web\Traits\LearningPageItemInfoTrait;
+use App\Http\Controllers\Web\Traits\LearningPageMixinsTrait;
+use App\Http\Controllers\Web\Traits\LearningPageNoticeboardsTrait;
+use App\Http\Controllers\Web\Traits\LearningPagePersonalNoteTrait;
 use App\Models\Certificate;
 use App\Models\CourseLearningLastView;
 use App\Models\CourseNoticeboard;

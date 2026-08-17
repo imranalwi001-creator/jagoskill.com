@@ -58,6 +58,7 @@ jobs:
           git reset --hard origin/main
           git checkout -- "public/store/1/ChatGPT Image May 31, 2026, 01_20_24 PM.png"
 
+          php /usr/bin/composer install --no-dev --optimize-autoloader || composer install --no-dev --optimize-autoloader || php artisan config:clear
           php artisan migrate --force
           
           php artisan optimize:clear

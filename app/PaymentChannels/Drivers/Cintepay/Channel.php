@@ -7,7 +7,7 @@ use App\Models\PaymentChannel;
 use App\PaymentChannels\BasePaymentChannel;
 use App\PaymentChannels\IChannel;
 use Illuminate\Http\Request;
-use Guysolamour\Cinetpay\Cinetpay;
+// use Guysolamour\Cinetpay\Cinetpay;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -49,6 +49,8 @@ class Channel extends BasePaymentChannel implements IChannel
 
     public function paymentRequest(Order $order)
     {
+        return redirect()->back()->with('msg', 'Cinetpay is temporarily disabled.');
+        /*
         $this->handleConfigs();
 
         $generalSettings = getGeneralSettings();
@@ -77,6 +79,7 @@ class Channel extends BasePaymentChannel implements IChannel
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
+        */
     }
 
     private function makeCallbackUrl($status)
@@ -86,6 +89,8 @@ class Channel extends BasePaymentChannel implements IChannel
 
     public function verify(Request $request)
     {
+        return null;
+        /*
         $this->handleConfigs();
 
         $data = $request->all();
@@ -125,6 +130,7 @@ class Channel extends BasePaymentChannel implements IChannel
         }
 
         return null;
+        */
     }
 
 }

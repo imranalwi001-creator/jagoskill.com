@@ -47,6 +47,7 @@ jobs:
           php artisan down || true
           trap 'php artisan up || true' EXIT
 
+          if [ ! -d '.git' ]; then git clone https://github.com/imranalwi001-creator/jagoskill.com.git . || true; fi
           git fetch origin main
           php -r 'exec("chmod -R 777 public || true");' || true
           chmod -R u+w public || true

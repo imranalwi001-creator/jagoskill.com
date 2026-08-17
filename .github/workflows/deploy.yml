@@ -34,7 +34,11 @@ jobs:
           php-version: '8.1'
 
       - name: Install Dependencies
-        run: composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
+        run: |
+          rm -f composer.lock
+          composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
       - name: Sync Vendor to Server
         shell: bash

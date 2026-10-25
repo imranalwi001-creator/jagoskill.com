@@ -17,10 +17,14 @@ class AddNewStatusInReserveMeetingsTable extends Migration
         Schema::table('reserve_meetings', function (Blueprint $table) {
             DB::statement("ALTER TABLE `reserve_meetings` MODIFY COLUMN `status` enum('pending','open','finished','canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `password`");
 
-            $table->integer('sale_id')->unsigned()->after('meeting_id')->nullable();
-            $table->integer('date')->unsigned()->after('day');
+            if (!Schema::hasColumn('reserve_meetings', 'sale_id')) {
+                $table->integer('sale_id')->unsigned()->after('meeting_time_id')->nullable();
+                $table->foreign('sale_id')->on('sales')->references('id')->onDelete('cascade');
+            }
 
-            $table->foreign('sale_id')->on('sales')->references('id')->onDelete('cascade');
+            if (!Schema::hasColumn('reserve_meetings', 'date')) {
+                $table->integer('date')->unsigned()->after('day');
+            }
         });
     }
 }

@@ -24,7 +24,6 @@ class CreateMeetingsTable extends Migration
             $table->integer('created_at');
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

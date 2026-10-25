@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('blog', function (Blueprint $table) {
-            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
-        });
+        try {
+            Schema::table('blog', function (Blueprint $table) {
+                $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
+            });
+        } catch (\Throwable $e) {
+        }
     }
 
 };

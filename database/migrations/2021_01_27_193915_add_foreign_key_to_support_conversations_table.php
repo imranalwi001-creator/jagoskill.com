@@ -13,9 +13,12 @@ class AddForeignKeyToSupportConversationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('support_conversations', function (Blueprint $table) {
-            $table->foreign('support_id')->on('supports')->references('id')->onDelete('cascade');
-            $table->foreign('sender_id')->on('users')->references('id')->onDelete('cascade');
-        });
+        try {
+            Schema::table('support_conversations', function (Blueprint $table) {
+                $table->foreign('support_id')->on('supports')->references('id')->onDelete('cascade');
+                $table->foreign('sender_id')->on('users')->references('id')->onDelete('cascade');
+            });
+        } catch (\Throwable $e) {
+        }
     }
 }

@@ -50,8 +50,9 @@ if ($isLocalPublicCacheRequest && is_file($localPageCacheFile)) {
     }
     exit;
 }
-
-@require_once __DIR__ . '/../storage/framework/cache/cache-bootstrap.php';
+if (is_file(__DIR__ . '/../storage/framework/cache/cache-bootstrap.php')) {
+    require_once __DIR__ . '/../storage/framework/cache/cache-bootstrap.php';
+}
 
 /*
 |--------------------------------------------------------------------------

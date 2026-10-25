@@ -14,9 +14,14 @@ class ChangeMeetingIdToMeetingTimeIdInAccountingTable extends Migration
     public function up()
     {
         Schema::table('accounting', function (Blueprint $table) {
-            DB::statement("ALTER TABLE `accounting` DROP FOREIGN KEY `accounting_meeting_id_foreign`;");
-            DB::statement("ALTER TABLE `accounting` CHANGE COLUMN  `meeting_id` `meeting_time_id` INTEGER UNSIGNED NULL");
+            try {
+                DB::statement("ALTER TABLE `accounting` DROP FOREIGN KEY `accounting_meeting_id_foreign`;");
+            } catch (\Throwable $e) {
+            }
 
+            if (!Schema::hasColumn('accounting', 'meeting_time_id') && Schema::hasColumn('accounting', 'meeting_id')) {
+                DB::statement("ALTER TABLE `accounting` CHANGE COLUMN `meeting_id` `meeting_time_id` INTEGER UNSIGNED NULL");
+            }
         });
     }
 

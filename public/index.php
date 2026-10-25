@@ -42,7 +42,7 @@ $isLocalPublicCacheRequest = $localPageCacheEnabled
     && empty($_GET['nocache']);
 $localPageCacheFile = __DIR__ . '/../storage/framework/cache/local-pages/' . sha1($requestUri) . '.html';
 
-if ($isLocalPublicCacheRequest && is_file($localPageCacheFile)) {
+if ($isLocalPublicCacheRequest && is_file($localPageCacheFile) && filesize($localPageCacheFile) > 0) {
     header('X-Jagoskill-Local-Cache: HIT');
     header('Content-Type: text/html; charset=UTF-8');
     if ($requestMethod !== 'HEAD') {
@@ -100,7 +100,7 @@ $kernel = $app->make(Kernel::class);
 $request = Request::capture();
 $response = $kernel->handle($request);
 
-if ($isLocalPublicCacheRequest && $response->getStatusCode() === 200) {
+if ($isLocalPublicCacheRequest && $requestMethod === 'GET' && $response->getStatusCode() === 200 && strlen($response->getContent()) > 0) {
     @is_dir(dirname($localPageCacheFile)) || @mkdir(dirname($localPageCacheFile), 0775, true);
     @file_put_contents($localPageCacheFile, $response->getContent(), LOCK_EX);
 }

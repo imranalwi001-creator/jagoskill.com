@@ -36,7 +36,11 @@ Route::group(['prefix' => '/development'], function () {
 
     Route::prefix('instructor')->middleware(['api.auth', 'api.level-access:teacher'])->namespace('Instructor')->group(base_path('routes/api/instructor.php'));
 
-
-
-
 });
+
+Route::prefix('v1/licenses')->group(function () {
+    Route::post('/verify', 'LicenseApiController@verify');
+    Route::post('/activate', 'LicenseApiController@activate');
+    Route::post('/deactivate', 'LicenseApiController@deactivate');
+});
+

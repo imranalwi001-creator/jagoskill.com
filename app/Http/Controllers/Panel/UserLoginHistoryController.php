@@ -27,10 +27,10 @@ class UserLoginHistoryController extends Controller
             $sessionManager->getHandler()->destroy($session->session_id);
 
             if (!empty($user) and $user->logged_count > 0) {
-               $user->update([
-                   'logged_count' => $user->logged_count - 1
-           ]);
-
+                $user->update([
+                    'logged_count' => $user->logged_count - 1
+                ]);
+            }
         }
 
 

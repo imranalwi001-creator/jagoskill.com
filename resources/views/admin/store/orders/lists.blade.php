@@ -213,6 +213,9 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a href="{{ getAdminPanelUrl() }}/store/orders/{{ $order->id }}/invoice" target="_blank" class="dropdown-item">{{ trans('admin/main.invoice') }}</a>
+                                                        <button type="button" class="dropdown-item view-fulfillment-btn text-primary" data-order-id="{{ $order->id }}">
+                                                            <i class="fa fa-key mr-2"></i> Detail Digital & Lisensi
+                                                        </button>
                                                         <a href="{{ getAdminPanelUrl() }}/store/orders/{{ $order->id }}/refund" class="dropdown-item text-danger delete-action" data-confirm-text="{{ trans('public.confirm_delete') }}">{{ trans('admin/main.refund') }}</a>
                                                     </div>
                                                 </div>
@@ -231,7 +234,106 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Detail Fulfillment Digital & Lisensi -->
+    <div class="modal fade" id="fulfillmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-16 font-weight-bold">Fulfillment & Lisensi: Order <span id="modalOrderId" class="text-primary"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="fulfillmentModalBody">
+                        <p class="text-center text-muted py-3">Memuat detail fulfillment...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('admin/main.close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts_bottom')
+<script>
+    (function ($) {
+        "use strict";
+
+        $('.view-fulfillment-btn').on('click', function () {
+            var orderId = $(this).data('order-id');
+            $('#modalOrderId').text('#' + orderId);
+            $('#fulfillmentModalBody').html('<p class="text-center text-muted py-3">Memuat detail fulfillment...</p>');
+            $('#fulfillmentModal').modal('show');
+
+            $.get('{{ getAdminPanelUrl() }}/store/orders/' + orderId + '/fulfillment', function (res) {
+                if (res.code === 200) {
+                    var order = res.order;
+                    var html = '';
+
+                    // License Card
+                    html += '<div class="card bg-light mb-3">';
+                    html += '<div class="card-body p-3">';
+                    html += '<h6 class="font-14 font-weight-bold text-dark mb-2"><i class="fa fa-key mr-2 text-warning"></i>Serial Key / Lisensi Digital</h6>';
+
+                    if (order.license) {
+                        html += '<div class="d-flex justify-content-between align-items-center mb-2">';
+                        html += '<div><code>' + order.license.key + '</code></div>';
+                        html += '<span class="badge badge-' + (order.license.status === 'active' ? 'success' : 'danger') + '">' + order.license.status.toUpperCase() + '</span>';
+                        html += '</div>';
+                        html += '<div class="font-12 text-muted mb-2">';
+                        html += 'Aktivasi: <strong>' + order.license.activation_count + ' / ' + order.license.max_activations + '</strong> | Kedaluwarsa: <strong>' + order.license.expires_at + '</strong>';
+                        html += '</div>';
+
+                        if (order.license.activations && order.license.activations.length > 0) {
+                            html += '<div class="mt-2 pt-2 border-top"><strong class="font-12">Domain Aktif:</strong><ul class="font-12 text-muted pl-3 mb-0">';
+                            $.each(order.license.activations, function (i, act) {
+                                html += '<li>' + (act.domain || act.machine_id) + ' (IP: ' + (act.ip_address || '-') + ')</li>';
+                            });
+                            html += '</ul></div>';
+                        }
+                    } else {
+                        html += '<p class="font-12 text-muted mb-0">Pesanan ini belum memiliki serial key atau tidak membutuhkan aktivasi lisensi.</p>';
+                    }
+                    html += '</div></div>';
+
+                    // Downloads Card
+                    html += '<div class="card bg-light">';
+                    html += '<div class="card-body p-3">';
+                    html += '<div class="d-flex justify-content-between align-items-center mb-2">';
+                    html += '<h6 class="font-14 font-weight-bold text-dark mb-0"><i class="fa fa-download mr-2 text-info"></i>Riwayat Unduhan Berkas</h6>';
+                    html += '<form action="{{ getAdminPanelUrl() }}/store/orders/' + order.id + '/reset-downloads" method="post" class="d-inline" onsubmit="return confirm(\'Reset riwayat unduhan pembeli ini agar kuota kembali utuh?\');">';
+                    html += '<input type="hidden" name="_token" value="{{ csrf_token() }}">';
+                    html += '<button type="submit" class="btn btn-sm btn-outline-danger font-12 py-1"><i class="fa fa-redo mr-1"></i>Reset Kuota Unduh</button>';
+                    html += '</form>';
+                    html += '</div>';
+
+                    html += '<p class="font-12 text-muted mb-2">Total Unduhan Tercatat: <strong>' + order.total_downloads + ' kali</strong></p>';
+
+                    if (order.download_logs && order.download_logs.length > 0) {
+                        html += '<div class="table-responsive" style="max-height: 180px; overflow-y: auto;">';
+                        html += '<table class="table table-sm font-12 mb-0">';
+                        html += '<thead><tr><th>File</th><th>IP Address</th><th>Waktu Unduh</th></tr></thead>';
+                        html += '<tbody>';
+                        $.each(order.download_logs, function (i, log) {
+                            html += '<tr><td>' + log.file_title + '</td><td>' + (log.ip_address || '-') + '</td><td>' + log.downloaded_at + '</td></tr>';
+                        });
+                        html += '</tbody></table></div>';
+                    } else {
+                        html += '<p class="font-12 text-muted mb-0">Pembeli belum pernah mengunduh berkas produk ini.</p>';
+                    }
+                    html += '</div></div>';
+
+                    $('#fulfillmentModalBody').html(html);
+                }
+            }).fail(function () {
+                $('#fulfillmentModalBody').html('<p class="text-center text-danger py-3">Gagal memuat detail fulfillment.</p>');
+            });
+        });
+
+    })(jQuery);
+</script>
 @endpush

@@ -94,7 +94,7 @@ class AdminAuthenticate
 
     private function getSidebarBeeps(): array
     {
-        return Cache::remember('admin.sidebar_beeps', now()->addMinute(), function (): array {
+        return Cache::remember('admin.sidebar_beeps', now()->addMinutes(10), function (): array {
             $sidebarController = new SidebarController();
 
             return [

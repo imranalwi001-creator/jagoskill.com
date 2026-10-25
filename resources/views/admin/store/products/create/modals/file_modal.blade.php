@@ -27,6 +27,21 @@
             <div class="invalid-feedback"></div>
         </div>
 
+        <div class="form-group">
+            <label class="input-label">Tipe Pengiriman / Akses</label>
+            <select name="access_type" class="form-control js-product-file-access-type">
+                <option value="upload">Upload Berkas Fisik / File Manager</option>
+                <option value="external_link">Tautan Akses Eksternal (Google Drive, Notion, Figma, dsb)</option>
+            </select>
+        </div>
+
+        <div class="form-group js-external-link-input d-none">
+            <label class="input-label">Tautan Eksternal (URL Akses)</label>
+            <input type="url" name="external_link" class="form-control" placeholder="https://drive.google.com/... atau https://notion.so/..."/>
+            <small class="text-muted">Pembeli akan langsung dialihkan ke tautan ini saat mengakses produk.</small>
+            <div class="invalid-feedback"></div>
+        </div>
+
         <div class="form-group js-file-path-input">
             <div class="local-input input-group">
                 <div class="input-group-prepend">
@@ -40,7 +55,7 @@
         </div>
 
         <div class="row form-group js-file-type-volume">
-            <div class="col-6">
+            <div class="col-4">
                 <label class="input-label">{{ trans('webinars.file_type') }}</label>
                 <select name="file_type" class="js-ajax-file_type form-control">
                     <option value="">{{ trans('webinars.select_file_type') }}</option>
@@ -51,9 +66,15 @@
                 </select>
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <label class="input-label">{{ trans('webinars.file_volume') }}</label>
                 <input type="text" name="volume" value="" class="js-ajax-volume form-control" placeholder="{{ trans('webinars.online_file_volume') }}"/>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="col-4">
+                <label class="input-label">Batas Unduh</label>
+                <input type="number" name="download_limit" value="0" min="0" class="form-control" placeholder="0 = Unlimited"/>
+                <small class="text-muted">0 = Tanpa batas</small>
                 <div class="invalid-feedback"></div>
             </div>
         </div>
@@ -90,3 +111,18 @@
         </div>
     </form>
 </div>
+
+<script>
+    (function () {
+        $('body').on('change', '.js-product-file-access-type', function () {
+            var val = $(this).val();
+            if (val === 'external_link') {
+                $('.js-external-link-input').removeClass('d-none');
+                $('.js-file-path-input').addClass('d-none');
+            } else {
+                $('.js-external-link-input').addClass('d-none');
+                $('.js-file-path-input').removeClass('d-none');
+            }
+        });
+    })();
+</script>

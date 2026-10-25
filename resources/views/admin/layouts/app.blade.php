@@ -161,5 +161,8 @@
 <script>
     {!! !empty($themeCustomCssAndJs['js']) ? $themeCustomCssAndJs['js'] : '' !!}
 </script>
+
+<!-- Instant Page Prefetching for Sub-second Dashboard Transitions -->
+<script src="//instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiCGnKDdQRVQztR7oQCrDvi01PvnQA210w2WXGuAzVCqqE2442Yk86pu39"></script>
 </body>
 </html>

@@ -41,4 +41,14 @@ class ProductOrder extends Model
     {
         return $this->belongsTo('App\Models\Gift', 'gift_id', 'id');
     }
+
+    public function license()
+    {
+        return $this->hasOne(ProductLicense::class, 'product_order_id', 'id');
+    }
+
+    public function downloadLogs()
+    {
+        return $this->hasMany(ProductDownloadLog::class, 'product_order_id', 'id');
+    }
 }

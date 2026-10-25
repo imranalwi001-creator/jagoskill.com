@@ -41,6 +41,29 @@
 
             <div class="px-16 mt-16 border-top-gray-200">
 
+                @if(!empty($license))
+                    <div class="bg-primary-10 border border-primary-20 rounded-16 p-16 p-lg-24 mt-20 d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between">
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <x-iconsax-bul-key class="icons text-primary mr-8" width="24px" height="24px"/>
+                                <h3 class="font-16 font-weight-bold text-dark mb-0">Lisensi Resmi Produk Anda</h3>
+                            </div>
+                            <p class="font-12 text-gray-500 mt-4 mb-0">Gunakan serial key berikut untuk mengaktivasi software, tema, plugin, atau mengakses fasilitas VIP.</p>
+                            <div class="mt-12 d-flex align-items-center gap-12">
+                                <code class="font-16 font-weight-bold text-primary bg-white px-12 py-6 rounded-8 border border-primary-20">{{ $license->license_key }}</code>
+                                <button type="button" class="btn btn-outline-primary btn-sm rounded-8 js-copy-license" data-key="{{ $license->license_key }}">
+                                    <i class="fa fa-copy mr-1"></i> Salin Kunci
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-16 mt-lg-0 text-lg-right">
+                            <span class="d-block font-12 text-gray-500">Kuota Aktivasi Domain:</span>
+                            <span class="font-14 font-weight-bold text-dark">{{ $license->activation_count }} / {{ $license->max_activations == 0 ? 'Unlimited' : $license->max_activations }}</span>
+                            <span class="d-block font-12 text-muted mt-4">Masa Berlaku: {{ $license->expires_at ? dateTimeFormat($license->expires_at, 'j M Y') : 'Seumur Hidup (Lifetime)' }}</span>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Files --}}
                 @include("design_1.web.products.show.includes.files_accordion", ['files' => $product->files])
 

@@ -37,6 +37,12 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
+        Gate::before(function ($user, $ability) {
+            if ($user && $user->isAdmin()) {
+                return true;
+            }
+        });
+
         $minutes = 60 * 60; // 1 hour
         $sections = Cache::remember('sections', $minutes, function () {
             return Section::all();

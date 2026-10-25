@@ -30,7 +30,7 @@ class UserLoginHistoryMixin
 
     public function storeUserLoginHistory($user)
     {
-        $ipAddress = $_SERVER['REMOTE_ADDR']; // "46.143.59.39"
+        $ipAddress = request()->ip() ?? ($_SERVER['REMOTE_ADDR'] ?? '127.0.0.1');
         $country = null;
         $city = null;
         $location = null;
@@ -40,8 +40,6 @@ class UserLoginHistoryMixin
             $country = $locationData['country'] ?? null;
             $city = $locationData['city'] ?? null;
             $location = (!empty($locationData['lat']) and !empty($locationData['lon'])) ? "{$locationData['lat']},{$locationData['lon']}" : null;
-        } else {
-            $ipAddress = null;
         }
 
         $userSession = session()->getId();

@@ -63,6 +63,16 @@ class Handler extends ExceptionHandler
             return $this->renderApi($request, $exception);
         }
 
+        if ($exception instanceof ValidationException) {
+            return parent::render($request, $exception);
+        }
+
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect()->back()->withInput($request->except('password', 'password_confirmation'))->withErrors([
+                'email' => 'Sesi login telah kedaluwarsa. Silakan muat ulang halaman dan coba lagi.',
+            ]);
+        }
+
         $modelNotFound = ($exception instanceof ModelNotFoundException);
 
         if (

@@ -14,6 +14,13 @@
     <td class=" text-center">
         <span class="d-block font-weight-500">{{ $order->id }}</span>
         <span class="d-block font-12 text-gray-500">{{ $order->quantity }} {{ trans('update.product') }}</span>
+        @if(!empty($order->license))
+            <div class="mt-4">
+                <span class="d-inline-flex align-items-center px-8 py-4 rounded-8 bg-primary-10 font-12 text-primary cursor-pointer js-copy-license" data-key="{{ $order->license->license_key }}" title="Klik untuk salin lisensi">
+                    <i class="fa fa-key mr-4"></i> {{ $order->license->license_key }}
+                </span>
+            </div>
+        @endif
     </td>
 
     <td class="text-center">
@@ -83,6 +90,14 @@
                     @if(!empty($order->product) and $order->product->isVirtual() and !empty($order->product->files) and count($order->product->files))
                         <li class="actions-dropdown__dropdown-menu-item">
                             <a href="/products/{{ $order->product->slug }}/files">{{ trans('update.download_page') }}</a>
+                        </li>
+                    @endif
+
+                    @if(!empty($order->license))
+                        <li class="actions-dropdown__dropdown-menu-item">
+                            <a href="javascript:void(0);" class="js-copy-license text-primary" data-key="{{ $order->license->license_key }}">
+                                <i class="fa fa-key mr-2"></i> Salin Serial Key
+                            </a>
                         </li>
                     @endif
 

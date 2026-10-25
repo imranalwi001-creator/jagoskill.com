@@ -69,9 +69,9 @@
             overflow: hidden;
         }
 
-        @media (max-width: 991px) {
+        @media (max-width: 1199px) {
             .brand-side {
-                display: none;
+                display: none !important;
             }
         }
 
@@ -207,10 +207,12 @@
             border-left: 1px solid var(--admin-auth-line);
         }
 
-        @media (max-width: 991px) {
+        @media (max-width: 1199px) {
             .form-side {
-                flex: 1;
-                border-left: none;
+                flex: 1 !important;
+                width: 100% !important;
+                border-left: none !important;
+                padding: 40px 20px;
             }
         }
 
@@ -439,6 +441,12 @@
                 <span>&larr;</span>
                 <span>{{ trans('navbar.home') }}</span>
             </a>
+
+            <div class="d-xl-none text-center mb-4">
+                <div class="brand-logo-wrapper">
+                    <img src="{{ $generalSettings['logo'] ?? '' }}" alt="logo">
+                </div>
+            </div>
 
             <div class="admin-auth-container">
                 @yield('content')

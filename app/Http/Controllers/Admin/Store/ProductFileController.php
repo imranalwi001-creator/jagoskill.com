@@ -43,10 +43,13 @@ class ProductFileController extends Controller
             $file = ProductFile::create([
                 'creator_id' => $product->creator_id,
                 'product_id' => $data['product_id'],
-                'path' => $data['path'],
+                'path' => !empty($data['path']) ? $data['path'] : ($data['external_link'] ?? ''),
                 'order' => null,
                 'volume' => $data['volume'],
                 'file_type' => $data['file_type'],
+                'download_limit' => !empty($data['download_limit']) ? (int)$data['download_limit'] : 0,
+                'access_type' => !empty($data['access_type']) ? $data['access_type'] : 'upload',
+                'external_link' => !empty($data['external_link']) ? $data['external_link'] : null,
                 'online_viewer' => (!empty($data['online_viewer']) and $data['online_viewer'] == 'on'),
                 'status' => (!empty($data['status']) and $data['status'] == 'on') ? ProductFile::$Active : ProductFile::$Inactive,
                 'created_at' => time(),
@@ -129,9 +132,12 @@ class ProductFileController extends Controller
 
             if (!empty($file)) {
                 $file->update([
-                    'path' => $data['path'],
+                    'path' => !empty($data['path']) ? $data['path'] : ($data['external_link'] ?? $file->path),
                     'volume' => $data['volume'],
                     'file_type' => $data['file_type'],
+                    'download_limit' => !empty($data['download_limit']) ? (int)$data['download_limit'] : 0,
+                    'access_type' => !empty($data['access_type']) ? $data['access_type'] : 'upload',
+                    'external_link' => !empty($data['external_link']) ? $data['external_link'] : null,
                     'online_viewer' => (!empty($data['online_viewer']) and $data['online_viewer'] == 'on'),
                     'status' => (!empty($data['status']) and $data['status'] == 'on') ? ProductFile::$Active : ProductFile::$Inactive,
                     'created_at' => time(),

@@ -11,16 +11,19 @@ $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
 
 if ($localLicenseHost && preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/', $requestHost)) {
-    $requestPort = parse_url('http://' . $requestHost, PHP_URL_PORT);
-
     $_SERVER['HTTP_X_ORIGINAL_HOST'] = $requestHost;
-    $_SERVER['HTTP_HOST'] = $requestPort ? "{$localLicenseHost}:{$requestPort}" : $localLicenseHost;
     $_SERVER['SERVER_NAME'] = $localLicenseHost;
 }
 
 $localPageCacheEnabled = filter_var(getenv('JAGOSKILL_LOCAL_PAGE_CACHE'), FILTER_VALIDATE_BOOLEAN) || !empty($localLicenseHost);
 $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-$requestHasCookies = !empty($_COOKIE);
+$hasAuthCookie = false;
+foreach (array_keys($_COOKIE) as $cookieName) {
+    if (strpos($cookieName, 'remember_web') === 0 || $cookieName === 'is_logged_in') {
+        $hasAuthCookie = true;
+        break;
+    }
+}
 $publicCachePaths = [
     '/',
     '/classes',
@@ -32,16 +35,19 @@ $publicCachePaths = [
     '/store',
 ];
 $isLocalPublicCacheRequest = $localPageCacheEnabled
-    && $requestMethod === 'GET'
-    && !$requestHasCookies
+    && in_array($requestMethod, ['GET', 'HEAD'], true)
+    && !$hasAuthCookie
     && in_array($requestPath, $publicCachePaths, true)
-    && empty($_SERVER['HTTP_X_REQUESTED_WITH']);
+    && empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+    && empty($_GET['nocache']);
 $localPageCacheFile = __DIR__ . '/../storage/framework/cache/local-pages/' . sha1($requestUri) . '.html';
 
 if ($isLocalPublicCacheRequest && is_file($localPageCacheFile)) {
     header('X-Jagoskill-Local-Cache: HIT');
     header('Content-Type: text/html; charset=UTF-8');
-    readfile($localPageCacheFile);
+    if ($requestMethod !== 'HEAD') {
+        readfile($localPageCacheFile);
+    }
     exit;
 }
 
@@ -101,3 +107,4 @@ if ($isLocalPublicCacheRequest && $response->getStatusCode() === 200) {
 $response->send();
 
 $kernel->terminate($request, $response);
+

@@ -33,6 +33,17 @@ $prefix = getAdminPanelUrlPrefix();
 
 // You can add as many route groups as needed
 
+Route::group(['prefix' => 'store/licenses'], function () {
+    Route::get('/', 'Admin\Store\ProductLicenseController@index');
+    Route::post('/generate', 'Admin\Store\ProductLicenseController@generate');
+    Route::post('/{id}/status', 'Admin\Store\ProductLicenseController@changeStatus');
+    Route::post('/{id}/reset-activations', 'Admin\Store\ProductLicenseController@resetActivations');
+    Route::get('/{id}/activations', 'Admin\Store\ProductLicenseController@activations');
+});
+
+Route::get('/store/orders/{id}/fulfillment', 'Admin\Store\OrderController@fulfillmentDetails');
+Route::post('/store/orders/{id}/reset-downloads', 'Admin\Store\OrderController@resetDownloads');
+
 Route::get('/bundles', 'Admin\BundleController@index');
 Route::get('/bundles/create', 'Admin\BundleController@create');
 Route::post('/bundles/store', 'Admin\BundleController@store');

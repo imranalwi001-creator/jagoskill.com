@@ -154,6 +154,11 @@ class Product extends Model implements TranslatableContract
         return $this->hasMany('App\Models\ProductOrder', 'product_id', 'id');
     }
 
+    public function licenses()
+    {
+        return $this->hasMany(ProductLicense::class, 'product_id', 'id');
+    }
+
     public function productBadgeContents()
     {
         return $this->morphMany(ProductBadgeContent::class, 'targetable');

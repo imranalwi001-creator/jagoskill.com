@@ -83,4 +83,23 @@
     <script src="{{ getDesign1ScriptPath("get_view_data") }}"></script>
 
     <script src="/assets/design_1/js/panel/store_my_purchase.min.js"></script>
+
+    <script>
+        $('body').on('click', '.js-copy-license', function (e) {
+            e.preventDefault();
+            var key = $(this).data('key');
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(key).then(function () {
+                    alert('Serial key berhasil disalin ke clipboard:\n' + key);
+                });
+            } else {
+                var temp = $('<input>');
+                $('body').append(temp);
+                temp.val(key).select();
+                document.execCommand('copy');
+                temp.remove();
+                alert('Serial key berhasil disalin ke clipboard:\n' + key);
+            }
+        });
+    </script>
 @endpush

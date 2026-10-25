@@ -36,8 +36,37 @@ class ProductFile extends Model implements TranslatableContract
         return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
 
+    public function downloads()
+    {
+        return $this->hasMany(ProductDownloadLog::class, 'product_file_id', 'id');
+    }
+
+    public function isExternalLink(): bool
+    {
+        return ($this->access_type === 'external_link' && !empty($this->external_link));
+    }
+
+    public function getRemainingDownloads($userId, $orderId = null): int
+    {
+        if (empty($this->download_limit) || $this->download_limit == 0) {
+            return -1; // Unlimited
+        }
+
+        $query = $this->downloads()->where('user_id', $userId);
+        if (!empty($orderId)) {
+            $query->where('product_order_id', $orderId);
+        }
+
+        $used = $query->count();
+        return max(0, (int)$this->download_limit - $used);
+    }
+
     public function getDownloadUrl()
     {
+        if ($this->isExternalLink()) {
+            return $this->external_link;
+        }
+
         return '/panel/store/products/files/' . $this->id . '/download';
     }
 

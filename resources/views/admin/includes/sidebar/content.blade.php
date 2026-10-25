@@ -51,6 +51,17 @@
                 </li>
             @endcan
 
+            @can('admin_store_products')
+                <li class="{{ (request()->is(getAdminPanelUrl('/store/licenses*', false))) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ getAdminPanelUrl() }}/store/licenses">
+                        <span class="d-flex align-items-center justify-content-between w-100">
+                            <span>Lisensi Digital</span>
+                            <span class="badge badge-primary font-10 px-1 py-0">Baru</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
+
             @can('admin_store_products_sellers')
                 <li class="{{ (request()->is(getAdminPanelUrl('/store/sellers', false))) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ getAdminPanelUrl() }}/store/sellers">{{ trans('update.sellers') }}</a>

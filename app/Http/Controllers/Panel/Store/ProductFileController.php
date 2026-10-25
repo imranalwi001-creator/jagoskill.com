@@ -257,35 +257,16 @@ class ProductFileController extends Controller
     public function download($id)
     {
         $file = ProductFile::where('id', $id)->first();
-        if (!empty($file)) {
-            $product = Product::where('id', $file->product_id)
-                ->where('status', Product::$active)
-                ->first();
-
-            if (!empty($product) and $product->checkUserHasBought()) {
-                $fileType = explode('.', $file->path);
-                $fileType = end($fileType);
-
-                $filePath = public_path($file->path);
-
-                if (file_exists($filePath)) {
-                    $fileName = str_replace([' ', '.'], '-', $file->title);
-                    $fileName .= '.' . $fileType;
-
-                    $headers = [
-                        'Content-Type: application/' . $fileType,
-                    ];
-
-                    return response()->download($filePath, $fileName, $headers);
-                }
-            }
+        if (empty($file)) {
+            abort(404);
         }
 
-        $toastData = [
-            'title' => trans('public.not_access_toast_lang'),
-            'msg' => trans('public.not_access_toast_msg_lang'),
-            'status' => 'error'
-        ];
-        return back()->with(['toast' => $toastData]);
+        $user = auth()->user();
+        if (empty($user)) {
+            return redirect('/login');
+        }
+
+        $secureDownloadService = new \App\Services\DigitalProducts\SecureDownloadService();
+        return $secureDownloadService->download($file, $user, request());
     }
 }

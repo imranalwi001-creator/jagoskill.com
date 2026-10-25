@@ -112,6 +112,18 @@ trait PaymentsTrait
                 'status' => $status,
             ]);
 
+        if ($product and $product->isVirtual()) {
+            try {
+                $productOrder = ProductOrder::find($orderItem->product_order_id);
+                if (!empty($productOrder)) {
+                    $licenseService = new \App\Services\DigitalProducts\LicenseService();
+                    $licenseService->assignLicenseToOrder($productOrder);
+                }
+            } catch (\Throwable $e) {
+                \Log::warning("Could not assign license to order: " . $e->getMessage());
+            }
+        }
+
         if ($product and $product->getAvailability() < 1) {
             $notifyOptions = [
                 '[p.title]' => $product->title,

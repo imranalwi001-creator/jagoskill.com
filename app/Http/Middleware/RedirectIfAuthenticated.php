@@ -23,6 +23,17 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::guard($guard)->user();
+                $adminPrefix = trim(getAdminPanelUrlPrefix(), '/');
+
+                if (!empty($adminPrefix) && $request->is($adminPrefix, "{$adminPrefix}/*")) {
+                    if (!empty($user) && $user->isAdmin()) {
+                        return redirect(getAdminPanelUrl());
+                    }
+
+                    return $next($request);
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

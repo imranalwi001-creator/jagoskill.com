@@ -92,9 +92,11 @@ class OrderController extends Controller
                 $query->select('id', 'full_name');
             },
             'buyer' => function ($query) {
-                $query->select('id', 'full_name');
+                $query->select('id', 'full_name', 'email');
             },
             'sale',
+            'license',
+            'downloadLogs',
         ])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -292,5 +294,69 @@ class OrderController extends Controller
         return response()->json([
             'code' => 200
         ]);
+    }
+
+    public function fulfillmentDetails($id)
+    {
+        $this->authorize('admin_store_products_orders');
+
+        $order = ProductOrder::with([
+            'product',
+            'buyer',
+            'seller',
+            'license.activations',
+            'downloadLogs.file',
+        ])->findOrFail($id);
+
+        return response()->json([
+            'code' => 200,
+            'order' => [
+                'id' => $order->id,
+                'status' => $order->status,
+                'created_at' => dateTimeFormat($order->created_at, 'j M Y H:i'),
+                'product' => [
+                    'id' => $order->product ? $order->product->id : null,
+                    'title' => $order->product ? $order->product->title : '-',
+                    'type' => $order->product ? $order->product->type : 'virtual',
+                ],
+                'buyer' => [
+                    'name' => $order->buyer ? $order->buyer->full_name : '-',
+                    'email' => $order->buyer ? $order->buyer->email : '-',
+                ],
+                'license' => $order->license ? [
+                    'id' => $order->license->id,
+                    'key' => $order->license->license_key,
+                    'status' => $order->license->status,
+                    'activation_count' => $order->license->activation_count,
+                    'max_activations' => $order->license->max_activations,
+                    'expires_at' => $order->license->expires_at ? dateTimeFormat($order->license->expires_at, 'j M Y') : 'Lifetime',
+                    'activations' => $order->license->activations,
+                ] : null,
+                'download_logs' => $order->downloadLogs->map(function ($log) {
+                    return [
+                        'file_title' => $log->file ? $log->file->title : 'File #' . $log->product_file_id,
+                        'ip_address' => $log->ip_address,
+                        'downloaded_at' => dateTimeFormat($log->created_at, 'j M Y H:i'),
+                    ];
+                }),
+                'total_downloads' => $order->downloadLogs->count(),
+            ]
+        ]);
+    }
+
+    public function resetDownloads(Request $request, $id)
+    {
+        $this->authorize('admin_store_products_orders');
+
+        $order = ProductOrder::findOrFail($id);
+        \App\Models\ProductDownloadLog::where('product_order_id', $order->id)->delete();
+
+        $toastData = [
+            'title' => trans('public.request_success'),
+            'msg' => "Riwayat & kuota unduhan untuk order #{$order->id} berhasil direset.",
+            'status' => 'success'
+        ];
+
+        return back()->with(['toast' => $toastData]);
     }
 }

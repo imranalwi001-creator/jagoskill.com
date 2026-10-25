@@ -162,6 +162,7 @@ class MyPurchaseController extends Controller
             ->with([
                 'product',
                 'sale',
+                'license',
                 'seller' => function ($query) {
                     $query->select('id', 'full_name', 'role_name', 'role_id', 'username', 'avatar', 'avatar_settings', 'mobile', 'email');
                 }

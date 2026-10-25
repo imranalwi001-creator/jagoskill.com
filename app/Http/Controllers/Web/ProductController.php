@@ -668,9 +668,16 @@ class ProductController extends Controller
 
         if (!empty($user) and !empty($product->files) and count($product->files) and $product->checkUserHasBought()) {
 
+            $license = \App\Models\ProductLicense::where('product_id', $product->id)
+                ->where('user_id', $user->id)
+                ->where('status', \App\Models\ProductLicense::STATUS_ACTIVE)
+                ->latest('id')
+                ->first();
+
             $data = [
                 'pageTitle' => trans('update.download_page'),
                 'product' => $product,
+                'license' => $license,
             ];
 
             return view("design_1.web.products.files.index", $data);

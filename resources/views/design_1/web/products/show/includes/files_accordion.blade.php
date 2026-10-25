@@ -56,6 +56,23 @@
                             </div>
                         </div>
 
+                        @if(!empty($productFile->download_limit) && $productFile->download_limit > 0 && auth()->check())
+                            @php
+                                $remaining = $productFile->getRemainingDownloads(auth()->id());
+                            @endphp
+                            <div class="d-flex align-items-center ml-40">
+                                <div class="d-flex-center size-32 rounded-circle {{ $remaining > 0 ? 'bg-success-10' : 'bg-danger-10' }}">
+                                    <i class="fa fa-shield-alt font-12 {{ $remaining > 0 ? 'text-success' : 'text-danger' }}"></i>
+                                </div>
+                                <div class="ml-8">
+                                    <span class="d-block font-12 text-gray-400">Sisa Kuota Unduh</span>
+                                    <span class="d-block font-12 font-weight-bold {{ $remaining > 0 ? 'text-success' : 'text-danger' }} mt-4">
+                                        {{ $remaining }} dari {{ $productFile->download_limit }} kali
+                                    </span>
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
 
                     <div class="d-flex align-items-center gap-12 mt-16 mt-lg-0">
@@ -65,10 +82,17 @@
                             </button>
                         @endif
 
-                        <a href="{{ $productFile->getDownloadUrl() }}" target="_blank" class="btn btn-primary btn-lg">
-                            <x-iconsax-lin-direct-inbox class="icons text-white" width="16px" height="16px"/>
-                            <span class="ml-4 text-white">{{ trans('home.download') }}</span>
-                        </a>
+                        @if($productFile->isExternalLink())
+                            <a href="{{ $productFile->getDownloadUrl() }}" target="_blank" class="btn btn-accent btn-lg">
+                                <i class="fa fa-external-link-alt mr-2 text-white"></i>
+                                <span class="text-white">Buka Tautan Akses</span>
+                            </a>
+                        @else
+                            <a href="{{ $productFile->getDownloadUrl() }}" target="_blank" class="btn btn-primary btn-lg">
+                                <x-iconsax-lin-direct-inbox class="icons text-white" width="16px" height="16px"/>
+                                <span class="ml-4 text-white">{{ trans('home.download') }}</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
 
